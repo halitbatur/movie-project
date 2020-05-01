@@ -3,38 +3,38 @@ const PROFILE_BASE_URL = 'http://image.tmdb.org/t/p/w185'
 const BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780'
 const CONTAINER = document.querySelector('.container');
 
-
+// don't touch this function please 
 autorun = async() => {
     movies = await fetchMovies()
     renderMovies(movies.results)
 }
 
-
+// don't touch this function please 
 constructUrl = (path) => {
     return `${TMDB_BASE_URL}/${path}?api_key=${atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}`
 }
 
-
+// you may need to add to this function but don't delete
 movieDetails = async(movie) => {
     movieRes = await fetchMovie(movie.id)
     renderMovie(movieRes);
 }
 
-
+// this function is to fetch movies you may need to add it or change some part in it in order to apply some of the features
 fetchMovies = async() => {
     const url = constructUrl(`movie/now_playing`)
     res = await fetch(url)
     return res.json()
 }
 
-
+// this function is to fetch one movie you don't need to touch it
 fetchMovie = async(movieId) => {
     const url = constructUrl(`movie/${movieId}`)
     const res = await fetch(url);
     return res.json()
 }
 
-
+// you'll need to play with this function in order to add featucres and enhance the style 
 renderMovies = (movies) => {
     movies.map(movie => {
         movieDiv = document.createElement('div')
@@ -48,7 +48,7 @@ renderMovies = (movies) => {
     })
 }
 
-
+// you'll need to play with this function in order to add featucres and enhance the style 
 renderMovie = (movie) => {
     CONTAINER.innerHTML = `
     <div class="row">
