@@ -6,8 +6,8 @@ you to use your Google and Postman skills to explore the API and understand the
 data.
 
 # Already built for you
-- A main page, that shows popular movies
-- When you click one of the movies, you'll see the movie page which includes:
+- A home page that shows popular movies
+- When you click one of the movies, you'll see the Single Movie page, which includes:
     - Movie poster
     - Movie title
     - Movie release date
@@ -54,9 +54,8 @@ Add a universal footer that includes:
   when you hover over one of them
 
 ## Single Movie Page
-When displaying a single movie, the page should show the following:
-
-### Data Display
+We build part of the single movie page for you, but the information isn't
+totally complete, a few more features are needed:
 
 - The main 5 actors of the movies in the credit section
 - The movie language
