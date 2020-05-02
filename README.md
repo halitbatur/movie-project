@@ -1,10 +1,13 @@
-# This is a movie database project, where it shows movies, their casts, ratings, trailers, related movies, genres ...etc
+# Movie Project
+This is a movie database project, where it shows movies, their casts, ratings, trailers, related movies, genres, and so on.
 
-This project is using the movie db api, `https://api.themoviedb.org/3`
+This project uses The Movie DB API: `https://api.themoviedb.org/3`. It is up to
+you to use your Google and Postman skills to explore the API and understand the
+data.
 
-# What have been already built for you:
-- A main page, that shows popular movies.
-- When you click one of the movies you'll see the movie page which inlcudes:
+# Already built for you
+- A home page that shows popular movies
+- When you click one of the movies, you'll see the Single Movie page, which includes:
     - Movie poster
     - Movie title
     - Movie release date
@@ -12,46 +15,89 @@ This project is using the movie db api, `https://api.themoviedb.org/3`
     - Movie description
     - An empty cast section
 
-# What you have to add with your partner:
-- Add a universal navbar to the home page that includes:
-    - home button, takes you to the home page.
-    - movies button that have a dropdown list shows different movie genres ex: Action, Sci-Fi, Comedy ...etc, and when you click one of them it should load the movies with the genre you clicked.
-    - Actors page, where you can see a list of actor when you open it
-    - About page that has a description about the website
-    - Search box where you can type the movie or actor name and display the related results.
-    - A filter dropdown to filter the displayed movies in the home page, based on (popular, relase date, top rated, now playing and up coming) 
+# What you and your partner will build
 
- - Add A universal footer that includes:
-        - a credit to you and your partner for building the website, 
-        - Your and Your partenr github link inside an icon and optional: you social media links
+## Homepage
 
-- Movies page:
-    - Style the page to display it as a grid with 3 columns (3 movies in the same row) at least using bootstap and make it responsive where it displays 2 Columns for tablets and 1 column for phones and style the page however you like.
-    - Add the rating and genres to the movies in the home page and a description when you hover over one of them
-   
-- Movie page: 
-    - there's duplication in the movie page has to be fixed.
-    - Add the main 5 actors of the movies in the credit section.
-    - The movie Language.
-    - Add a related movies section which includes at least 5 related movies.
-    - Add a trailer section which has the movie trailer from youtube.
-    - Add the movie production company name and logo.
-    - Add the director name. 
-    - The movie Rating and how many vote has it recieved.
-    - style the page however you like.
+### Navbar
+Add a universal navbar (it appears on every page) to the home page that includes
+buttons that go to the following pages:
 
-- Actors page, displays a list of actors styles in the same way as the movies page with the actor photo and the actor nam
+- Home button, takes you to the home page
+- Movies button that has a dropdown list to show different movie genres. For
+  example: Action, Sci-Fi, Comedy ...etc, When you click one of them it should
+  load the movies for that genre.
+- Actor list page
+- About page that has a description of the website
+- Search box where you can type the movie or actor name and display the
+related results.
+- A filter dropdown to filter the displayed movies in the home page, based
+on (popular, relase date, top rated, now playing and up coming) 
 
-- Actor page: 
-    - you can reach it by clicking on one of the actors in the actors page or credit in the movie page, it display:
-        - The actor name.
-        - The actor gender.
-        - A picture of the actor.
-        - The actor popularity.
-        - The birthday of the actor and dith day if available.
-        - A biography about the actor.
-        - A list of movies the actor participated in.
-        - style the page however you like.
+### Footer
+Add a universal footer that includes:
 
-# bonus:
-if you finish early you can work on the same functionalities for TV shows.
+- Credit to you and your partner for building the website, 
+- You and your partner's github link inside an icon and optionally, your social
+  media links
+
+### Styling
+
+- Make it so that hovering over the movie makes the mouse pointer icon seem
+  clickable. Right now, if you are about to click a movie, it's not obvious that
+  it's clickable.
+
+## Movies List Page
+
+### Styling
+
+- Using CSS and Bootstrap, display the page as a grid with 3 columns (3 movies
+  in the same row)
+- Make it responsive where it displays 2 columns for tablets and 1 column for
+  phones
+- Style the rest of the page however you like.
+- Add the rating and genres to the movies in the home page and a description
+  when you hover over one of them
+
+## Single Movie Page
+We build part of the single movie page for you, but the information isn't
+totally complete, a few more features are needed:
+
+- The main 5 actors of the movies in the credit section
+- The movie language
+- A related movies section which includes at least five related movies
+- A trailer section that has the movie trailer from youtube
+- The movie production company name and logo
+- The director name 
+- The movie rating and how many votes has it received
+
+### Functionality
+- Clicking an actor in the main actors should go to the single actor page.
+
+### Other requirements
+- There's an issue with duplication in the movie page that has to be fixed (and
+  you need to open the site and read the code to fix it)
+- Style the page however you like
+
+## Actor List Page
+Displays a list of actors styles in the same way as the movies list page, but
+with the actor photo and the actor name. Clicking any actor should go to the
+Single Actor Page. CSS should most certainly be reused here!
+
+## Single Actor Page
+This page can be reached by clicking on an actor in the actors list page or the
+credits in the single movie page.
+
+### Data Display
+- The actor name
+- The actor gender
+- A picture of the actor
+- The actor popularity
+- The birthday of the actor and (if available) death day
+- A biography about the actor
+- A list of movies the actor participated in
+
+## Bonus
+If you finish early you can work on the same functionalities, but for TV shows.
+Your code should be completely reusable (e.g., don't just copy paste a second
+copy of the files).
