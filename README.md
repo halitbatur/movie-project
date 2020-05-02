@@ -41,6 +41,12 @@ Add a universal footer that includes:
 - You and your partner's github link inside an icon and optionally, your social
   media links
 
+### Styling
+
+- Make it so that hovering over the movie makes the mouse pointer icon seem
+  clickable. Right now, if you are about to click a movie, it's not obvious that
+  it's clickable.
+
 ## Movies List Page
 
 ### Styling
