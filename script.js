@@ -41,16 +41,27 @@ const fetchMovie = async (movieId) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
-    const movieDiv = document.createElement("div");
-    movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
-    movieDiv.addEventListener("click", () => {
+    const movieContainer = document.createElement("div");
+    movieContainer.classList.add(
+      "movie", "flex", "flex-col", "justify-center", "items-center",
+      "max-w-xs", "rounded", "overflow-hidden", "bg-neutral-200",
+      "cursor-pointer", "transition", "duration-500", "ease-in-out", "transform",
+      "dark:bg-neutral-700", "dark:hover:bg-neutral-600",
+      "hover:shadow-2xl", "hover:bg-neutral-400", "hover:-translate-y-1", "hover:scale-110",
+
+    );
+    movieContainer.innerHTML = `
+      <img src="${BACKDROP_BASE_URL + movie.backdrop_path}"
+        alt="${movie.title} poster">
+      <h3 class="movie-title my-2 text-lg font-bold text-opacity-75
+        hover:text-opacity-100 transition duration-500 ease-in-out cursor-pointer">
+        ${movie.title}
+      </h3>
+      `;
+    movieContainer.addEventListener("click", () => {
       movieDetails(movie);
     });
-    CONTAINER.appendChild(movieDiv);
+    CONTAINER.appendChild(movieContainer);
   });
 };
 
@@ -58,24 +69,18 @@ const renderMovies = (movies) => {
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
     <div>
-        <div>
-              <img id="movie-backdrop" src=${
-                BACKDROP_BASE_URL + movie.backdrop_path
-              }>
-        </div>
-        <div>
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-        </div>
-        </div>
-            <h3>Actors:</h3>
-            <ul id="actors"></ul>
-    </div>`;
+      <div>
+        <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path}>
+      </div>
+      <div>
+        <h2 id="movie-title">${movie.title}</h2>
+        <p id="movie-release-date"><b>Release Date:</b>${movie.release_date}</p>
+        <p id="movie-runtime"><b>Runtime:</b>${movie.runtime} Minutes</p>
+        <h3>Overview:</h3>
+        <p id="movie-overview">${movie.overview}</p>
+      </div>
+    </div>
+    `;
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
