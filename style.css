@@ -1,11 +1,47 @@
+.headerSection-container {
+  height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+  animation: scroll 120s linear infinite;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  background-image: linear-gradient(
+      0deg,
+      rgba(70, 69, 69, 0.533),
+      rgba(70, 69, 69, 0.533)
+    ),
+    url("https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_700/MTc0NDMzMjEyMTYyOTA5NTQ0/best-mindfuck-movies.webp");
+  background-repeat: repeat;
+}
+
+@keyframes scroll {
+  100% {
+    background-position: 0px -3000px;
+  }
+}
+
+.overlay {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 0.3),
+    rgba(243, 225, 235, 0.3)
+  );
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+}
+#header-poster {
+  width: 100%;
+  height: fit-content;
+}
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    padding-top: 32px;
+  padding-top: 32px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+  margin: 24px 16px 0 0;
 }

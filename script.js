@@ -1,13 +1,17 @@
-'use strict';
+"use strict";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".container");
+const CONTAINER = document.createElement("div");
+CONTAINER.classList.add("container");
+const mainContainer = document.querySelector(".mainContainer");
 
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  handleHeaderSection();
+
   renderMovies(movies.results);
 };
 
@@ -39,7 +43,18 @@ const fetchMovie = async (movieId) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
+function handleHeaderSection() {
+  const mainDiv = document.createElement("header");
+  mainDiv.classList.add("headerSection-container");
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+  mainDiv.appendChild(overlay);
+  // mainDiv.innerHTML = `<img src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_700/MTc0NDMzMjEyMTYyOTA5NTQ0/best-mindfuck-movies.webp" id="header-poster"></img>`;
+  mainContainer.appendChild(mainDiv);
+}
 const renderMovies = (movies) => {
+  // handleSlider(movies);
+  console.log(movies);
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
@@ -51,11 +66,13 @@ const renderMovies = (movies) => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
+    mainContainer.appendChild(CONTAINER);
   });
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
+  document.querySelector(".headerSection-container").remove();
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
