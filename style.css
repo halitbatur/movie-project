@@ -2,10 +2,84 @@
     width: 100%;
 }
 
+h2{
+  text-align: center;
+
+}
+
+hr{
+  width: 50%;
+  text-align: center;
+}
+
+/* this is for all movies style in home */
+
 .container {
     padding-top: 32px;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    gap: 3em;
 }
+
+.container img{
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.container h3{
+
+}
+
+.container div{
+  
+}
+
+.content{
+  margin: 100px;
+}
+
+/* this is for movie details */
+
+.row{
+
+}
+
+.col-md-4{
+
+}
+
+#movie-backdrop{
+
+}
+
+.col-md-8{
+
+}
+
+.col-md-8 h2{
+
+}
+
+.col-md-8 p{
+
+}
+
+.col-md-8 h3{
+
+}
+
+.col-md-8 ul{
+
+}
+
+
 
 #actors {
     margin: 24px 16px 0 0;
 }
+

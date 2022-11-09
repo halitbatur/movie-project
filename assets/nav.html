@@ -1,0 +1,166 @@
+ <div>
+        <h1 class="logo">Cinephilia</h1>
+    </div>
+
+    <div class="search">
+        <input type="text" class="searchTerm" placeholder="What are you looking for?">
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+       </button>
+     </div>
+
+    <ul>
+        <li><a href="home.html" class="link">Home</a></li>
+
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" class="link">Movies <i class="fa fa-caret-down"></i></a>
+            <div class="dropdown-content" id="droplist">
+              <a href="#">Drama</a>
+              <a href="#">Action</a>
+              <a href="#">RomComs</a>
+              <a href="">Sci-Fi</a>
+              <a href="">Fantasy</a>
+              <a href="">Comedy</a>
+              <a href="">Thriller</a>
+              <a href="" id="horror">Horror</a>
+            </div>
+          </li>
+
+        <li><a href="actors.html" class="link">Actors</a></li>
+        <li><a href="about.html" class="link">About</a></li>
+
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" class="link">Filter by <i class="fa fa-caret-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">Popular</a>
+              <a href="#">Release date</a>
+              <a href="#">Top rated</a>
+              <a href="">now playing</a>
+              <a href="">up coming</a>
+            </div>
+          </li>
+    </ul>
+    
+    <script>
+      const activePage = window.location.pathname;
+      console.log(activePage)
+      const links = document.querySelector(".link");
+
+      links.forEach(link => {
+        if(link.href.includes(`${activePage}`)){
+          link.classList.add('active');
+        }
+      });
+
+    </script>
+
+
+<style>
+    /* style for navbar */
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.logo{
+  color: white;
+  font-family: 'Henny Penny', cursive;
+}
+
+.search {
+   width: 50%;
+   position: relative;
+   display: flex;
+}
+
+.searchTerm {
+   width: 100%;
+   border: 3px solid rgb(216, 72, 72);
+   border-right: none;
+   padding: 5px;
+   height: 20px;
+   border-radius: 5px 0 0 5px;
+   outline: none;
+   color: rgb(216, 72, 72);
+}
+
+.searchTerm:focus{
+    color: rgb(216, 72, 72);
+}
+
+.searchButton {
+   width: 40px;
+   height: 36px;
+   border: 1px solid rgb(216, 72, 72);
+   background: rgb(216, 72, 72);
+   text-align: center;
+   color: #fff;
+   border-radius: 0 5px 5px 0;
+   cursor: pointer;
+   font-size: 20px;
+}
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+  }
+  
+  li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+
+  .link:is(:link, :active, :visited).active{
+    background-color: red;
+  }
+  
+  li.dropdown {
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1;}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+</style>

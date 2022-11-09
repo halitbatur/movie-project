@@ -79,3 +79,51 @@ const renderMovie = (movie) => {
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
+// fectching movies according to their genres
+
+// fectching movies according to FILTER
+
+// fetching all actors
+
+// fetching actor details
+
+// searching for movies or actors
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// functions to load nav and footer to all pages don't touch please
+
+const nav = document.querySelector('.nav')
+fetch('assets/nav.html')
+.then(res=>res.text())
+.then(data=>{
+    nav.innerHTML=data
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(data, 'text/html')
+    eval(doc.querySelector('script').textContent)
+})
+
+const footer = document.querySelector('.footer')
+fetch('assets/footer.html')
+.then(res=>res.text())
+.then(data=>{
+    footer.innerHTML=data
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(data, 'text/html')
+    eval(doc.querySelector('script').textContent)
+})
+
