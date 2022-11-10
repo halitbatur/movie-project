@@ -21,7 +21,16 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const credits = await fetchCredits(movie.id);
+  // console.log(credits);
+  const cast = credits.cast.slice(0,5).map((actor) => { 
+  if (actor.profile_path) {
+  return `<li>${actor.name}</li> 
+          <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="">` 
+} else return `<li>${actor.name}</li>`
+}).join('')
+  console.log(cast)
+  renderMovie({details: movieRes, cast: cast});
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -38,12 +47,21 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+
+const fetchCredits = async (movieId) => {
+  const credits = constructUrl(`/movie/${movieId}/credits`);
+  const res = await fetch(credits);
+  return res.json();
+};
+
+
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
+        <img src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${
       movie.title
     } poster">
         <h3>${movie.title}</h3>`;
@@ -54,28 +72,33 @@ const renderMovies = (movies) => {
   });
 };
 
+
+
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movieDetails) => {
+ const {details,cast} = movieDetails
+ const{poster_path,title,release_date,runtime,overview} = details
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
+             <img id="movie-backdrop class="cursor-pointer bg-red" src=${
+               BACKDROP_BASE_URL + poster_path
              }>
         </div>
         <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
+            <h2 id="movie-title">${title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
+            release_date
             }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <p id="movie-runtime"><b>Runtime:</b> ${runtime} Minutes</p>
             <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
+            <p id="movie-overview">${overview}</p>
         </div>
         </div>
-            <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <h3>Actors:</h3> 
+            <ul id="actors" class="list-unstyled">${cast}</ul>
     </div>`;
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
