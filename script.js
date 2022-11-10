@@ -1,5 +1,29 @@
 'use strict';
 
+
+
+let movieGenres = document.querySelector("#movieGenres");
+let openMenu = document.getElementById("mega-menu-full");
+function toggleIt() {
+  return movieGenres.classList.toggle("hidden");
+
+  // if(movieGenres.classList === "hidden"){
+  //   return movieGenres.classList.remove("hidden");
+  // }else{
+  //   return movieGenres.classList.toggle("hidden");
+
+  // }
+
+}
+  function toggleItNavbar(){
+
+    return openMenu.classList.toggle("hidden");
+  }
+
+
+
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
