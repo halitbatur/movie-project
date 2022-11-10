@@ -72,6 +72,13 @@ const fetchMovie = async (movieId) => {
 };
 
 
+const fetchSearch = async () => {
+  const url = costructUrl(`/search/multi`)
+  const res = await fetch(search);
+  return res.json();
+}
+
+
 const fetchCredits = async (movieId) => {
   const credits = constructUrl(`/movie/${movieId}/credits`);
   const res = await fetch(credits);
@@ -85,7 +92,7 @@ const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${
+        <img class="cursor-pointer" src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${
       movie.title
     } poster">
         <h3>${movie.title}</h3>`;
@@ -105,7 +112,7 @@ const renderMovie = (movieDetails) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop class="cursor-pointer bg-red" src=${
+             <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
