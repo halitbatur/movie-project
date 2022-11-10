@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -9,6 +9,7 @@ const CONTAINER = document.querySelector(".container");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
+  // console.log(movies)
 };
 
 // Don't touch this function please
@@ -69,12 +70,14 @@ const renderMovie = (movie) => {
               movie.release_date
             }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
+            <h3><b>Overview:</b></h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
-            <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <h3><b>Actors:</b> ${movie.cast_id}</h3>
+            <ul id="actors" class="list-unstyled">
+          
+            </ul>
     </div>`;
 };
 
