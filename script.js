@@ -1,13 +1,14 @@
-'use strict';
+"use strict";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
-
+const genreContainer = document.querySelector(".con-genre");
+const genre_id = 12;
 // Don't touch this function please
 const autorun = async () => {
-  const movies = await fetchMovies();
+  const movies = await fetchMovies(12);
   renderMovies(movies.results);
 };
 
@@ -18,6 +19,13 @@ const constructUrl = (path) => {
   )}`;
 };
 
+// creating the url api link for the get the type of movies like (action , drama , ...so on)
+const constructGener = (genreId) => {
+  return `${TMDB_BASE_URL}/discover/movie?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`;
+};
+
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
@@ -25,8 +33,8 @@ const movieDetails = async (movie) => {
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
-const fetchMovies = async () => {
-  const url = constructUrl(`movie/now_playing`);
+const fetchMovies = async (id) => {
+  const url = constructGener(id);
   const res = await fetch(url);
   return res.json();
 };
@@ -42,6 +50,7 @@ const fetchMovie = async (movieId) => {
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    movieDiv.innerHTML = " ";
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
       movie.title
@@ -77,5 +86,37 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
 };
+
+// render action,comedy,war ... movie type texts in the footer with
+//giving them functionaility to it by calling changeGenre function
+const renderGenerInFooter = (genres) => {
+  console.log(genres);
+  genres.genres.map((genre) => {
+    console.log(genre.name);
+    const liGenre = document.createElement("li");
+    liGenre.innerHTML = `${genre.name}`;
+    liGenre.addEventListener("click", function () {
+      changeGenre(genre.id);
+    });
+    genreContainer.appendChild(liGenre);
+  });
+};
+
+// re-render movies in the hoem page
+const changeGenre = async (id) => {
+  const genreRes = await fetchMovies(id);
+  CONTAINER.innerHTML = " ";
+  renderMovies(genreRes.results);
+};
+
+const fetchGener = async (gener) => {
+  const url = constructUrl(gener);
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(data);
+  renderGenerInFooter(data);
+};
+
+fetchGener("genre/movie/list");
 
 document.addEventListener("DOMContentLoaded", autorun);

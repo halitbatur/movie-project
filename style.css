@@ -1,11 +1,60 @@
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    padding-top: 32px;
+  padding-top: 32px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+  margin: 24px 16px 0 0;
+}
+
+#footer {
+  background-color: rgba(57, 131, 131, 0.615);
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px;
+}
+
+.con-genre {
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  gap: 12px;
+  list-style: none;
+}
+
+.footer-genres {
+  font-size: 25px;
+  margin-left: 30px;
+}
+
+.con-genre li {
+  cursor: pointer;
+}
+
+.genre-text {
+  font-size: 20px;
+}
+
+.footer-header {
+  font-size: 50px;
+}
+
+.social-con {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 20px;
+}
+
+.con-pages {
+  display: flex;
+  font-size: 25px;
+  gap: 10px;
 }
