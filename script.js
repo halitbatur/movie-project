@@ -5,6 +5,7 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
+
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
@@ -38,19 +39,56 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+// This function fetch a list of all movie genres that exist and pushes it into an array
+const getGenresList = async (arr) => {
+  const url = constructUrl("genre/movie/list");
+  const res = await fetch(url);
+  const data = await res.json();
+  arr.push(...data.genres);
+};
+// Constant that holds all the genres
+const genresList = [];
+getGenresList(genresList);
+
+// This function takes an array with the movie genres IDs and converts them into genres names then returns them as a string
+const genresIdToName = (arr) => {
+  const genresNames = [];
+  for (let genreID of arr) {
+    const { id, name: genres } = genresList.find(
+      (value) => value.id === genreID
+    );
+    genresNames.push(genres);
+  }
+  return genresNames.join(", ");
+};
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
-    const movieDiv = document.createElement("div");
+    const movieGenres = genresIdToName(movie.genre_ids);
+    console.log(movieGenres);
+    const movieDiv = document.createElement("div"); 
+    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-5xl place-items-center mx-auto py-20 gap-4 cursor-pointer`)
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
+    <div class="mov bg-gray-700  relative overflow-hidden">
+        <img class="hover:opacity-[30%] via-gray-300 to-white" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="films">
+    <div class="flex pt-2 place-items-center justify-between mx-3 ">
+        <div class="font-bold text-base text-white ">${movie.title}</div>
+        <div class="vote text-white  bg-black ">${movie.vote_average}</div>
+    </div>
+    <div class=" ml-3 text-xs text-slate-300 font-bold  pt-1 ">${movieGenres}</div>
+      <div class ="overview absolute left-0 right-0 bottom-0 text-black p-4 bg-gradient-to-r from-gray-300  to-white bg-opacity-75 ">
+        <div class = "font-bold text-center text-xl pb-2">Overview</div> 
+        <div>${movie.overview}</div> 
+      </div>
+    </div>
+        `;
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
+    
   });
 };
 
