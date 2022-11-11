@@ -1,13 +1,18 @@
-'use strict';
+"use strict";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".container");
+const CONTAINER = document.createElement("div");
+CONTAINER.classList.add("container");
+const mainContainer = document.querySelector(".mainContainer");
+mainContainer.appendChild(CONTAINER)
 
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  handleHeaderSection();
+
   renderMovies(movies.results);
 };
 
@@ -65,7 +70,18 @@ const fetchSimilarMovies = async (movieId) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
+function handleHeaderSection() {
+  const mainDiv = document.createElement("header");
+  mainDiv.classList.add("headerSection-container");
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+  mainDiv.appendChild(overlay);
+  // mainDiv.innerHTML = `<img src="https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_700/MTc0NDMzMjEyMTYyOTA5NTQ0/best-mindfuck-movies.webp" id="header-poster"></img>`;
+  mainContainer.appendChild(mainDiv);
+}
    const renderMovies = (movies) => {
+  // handleSlider(movies);
+  console.log(movies);
    //console.log(movies)
    const newDiv = document.createElement('div')
    newDiv.classList.add("grid","grid-cols-1","gap-6","md:grid-cols-2","lg:grid-cols-3","lg:px-20")
@@ -118,14 +134,15 @@ const fetchSimilarMovies = async (movieId) => {
     });
     newDiv.appendChild(movieDiv)
     CONTAINER.appendChild(newDiv);
-
-  });
+    mainContainer.appendChild(CONTAINER);
+   });
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, similarMovies) => {
   console.log({movie, credits, similarMovies})
-    CONTAINER.innerHTML = `
+    document.querySelector(".headerSection-container").remove();
+  CONTAINER.innerHTML = `
     <div class="row bg-black text-white mx-auto w-full">
         <div class="col-md-4">
              <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path}>
