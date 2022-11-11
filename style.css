@@ -9,3 +9,28 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+
+
+/* change the cursor so the image appears clickable in home page*/
+.container img:hover {
+    cursor: pointer;
+}
+  
+/* Styling Hover on Image */
+.middle {
+    transition: .5s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+    
+.image-container:hover .home-movie-image {
+    opacity: 0.3 !important;
+} 
+    
+.image-container:hover .middle {
+    opacity: 1;
+} 
+  
