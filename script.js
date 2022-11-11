@@ -56,7 +56,7 @@ const renderMovies = (movies) => {
         <h3>${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
-    });
+    }); 
     CONTAINER.appendChild(movieDiv);
   });
 };
@@ -189,3 +189,6 @@ const renderGenres = (genres) => {
 };
 
 document.addEventListener("DOMContentLoaded", runGenres);
+
+// fetching movies with genres
+
