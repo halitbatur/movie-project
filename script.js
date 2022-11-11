@@ -1,5 +1,5 @@
 'use strict';
-
+//branch testing
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
@@ -38,6 +38,11 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+
+
+
+//..........................................style.........................................................
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -75,7 +80,24 @@ const renderMovie = (movie) => {
         </div>
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
-    </div>`;
+    </div>
+
+   
+    <div class="row">
+    <div class="col-md-4">
+    <img id="actor-backdrop" src=${
+      BACKDROP_BASE_URL + movie.backdrop_path
+    }>
+    <img id="actor2-backdrop" src=${
+      BACKDROP_BASE_URL + movie.backdrop_path
+    }>
+    <img id="actor3-backdrop" src=${
+      BACKDROP_BASE_URL + movie.backdrop_path
+    }>
+    </div>
+    </div>
+    
+    `;
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
