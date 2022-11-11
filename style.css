@@ -2,10 +2,207 @@
     width: 100%;
 }
 
+h2{
+  text-align: center;
+
+}
+
+hr{
+  width: 50%;
+  text-align: center;
+}
+
+/* this is for all movies style in home */
+
 .container {
     padding-top: 32px;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    gap: 3em;
 }
+
+.container img{
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.container h3{
+
+}
+
+.container div{
+  
+}
+
+.content{
+  margin: 100px;
+}
+
+/* this is for movie details */
+
+.row{
+
+}
+
+.col-md-4{
+
+}
+
+#movie-backdrop{
+
+}
+
+.col-md-8{
+
+}
+
+.col-md-8 h2{
+
+}
+
+.col-md-8 p{
+
+}
+
+.col-md-8 h3{
+
+}
+
+.col-md-8 ul{
+
+}
+
+
 
 #actors {
     margin: 24px 16px 0 0;
+}
+
+/* style for navbar */
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.logo{
+  color: white;
+  font-family: 'Henny Penny', cursive;
+}
+
+.search {
+   width: 50%;
+   position: relative;
+   display: flex;
+}
+
+.searchTerm {
+   width: 100%;
+   border: 3px solid rgb(216, 72, 72);
+   border-right: none;
+   padding: 5px;
+   height: 20px;
+   border-radius: 5px 0 0 5px;
+   outline: none;
+   color: rgb(216, 72, 72);
+}
+
+.searchTerm:focus{
+    color: rgb(216, 72, 72);
+}
+
+.searchButton {
+   width: 40px;
+   height: 36px;
+   border: 1px solid rgb(216, 72, 72);
+   background: rgb(216, 72, 72);
+   text-align: center;
+   color: #fff;
+   border-radius: 0 5px 5px 0;
+   cursor: pointer;
+   font-size: 20px;
+}
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+  }
+  
+  li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+
+  
+  li.dropdown {
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    height: 200px;
+    overflow: scroll;
+  }
+
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1;}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* end style for navbar */
+
+
+  /* style for footer */
+
+  .footer-div{
+    background-color: black;
+    text-align: center;
+    padding: 50px;
+    color: white;
+}
+
+.github{
+    font-size: 50px;
 }
