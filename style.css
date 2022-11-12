@@ -83,6 +83,46 @@ hr{
     margin: 24px 16px 0 0;
 }
 
+/* nisreen edited here*/
+#actor-backdrop{
+  height: 400px;
+  width: 350px;
+}
+
+.actorDiv{
+  height: 400px;
+  width: 350px; 
+}
+
+/* this class is used to style the movies of each actor and the actors of each movie*/
+.ActorMovies{
+  height: 400px;
+  width: 350px;
+}
+
+
+/* don't change .img-description and hover effect */
+.img-description{
+ position: absolute; 
+ display:block;
+	margin-top:-120px;
+	width:380px;
+	text-align:center;
+	padding:10px;
+	background-color: #a0caec;
+	color: #ffffff;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .2s, visibility .2s;
+} 
+
+.card:hover .img-description {
+  visibility: visible;
+  opacity: 1;
+}
+/* nisreen done */
+
+
 /* style for navbar */
 
 nav{
