@@ -7,13 +7,6 @@ let openMenu = document.getElementById("mega-menu-full");
 function toggleIt() {
   return movieGenres.classList.toggle("hidden");
 
-  // if(movieGenres.classList === "hidden"){
-  //   return movieGenres.classList.remove("hidden");
-  // }else{
-  //   return movieGenres.classList.toggle("hidden");
-
-  // }
-
 }
   function toggleItNavbar(){
 
@@ -22,7 +15,7 @@ function toggleIt() {
 
 
 
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$
+//                     -----------------------
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -156,6 +149,10 @@ const renderMovie = (movieDetails) => {
             <ul id="actors" class="list-unstyled">${cast}</ul>
     </div>`;
 };
+
+const movieSearchBox = document.getElementById("movie-search-box");
+const searchList = document.getElementById("search-list");
+
 
 document.addEventListener("DOMContentLoaded", autorun);
 
