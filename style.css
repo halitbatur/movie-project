@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Radley&display=swap');
 * {
  margin: 0;
   padding: 0;
@@ -19,6 +20,44 @@
   align-items: center;
   box-shadow: 0 5px 10px rgba(0,0,0,0.5);
 }
+
+.moviesparaghrap{
+font-family: 'Radley', serif;
+}
+
+.triangle-right1 {
+     width: 0;
+     height: 0;
+     margin-left:-320px;
+     border-top: 40px solid transparent;
+     border-left: 80px solid black;
+     border-bottom: 50px solid transparent;
+   }
+
+   .triangle-right2 {
+        width: 0;
+        height: 0;
+        margin-left:-320px;
+        border-top: 40px solid transparent;
+        border-left: 80px solid white;
+        border-bottom: 50px solid transparent;
+      }
+
+    .triangle-bottomleft {
+          width: 0;
+          height: 0;
+          margin-left:-900px;
+          border-bottom: 100px solid black;
+          border-right: 100px solid transparent;
+        }
+    .triangle-topright {
+    width: 0;
+    height: 0;
+    margin-left:800px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
+  }
+
 
 
 
