@@ -94,7 +94,7 @@ function addPlaynow() {
             <div class="w-80 h-96 bg-red-800 opacity-70 absolute ">
             </div>
             <div class="flex flex-col  justify-center absolute">
-                <p class="moviesparaghrap w-72 ml-5 mt-7 z-50 text-center text-lg text-white ">"${data.results[0].overview}"</p>
+                <p class="moviesparaghrap w-72 ml-4 mt-7 z-50 text-center text-lg text-white text-base">"${data.results[0].overview}"</p>
             </div> 
             <img class="object-cover w-80 h-96 "  src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="second image">
 
@@ -109,10 +109,10 @@ function addPlaynow() {
 
 
         })
-        // const playnow = document.querySelector("#playnow");
-        // playnow.addEventListener("click", () => {
-
-    // });
+    const playnow = document.querySelector("#playnow");
+    playnow.addEventListener("click", () => {
+        playnow.setAttribute("href", "https://www.youtube.com/watch?v=6ZfuNTqbHE8");
+    });
 }
 
 addPlaynow();
