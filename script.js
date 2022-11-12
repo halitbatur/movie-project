@@ -80,4 +80,36 @@ const renderMovie = (movie) => {
     </div>`;
 };
 
-document.addEventListener("DOMContentLoaded", autorun);
+function addPlaynow() {
+    fetch("https://api.themoviedb.org/3/movie/725201/recommendations?api_key=e3ba83efee8dd4f97c52f27960082fa6&language=en-US&page=1")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.results[1].poster_path);
+            const recommendation = document.getElementById("recommendation");
+            const description = document.createElement("div");
+            description.className = "flex flex-col  justify-center absolute";
+            // data.results[1].overview;
+
+            recommendation.innerHTML = `
+            <img class="object-cover w-80 h-96 "  src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="second image">
+            `;
+
+            const recommendation2 = document.getElementById("recommendation2");
+            recommendation2.innerHTML = `
+            <p class="moviesparaghrap  mt-64 ml-5 z-50 text-center text-7xl text-white absolute ">${data.results[0].title}</p>
+            <img class="object-cover h-96 " style="width:650px" src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="">
+            `
+
+
+
+        })
+
+    //     const playnow = document.querySelector("#playnow");
+    //     playnow.addEventListener("click", () => {
+    //         autorun();
+    //     });
+    // }
+}
+addPlaynow();
+
+// document.addEventListener("DOMContentLoaded", autorun);

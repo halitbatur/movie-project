@@ -61,6 +61,7 @@ Add a universal footer that includes:
 - Add the rating and genres to the movies in the home page and a description
   when you hover over one of them
 
+
 ## Single Movie Page
 
 We build part of the single movie page for you, but the information isn't
