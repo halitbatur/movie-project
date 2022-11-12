@@ -1,51 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="mainslider.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<script src="https://kit.fontawesome.com/1b2ca39d1b.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/1b2ca39d1b.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <link rel="stylesheet" href="style.css">
-
-    <title>Movie</title>
+<script src="https://cdn.tailwindcss.com"></script>
+    <title>MOVIES</title>
 </head>
 
-<body>
-    <div class="container">
-  <section class="navigation">
-    <nav class='site-nav pt-1 inset-x-0 top-0 absolute z-30' >
 
-    <div class="ml-14"><i class="fa-solid fa-magnifying-glass text-white text-3xl pr-5 "></i></div>
-    <div class='ml-auto mr-20 '>
-      <a class="mr-16 text-white text-2xl font-semibold hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>HOME</a>
-      <a class="text-white mr-16 text-2xl font-semibold hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>ABOUT</a>
+<body  >
+
+
+
+  <div class="slider ">
+    <section class="navigation">
+       <nav class='site-nav pt-1 inset-x-0 top-0 absolute z-30' >
+
+       <div class="ml-14"><i class="fa-solid fa-magnifying-glass text-white text-3xl pr-5 "></i></div>
+       <div class='ml-auto mr-20 '>
+         <a class="mr-16 text-white text-2xl font-semibold hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>HOME</a>
+         <a class="text-white mr-16 text-2xl font-semibold hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>ABOUT</a>
+       </div>
+       <div class='middle mr-20'>
+         <img class="w-80 h-36 " src="./images/logo.png">
+       </div>
+       <div class='mr-auto ml-10 justify-between '>
+         <a class="mr-16 text-white text-2xl font-semibold  hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>MOVIES</a>
+         <a class="mr-16 text-white text-2xl font-semibold  hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>ACTORS</a>
+
+       </div>
+     </nav>
+     </section>
+
+
+     <button class="ml-20 px-12 py-3 text-white text-2xl font-bold  rounded-full absolute z-30 transform hover:scale-105" style="font-family: 'Poppins', sans-serif;background-color:#860808;margin-bottom:200px;">Watch Now</button>
+    <input type="radio" name="slider" title="slide1" checked="checked" class="slider__nav ml-auto  "/>
+    <input type="radio" name="slider" title="slide2" class="slider__nav  "/>
+    <input type="radio" name="slider" title="slide3" class="slider__nav "/>
+    <input type="radio" name="slider" title="slide4" class="slider__nav mr-10 " />
+
+
+    <div class="slider__inner ">
+
+      <div class="slider__contents bg-cover  " style="background-image:url('images/1.png')">
+
+        </div>
+
+      <div class="slider__contents bg-cover" style="background-image:url('images/2.png')">
+
+      </div>
+      <div class="slider__contents bg-cover  " style="background-image:url('images/3.png')">
+
+      </div>
+      <div class="slider__contents bg-cover  " style="background-image:url('images/4.png')">
+
+      </div>
     </div>
-    <div class='middle mr-20'>
-      <img class="w-72 h-36 " src="./images/logo.png">
-    </div>
-    <div class='mr-auto ml-10 justify-between '>
-      <a class="mr-16 text-white text-2xl font-semibold  hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>MOVIES</a>
-      <a class="mr-16 text-white text-2xl font-semibold  hover:text-red-800" style="font-family: 'Poppins', sans-serif;" href='#'>ACTORS</a>
+</div>
 
-    </div>
-  </nav>
-  </section>
+  <div class="">
+  <img class="mr-auto bg-cover " style="width:670px;height:236px ;margin-top:-216px;transform: rotate(-0.1deg);" src="images/traingle1.png">
+  <img class="mr-auto bg-cover  " style="width:670px;height:236px ;margin-top:-236px;transform: rotate(-0.1deg);" src="images/traingle2.png">
+
+  </div>
 
 
 
 
-    </div>
+
+
+
+
+
+
+
 
 </body>
-
 </html>
