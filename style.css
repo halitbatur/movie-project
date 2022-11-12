@@ -1,3 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+* {
+ margin: 0;
+  padding: 0;
+}
+
+.center {
+  width: 400px;
+  margin: 10% auto;
+  text-align: center;
+}
+
+
+.site-nav {
+  background-color: #;
+  opacity:0.;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);}
+
+  
+
+
+
+
+
+
 #movie-backdrop {
     width: 100%;
 }
