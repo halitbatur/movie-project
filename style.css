@@ -24,7 +24,7 @@
 font-family: 'Radley', serif;
 }
 
-<<<<<<< HEAD
+
 #triangle-topright {
      width: 0;
      height: 0;
@@ -67,8 +67,7 @@ font-family: 'Radley', serif;
      border-bottom: 50px solid transparent;
    }
 
-=======
->>>>>>> 6896f270e04a54cd07e0f2bec40589c2ae65e066
+
 .triangle-right1 {
      width: 0;
      height: 0;
@@ -101,8 +100,14 @@ font-family: 'Radley', serif;
     border-top: 100px solid black;
     border-left: 100px solid transparent;
   }
+  .trianglemovie-topright {
+  width: 0;
+  height: 0;
+  margin-left:900px;
+  border-top: 100px solid black;
+  border-left: 100px solid transparent;
+}
 
-<<<<<<< HEAD
   .container {
     position: relative;
 
@@ -142,8 +147,7 @@ font-family: 'Radley', serif;
 }
 
 
-=======
->>>>>>> 6896f270e04a54cd07e0f2bec40589c2ae65e066
+
 
 
 
