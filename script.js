@@ -91,7 +91,13 @@ function addPlaynow() {
             // data.results[1].overview;
 
             recommendation.innerHTML = `
+            <div class="w-80 h-96 bg-red-800 opacity-70 absolute ">
+            </div>
+            <div class="flex flex-col  justify-center absolute">
+                <p class="moviesparaghrap w-72 ml-5 mt-7 z-50 text-center text-lg text-white ">"${data.results[0].overview}"</p>
+            </div> 
             <img class="object-cover w-80 h-96 "  src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="second image">
+
             `;
 
             const recommendation2 = document.getElementById("recommendation2");
@@ -103,13 +109,12 @@ function addPlaynow() {
 
 
         })
+        // const playnow = document.querySelector("#playnow");
+        // playnow.addEventListener("click", () => {
 
-    //     const playnow = document.querySelector("#playnow");
-    //     playnow.addEventListener("click", () => {
-    //         autorun();
-    //     });
-    // }
+    // });
 }
+
 addPlaynow();
 
 // document.addEventListener("DOMContentLoaded", autorun);
