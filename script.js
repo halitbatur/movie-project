@@ -29,7 +29,7 @@ const movieDetails = async(movie) => {
 const fetchMovies = async() => {
     const url = constructUrl(`movie/now_playing`);
     const res = await fetch(url);
-    console.log(res.json());
+    // console.log(res.json());
     return res.json();
 };
 
@@ -43,42 +43,54 @@ const fetchMovie = async(movieId) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
     movies.map((movie) => {
-        const movieDiv = document.createElement("div");
-        movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
-        movieDiv.addEventListener("click", () => {
-            movieDetails(movie);
-        });
-        CONTAINER.appendChild(movieDiv);
+        const movieDiv = document.getElementById("nowPlaying");
+        const divCard = document.createElement("div");
+        divCard.className = "container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center";
+        divCard.style.backgroundImage = `url(${BACKDROP_BASE_URL+movie.backdrop_path})`;
+
+        divCard.innerHTML = `
+            <div class="triangle-right  z-50  absolute"></div>
+            <div id="triangle-topright" class="ml-1.5 z-50  absolute">
+            
+            </div>
+            <div class="overlay">
+                <div class="movieheader-text text-4xl">${movie.title}</div>
+                <p class="moviegener-style text-lg text-white mt-64 ml-5  "></p>
+                <div class="star-icon flex mt-5 ml-5 text-white text-5xl"></div>
+            </div>
+        `;
+        movieDiv.appendChild(divCard);
+
+        // movieDiv.addEventListener("click", () => {
+        //     movieDetails(movie);
+        // });
+        // CONTAINER.appendChild(movieDiv);
     });
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
-    CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
-        </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-        </div>
-        </div>
-            <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-    </div>`;
-};
+// const renderMovie = (movie) => {
+//     CONTAINER.innerHTML = `
+//     <div class="row">
+//         <div class="col-md-4">
+//              <img id="movie-backdrop" src=${
+//                BACKDROP_BASE_URL + movie.backdrop_path
+//              }>
+//         </div>
+//         <div class="col-md-8">
+//             <h2 id="movie-title">${movie.title}</h2>
+//             <p id="movie-release-date"><b>Release Date:</b> ${
+//               movie.release_date
+//             }</p>
+//             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+//             <h3>Overview:</h3>
+//             <p id="movie-overview">${movie.overview}</p>
+//         </div>
+//         </div>
+//             <h3>Actors:</h3>
+//             <ul id="actors" class="list-unstyled"></ul>
+//     </div>`;
+// };
 
 function addPlaynow() {
     fetch("https://api.themoviedb.org/3/movie/725201/recommendations?api_key=e3ba83efee8dd4f97c52f27960082fa6&language=en-US&page=1")
@@ -91,6 +103,7 @@ function addPlaynow() {
             // data.results[1].overview;
 
             recommendation.innerHTML = `
+            
             <div class="w-80 h-96 bg-red-800 opacity-70 absolute ">
             </div>
             <div class="flex flex-col  justify-center absolute">
@@ -117,4 +130,4 @@ function addPlaynow() {
 
 addPlaynow();
 
-// document.addEventListener("DOMContentLoaded", autorun);
+document.addEventListener("DOMContentLoaded", autorun);
