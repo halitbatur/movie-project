@@ -1,9 +1,13 @@
+
+
 'use strict';
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
+
+
 
 // Don't touch this function please
 const autorun = async () => {
@@ -20,7 +24,9 @@ const constructUrl = (path) => {
 
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
+  // use promise.all to fetch all needed urls here?
   const movieRes = await fetchMovie(movie.id);
+
   renderMovie(movieRes);
 };
 
@@ -38,24 +44,78 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+
+
+
+// fetch genre
+const fetchGenre = async () => {
+  const url = constructUrl(`/genre/movie/list`);
+  const res = await fetch(url);
+  return res.json();
+  // console.log(fetchGenre);
+};
+
+const movieGenres = async (genId) => {
+  let genreList = await fetchGenre();
+
+  // genId is array of genre ids from each specific movie
+  console.log('gen list', genreList);
+
+
+  let myList = [];
+
+  for(let i = 0; i < genId.length; i++) {
+
+    for(let j = 0; j < genreList.genres.length; j++) {
+
+      if(genreList.genres[j].id === genId[i]) {
+        myList.push(genreList.genres[j].name);
+      }
+    }
+  }
+
+  console.log('my list', myList);
+  return myList;
+}
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
-  movies.map((movie) => {
+
+  movies.map(async (movie, index) => {
+
+    let myGenreList = await movieGenres(movie.genre_ids);
+    myGenreList = myGenreList.toString();
+
+
     const movieDiv = document.createElement("div");
+    let descriptionDiv = document.createElement("div");
+
+    movieDiv.setAttribute('class', `movieWrapper`);
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
+        <div class="movieContainer">
+          <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class="movieImage">
+          <p class="movieDescription">${movie.overview}</p>
+        </div>
+        <h3>${movie.title}</h3>
+        <h3>Rating: ${movie.vote_average}</h3>
+        <h3>${myGenreList}</h3>
+        `;
+
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
+
+    // append divs here
     CONTAINER.appendChild(movieDiv);
+    movieDiv.appendChild(descriptionDiv);
   });
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = async (movie) => {
+
+
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -75,7 +135,29 @@ const renderMovie = (movie) => {
         </div>
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
+            <h3>Similar Movies:</h3>
     </div>`;
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+    
+
+   
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
+
+
+
+
+  
