@@ -21,7 +21,10 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const movieCredits = await fetchMovie(movie.id+"/credits");
+  const movieTrailer = await fetchMovie(movie.id+"/videos");
+  const movieSimilar = await fetchMovie(movie.id+"/similar");
+  renderMovie(movieRes,movieCredits,movieTrailer.results,movieSimilar.results);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -60,7 +63,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie, credit, videos, similar) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -81,17 +84,14 @@ const renderMovie = (movie) => {
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
     </div>
-    <div class="row">
+      <div class="row">
     <div class="col-md-4">
     <img id="actor-backdrop" src=${
       BACKDROP_BASE_URL + movie.backdrop_path
     }>
-    <img id="actor2-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
-    <img id="actor3-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
+    <iframe class="movie-trailer" src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key:videos[0].key}" 
+    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+     allowfullscreen></iframe>
     </div>
     </div>
     
