@@ -3,12 +3,11 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".container");
+const CONTAINER = document.querySelector(".containerr");
 
 // Don't touch this function please
 const autorun = async() => {
     const movies = await fetchMovies();
-    // playCard();
 
     renderMovies(movies.results);
 
@@ -24,8 +23,14 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async(movie) => {
     const movieRes = await fetchMovie(movie.id);
+    // const movieCredits = await creditDetails(movie.id);
+    // const relatedMovies = await relatedMovies(movie.id);
+
+
 
     renderMovie(movieRes);
+    // renderCredits(movieCredits);
+    // renderRelatedMovies(relatedMovies);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -63,12 +68,22 @@ const renderMovies = (movies) => {
         `;
         movieDiv.appendChild(divCard);
 
-        // movieDiv.addEventListener("click", () => {
-        //     movieDetails(movie);
-        // });
-        // CONTAINER.appendChild(movieDiv);
+        divCard.addEventListener("click", () => {
+            movieDetails(movie);
+        });
+        CONTAINER.appendChild(movieDiv);
     });
 };
+const creditDetails = async(movieId) => {
+    const url = constructUrl(`movie/${movieId}/credits`);
+    const res = await fetch(url);
+    return res.json();
+}
+const relatedMovies = async(movie) => {
+    const url = constructUrl(`movie/${movie.id}/similar`);
+    const res = await fetch(url);
+    return res.json();
+}
 
 function getRating(movie) {
     let rating = "";
@@ -124,32 +139,41 @@ function movieGenre(movie) {
     return genre;
 }
 
+
 // You'll need to play with this function in order to add features and enhance the style.
-// const renderMovie = (movie) => {
-//     CONTAINER.innerHTML = `
-//     <div class="row">
-//         <div class="col-md-4">
-//              <img id="movie-backdrop" src=${
-//                BACKDROP_BASE_URL + movie.backdrop_path
-//              }>
-//         </div>
-//         <div class="col-md-8">
-//             <h2 id="movie-title">${movie.title}</h2>
-//             <p id="movie-release-date"><b>Release Date:</b> ${
-//               movie.release_date
-//             }</p>
-//             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-//             <h3>Overview:</h3>
-//             <p id="movie-overview">${movie.overview}</p>
-//         </div>
-//         </div>
-//             <h3>Actors:</h3>
-//             <ul id="actors" class="list-unstyled"></ul>
-//     </div>`;
-// };
+const renderMovie = (movie) => {
+    console.log(movie);
+    CONTAINER.innerHTML = `
+    <div class="row">
+        <div class="col-md-4">
+             <img id="movie-backdrop" src=${
+               BACKDROP_BASE_URL + movie.backdrop_path
+             }>
+        </div>
+        <div class="col-md-8">
+            <h2 id="movie-title">${movie.title}</h2>
+            <p id="movie-release-date"><b>Release Date:</b> ${
+              movie.release_date
+            }</p>
+            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <h3>Overview:</h3>
+            <p id="movie-overview">${movie.overview}</p>
+        </div>
+        </div>
+            <h3>Actors:</h3>
+            <ul id="actors" class="list-unstyled"></ul>
+    </div>`;
+};
 
+//we need to call this function after the render movie is finished add this to the same div 
 
+const renderCredits = (credits) => {
 
+}
+
+const renderRelatedMovies = (movies) => {
+
+}
 
 
 document.addEventListener("DOMContentLoaded", autorun);
