@@ -114,6 +114,13 @@ const fetchMovieCredits = async (movieId) => {
   return data.cast;
 };
 
+const fetchActor = async (actorId) => {
+  const url = constructUrl(`person/${actorId}`);// 82104
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+};
+
 const fetchMovieDirectors = async (movieId) => {
   const url = constructUrl(`movie/${movieId}/credits`);
   const res = await fetch(url);
@@ -129,6 +136,12 @@ const fetchSimilarMovies = async (movieId) => {
   return data.results;
 };
 
+const fetchMoviesParticipated = async (actorId) => {
+  const url = constructUrl(`person/${actorId}/movie_credits`);
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.cast;
+};
 
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -180,7 +193,7 @@ const renderMovie = async (movie) => {
         <h3 class="text-2xl font-bold">Related Movies</h3>
         <div id="related-movies" class="flex flex-wrap w-full justify-center gap-4">
           ${similarMovies.slice(0, 6).map((movie) => {
-            return `
+    return `
               <div data-id="${movie.id}" class="related-movie flex flex-col
                 basis-40 justify-center items-center rounded overflow-hidden
                 bg-neutral-200 cursor-pointer transition duration-500 ease-in-out
@@ -197,7 +210,7 @@ const renderMovie = async (movie) => {
 
               </div>
               `;
-          }).join("")}
+  }).join("")}
         </div>
 
         <h3 class="text-2xl font-bold">Credits</h3>
@@ -209,14 +222,14 @@ const renderMovie = async (movie) => {
             <h4 class="text-xl font-bold">Director</h4>
             <div class="flex flex-wrap justify-center gap-4">
               ${movieDirectors.map((director) => {
-                return `
+    return `
                   <div class="flex flex-col justify-center items-center gap-2">
                     <img src="${PROFILE_BASE_URL + director.profile_path}"
                       alt="${director.name} profile" width="100" height="100">
                     <p class="text-sm">${director.name}</p>
                   </div>
                   `;
-              }).join("")}
+  }).join("")}
             </div>
           </div>
 
@@ -225,7 +238,7 @@ const renderMovie = async (movie) => {
           <h4 class="text-xl font-bold">Cast</h4>
           <div class="flex flex-wrap gap-8 w-full justify-center items-center lg:justify-start">
             ${movieCredits.slice(0, 6).map((credit) => `
-              <div class="flex flex-col basis-32 gap-2 items-center" data-credit-id="${credit.id}">
+              <div id=${credit.id} class=" dark:hover:bg-neutral-600 hover:shadow-2xl hover:bg-neutral-300 hover:-translate-y-1 hover:scale-110 flex flex-col basis-32 gap-2 items-center" data-credit-id="${credit.id}">
                 <img src="${PROFILE_BASE_URL + credit.profile_path}" alt="${credit.name} profile"
                   class="rounded object-cover md:w-24 md:h-24">
                 <div class="font-medium">
@@ -234,7 +247,7 @@ const renderMovie = async (movie) => {
                 </div>
               </div>
             `).join("")
-            }
+    }
           </div>
 
           <!-- Movie production companies -->
@@ -242,7 +255,7 @@ const renderMovie = async (movie) => {
           <h4 class="text-2xl font-bold">Production Companies</h4>
           <div class="flex flex-wrap gap-8 w-full justify-center items-center md:justify-start">
             ${movie.production_companies.map((company) =>
-              company.logo_path ? `
+      company.logo_path ? `
                 <div class="flex flex-col basis-32 gap-2 items-center">
                   <img src="${LOGO_BASE_URL + company.logo_path}" alt="${company.name} logo"
                     class="rounded object-scale-down h-12 md:h-24">
@@ -257,13 +270,70 @@ const renderMovie = async (movie) => {
                   </div>
                 </div>
               `
-            ).join("")}
+    ).join("")}
           </div> <!-- end of production companies -->
 
         </div> <!-- End of movie credits -->
       </div> <!-- End of movie details -->
     </div> <!-- End of container -->
     `;
+  movieCredits.slice(0, 6).map((credit) => {
+    const actorContainer = document.getElementById(credit.id);
+    actorContainer.addEventListener("click", async () => {
+      const actor = await fetchActor(credit.id); //actorID
+      renderActor(actor)
+    });
+
+  });
+};
+const renderActor = async (actor) => {
+  const movies = await fetchMoviesParticipated(actor.id);
+  CONTAINER.innerHTML =
+    `
+    <div class="flex md:flex-row p-8 flex-col">
+
+    <!-- Actor profile pic -->
+    <div class="w-full max-h-[65vh] md:w-1/2 md:min-h-full">
+        <img id="profile_path" src=${BACKDROP_BASE_URL + actor.profile_path}
+            class="w-full h-full object-contain md:object-cover rounded" alt="${actor.name} ">
+    </div>
+
+    <!-- Actor details -->
+    <div class="flex flex-col gap-4 ml-16 md:w-1/2 justify-center ">
+        <p id="actor-name" class="text-base"><b>Name: </b>  ${actor.name} </p>
+        <p id="actor-birthday" class="text-base"><b>Birthday: </b> ${actor.birthday}</p>
+        <p id="actor-place_of_birth" class="text-base"><b>place_of_birth: </b> ${actor.place_of_birth}</p>
+        <p id="movie-language" class="text-base"><b>Gender: </b>${actor.gender == 1 ? "Male" : "Female"}</p>
+        <p id="movie-language" class="text-base"><b>Popularity: </b>${actor.popularity}</p>
+        <p id="movie-language" class="text-base"><b>Death Day: </b>${actor.deathday}</p>
+        <p id="actor-biography" class="text-base"><b>biography: </b> ${actor.biography}</p>
+   
+        <!-- participated in Movies -->
+
+          <h3 class="text-2xl font-bold">Movies</h3>
+        <div id="participated-movies" class="flex flex-wrap w-full justify-center gap-4">
+          ${movies.slice(0, 6).map((movie) => {
+      return `
+              <div data-id="${movie.id}" class="participated-movie flex flex-col
+                basis-40 justify-center items-center rounded overflow-hidden
+                bg-neutral-200 cursor-pointer transition duration-500 ease-in-out
+                transform dark:bg-neutral-700 dark:hover:bg-neutral-600
+                hover:shadow-2xl hover:bg-neutral-300 hover:-translate-y-1 hover:scale-110">
+                <img src="${BACKDROP_BASE_URL + movie.poster_path}"
+                  alt="${movie.title} poster" width="700" height="439">
+                <h3 class="movie-title my-2 text-base font-bold text-center">
+                  ${movie.title}
+                </h3>
+                <p class="movie-rating text-sm pb-4">
+                  Average vote: ${movie.vote_average}
+                </p>
+
+              </div>
+              `;
+    }).join("")}
+        </div>
+    </div>
+</div> <!-- End of container -->`
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
