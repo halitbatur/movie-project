@@ -58,7 +58,7 @@ const renderMovies = (movies) => {
 
         divCard.innerHTML = `
             <div class="triangle-right  z-50  absolute"></div>
-            <div id="triangle-topright" class="ml-1.5 z-50  absolute">   
+            <div id="triangle-topright" class="ml-1.5 z-50  absolute">
             </div>
             <div class="overlay">
                 <div class="movieheader-text mr-40 text-xl">${movie.title}</div>
@@ -171,9 +171,11 @@ const renderCredits = (credits) => {
 
 }
 
+function on() {
+    document.getElementsByClassName("hiddenmovie-div").style.display = "block";
+}
 const renderRelatedMovies = (movies) => {
 
-}
 
 
-document.addEventListener("DOMContentLoaded", autorun);
+        document.addEventListener("DOMContentLoaded", autorun);
