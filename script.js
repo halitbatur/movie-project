@@ -7,9 +7,14 @@ const CONTAINER = document.querySelector(".container");
 
 // Don't touch this function please
 const autorun = async () => {
-  const movies = await fetchMovies();
+ const movies = await fetchMovies();
   renderMovies(movies.results);
 };
+
+const autorun2 = async () => { 
+   const actors = await  fetchActors();
+ 
+ };
 
 // Don't touch this function please
 const constructUrl = (path) => {
@@ -38,6 +43,12 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+// adding function to fetch actors in actor list page
+const fetchActors = async () => {
+  const url = constructUrl(`movie/now_playing`);
+  const res = await fetch(url);
+  return res.json();
+};
 
 
 
@@ -64,38 +75,62 @@ const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
+             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path
+    }>
         </div>
         <div class="col-md-8">
             <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
+            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
+    }</p>
+           <p id="movie-release-date"><b>Movie Language</b> ${movie.original_language.toUpperCase()
+
+    }</p>
+           <p id="movie-release-date"><b>Vote count:</b> ${movie.vote_count
+
+    }</p>
+
+    
+            <p id="movie-runtime"><b>movie rating</b> ${movie.vote_average}</p>
+             <p id="movie-runtime"><b>movie production company name and logo</b> ${movie.production_companies[3]
+    } </p>
+              <p id="movie-runtime"><b>director name:</b> ${movie.runtime} Minutes</p>
+
+           
+    
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-    </div>
-    <div class="row">
-    <div class="col-md-4">
-    <img id="actor-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
-    <img id="actor2-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
-    <img id="actor3-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
-    </div>
-    </div>
+            <ul id="actors" class="list-unstyled">
+            <li> <img id="actor-backdrop" src= movie.cast
+    }></li>
+            </ul>
+
+           <h3>Related Movies</h3>
+          <p id="releated-movies">${movie.page}</p>
+        
+          
+    
+    
     
     `;
+};
+
+// actor rendering,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+const renderActors = (actors) => {
+  actors.map((actor) => {
+    const actorDiv = document.createElement("div");
+    actorDiv.innerHTML = `
+          <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.name
+      } poster">
+          <h3>${actor.name}</h3>`;
+    actorDiv.addEventListener("click", () => {
+      actorDetails(actor);
+    });
+    CONTAINER.appendChild(actorDiv);
+  });
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
