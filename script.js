@@ -8,7 +8,10 @@ const CONTAINER = document.querySelector(".container");
 // Don't touch this function please
 const autorun = async() => {
     const movies = await fetchMovies();
+    // playCard();
+
     renderMovies(movies.results);
+
 };
 
 // Don't touch this function please
@@ -145,14 +148,8 @@ function movieGenre(movie) {
 //     </div>`;
 // };
 
-function addPlaynow() {
 
-    const playnow = document.querySelector("#playnow");
-    playnow.addEventListener("click", () => {
-        playnow.setAttribute("href", "https://www.youtube.com/watch?v=6ZfuNTqbHE8");
-    });
-}
 
-addPlaynow();
+
 
 document.addEventListener("DOMContentLoaded", autorun);

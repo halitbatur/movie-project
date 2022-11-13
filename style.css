@@ -11,14 +11,13 @@
     text-align: center;
 }
 
-
-/* .site-nav {
+.site-nav {
     background-color: #;
     opacity: 0.;
     display: flex;
     align-items: center;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-} */
+}
 
 .moviesparaghrap {
     font-family: 'Radley', serif;
@@ -102,12 +101,20 @@
     border-left: 100px solid transparent;
 }
 
+.trianglemovie-topright {
+    width: 0;
+    height: 0;
+    margin-left: 900px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
+}
+
 .container {
     position: relative;
 }
 
 .overlay {
-    position: relative;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
