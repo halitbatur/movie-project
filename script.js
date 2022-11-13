@@ -176,6 +176,6 @@ function on() {
 }
 const renderRelatedMovies = (movies) => {
 
+}
 
-
-        document.addEventListener("DOMContentLoaded", autorun);
+document.addEventListener("DOMContentLoaded", autorun);
