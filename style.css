@@ -11,13 +11,14 @@
     text-align: center;
 }
 
-.site-nav {
+
+/* .site-nav {
     background-color: #;
     opacity: 0.;
     display: flex;
     align-items: center;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-}
+} */
 
 .moviesparaghrap {
     font-family: 'Radley', serif;
@@ -101,12 +102,12 @@
     border-left: 100px solid transparent;
 }
 
-<<<<<<< HEAD .container {
+.container {
     position: relative;
 }
 
 .overlay {
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     left: 0;
@@ -137,7 +138,7 @@
     font-family: 'Radley', serif;
 }
 
-=======>>>>>>>6896f270e04a54cd07e0f2bec40589c2ae65e066 #movie-backdrop {
+#movie-backdrop {
     width: 100%;
 }
 

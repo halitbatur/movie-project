@@ -50,13 +50,12 @@ const renderMovies = (movies) => {
 
         divCard.innerHTML = `
             <div class="triangle-right  z-50  absolute"></div>
-            <div id="triangle-topright" class="ml-1.5 z-50  absolute">
-            
+            <div id="triangle-topright" class="ml-1.5 z-50  absolute">   
             </div>
             <div class="overlay">
-                <div class="movieheader-text text-4xl">${movie.title}</div>
-                <p class="moviegener-style text-lg text-white mt-64 ml-5  "></p>
-                <div class="star-icon flex mt-5 ml-5 text-white text-5xl"></div>
+                <div class="movieheader-text mr-40 text-xl">${movie.title}</div>
+                <p class="moviegener-style text-lg text-white pt-64 ml-5 ">${movieGenre(movie)}</p>
+                <div class="star-icon flex pt-5 pb-5 ml-5 text-white text-sm">${getRating(movie)}</div>
             </div>
         `;
         movieDiv.appendChild(divCard);
@@ -67,6 +66,60 @@ const renderMovies = (movies) => {
         // CONTAINER.appendChild(movieDiv);
     });
 };
+
+function getRating(movie) {
+    let rating = "";
+    for (let i = 0; i < movie.vote_average; i++) {
+        rating += `<i class="fas fa-star"></i>`;
+    }
+    return rating;
+}
+
+function movieGenre(movie) {
+    let genre = "";
+    for (let i = 0; i < movie.genre_ids.length; i++) {
+        if (movie.genre_ids[i] === 28) {
+            genre += "Action ";
+        } else if (movie.genre_ids[i] === 12) {
+            genre += "Adventure ";
+        } else if (movie.genre_ids[i] === 16) {
+            genre += "Animation ";
+        } else if (movie.genre_ids[i] === 35) {
+            genre += "Comedy ";
+        } else if (movie.genre_ids[i] === 80) {
+            genre += "Crime ";
+        } else if (movie.genre_ids[i] === 99) {
+            genre += "Documentary ";
+        } else if (movie.genre_ids[i] === 18) {
+            genre += "Drama ";
+        } else if (movie.genre_ids[i] === 10751) {
+            genre += "Family ";
+        } else if (movie.genre_ids[i] === 14) {
+            genre += "Fantasy ";
+        } else if (movie.genre_ids[i] === 36) {
+            genre += "History ";
+        } else if (movie.genre_ids[i] === 27) {
+            genre += "Horror ";
+        } else if (movie.genre_ids[i] === 10402) {
+            genre += "Music ";
+        } else if (movie.genre_ids[i] === 9648) {
+            genre += "Mystery ";
+        } else if (movie.genre_ids[i] === 10749) {
+            genre += "Romance ";
+        } else if (movie.genre_ids[i] === 878) {
+            genre += "Science Fiction ";
+        } else if (movie.genre_ids[i] === 10770) {
+            genre += "TV Movie ";
+        } else if (movie.genre_ids[i] === 53) {
+            genre += "Thriller ";
+        } else if (movie.genre_ids[i] === 10752) {
+            genre += "War ";
+        } else if (movie.genre_ids[i] === 37) {
+            genre += "Western ";
+        }
+    }
+    return genre;
+}
 
 // You'll need to play with this function in order to add features and enhance the style.
 // const renderMovie = (movie) => {
@@ -93,35 +146,7 @@ const renderMovies = (movies) => {
 // };
 
 function addPlaynow() {
-    fetch("https://api.themoviedb.org/3/movie/725201/recommendations?api_key=e3ba83efee8dd4f97c52f27960082fa6&language=en-US&page=1")
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.results[1].poster_path);
-            const recommendation = document.getElementById("recommendation");
-            const description = document.createElement("div");
-            description.className = "flex flex-col  justify-center absolute";
-            // data.results[1].overview;
 
-            recommendation.innerHTML = `
-            
-            <div class="w-80 h-96 bg-red-800 opacity-70 absolute ">
-            </div>
-            <div class="flex flex-col  justify-center absolute">
-                <p class="moviesparaghrap w-72 ml-4 mt-7 z-50 text-center text-lg text-white text-base">"${data.results[0].overview}"</p>
-            </div> 
-            <img class="object-cover w-80 h-96 "  src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="second image">
-
-            `;
-
-            const recommendation2 = document.getElementById("recommendation2");
-            recommendation2.innerHTML = `
-            <p class="moviesparaghrap  mt-64 ml-5 z-50 text-center text-7xl text-white absolute ">${data.results[0].title}</p>
-            <img class="object-cover h-96 " style="width:650px" src="${BACKDROP_BASE_URL+data.results[0].poster_path}" alt="">
-            `
-
-
-
-        })
     const playnow = document.querySelector("#playnow");
     playnow.addEventListener("click", () => {
         playnow.setAttribute("href", "https://www.youtube.com/watch?v=6ZfuNTqbHE8");
