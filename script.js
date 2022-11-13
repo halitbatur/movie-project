@@ -23,13 +23,22 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const actorRes = await fetchActors(movie.id);
   const movieTrailer = await fetchMovie(movie.id+"/videos");
-  const movieSimilar = await fetchMovie(movie.id+"/similar");
+  const movieSimilar = await fetchReleatedMovies(movie.id);
   renderMovie(movieRes,actorRes,movieTrailer.results,movieSimilar.results);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+
+
+// Don't touch this function please. This function is to fetch one movie.
+const fetchMovie = async (movieId) => {
+  const url = constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
   return res.json();
 };
@@ -41,13 +50,12 @@ const fetchActors = async (id) => {
   return res.json();
 };
 
-// Don't touch this function please. This function is to fetch one movie.
-const fetchMovie = async (movieId) => {
-  const url = constructUrl(`movie/${movieId}`);
+const fetchReleatedMovies = async (id) => {
+  const url = constructUrl(`movie/${id}/similar`);
   const res = await fetch(url);
+  //console.log(res.json())
   return res.json();
 };
-
 
 
 
@@ -118,6 +126,10 @@ const renderMovie = (movie, actors, videos) => {
 
     const actorList = document.getElementById("actors")
     actorList.append(renderActors(actors))
+  
+   
+
+
   };
   
   const renderActors = (actors) =>  {
