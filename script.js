@@ -8,6 +8,7 @@ const CONTAINER = document.querySelector(".container");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  console.log(movies)
   renderMovies(movies.results);
 };
 
@@ -27,6 +28,7 @@ const movieDetails = async (movie) => {
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
+  console.log(url)
   const res = await fetch(url);
   return res.json();
 };
@@ -65,17 +67,38 @@ const renderMovie = (movie) => {
         </div>
         <div class="col-md-8">
             <h2 id="movie-title">${movie.title}</h2>
+            <h2 id="movie-title1">${movie.vote_average}Rating</h2>
+      
             <p id="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
             }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <p class="star-icon">${movie.movieRate}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
-    </div>`;
+    </div>
+    
+    
+    `;
 };
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=542003918769df50083a13c415bbc602", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", autorun);
