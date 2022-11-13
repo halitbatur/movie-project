@@ -1,4 +1,51 @@
-'use strict';
+"use strict";
+// Start of navBar
+const toggleClass = (targetQuery, classToToggle) => {
+  const target = document.querySelector(targetQuery);
+  target.classList.toggle(classToToggle);
+};
+
+const hamburgerMenu = document.getElementById("hamburger-menu");
+hamburgerMenu.addEventListener("click", () => {
+  toggleClass("#navbar", "show");
+  toggleClass("#hamburger-menu", "clicked");
+});
+const dropdownGenres = document.getElementById("dropdown-select-genres");
+
+const dropdownFilter = document.getElementById("dropdown-select-filter");
+dropdownGenres.addEventListener("click", () => {
+  const dropdownMenuFilter = document.getElementById("dropdown-menu-filter");
+  if (dropdownMenuFilter.classList.contains("active")) {
+    toggleClass("#dropdown-menu-filter", "active");
+    toggleClass(".caret-filter", "rotate");
+  }
+  toggleClass("#dropdown-menu-genres", "active");
+  toggleClass(".caret-genres", "rotate");
+});
+dropdownFilter.addEventListener("click", () => {
+  const dropdownMenuGenres = document.getElementById("dropdown-menu-genres");
+  if (dropdownMenuGenres.classList.contains("active")) {
+    toggleClass("#dropdown-menu-genres", "active");
+    toggleClass(".caret-genres", "rotate");
+  }
+  toggleClass("#dropdown-menu-filter", "active");
+  toggleClass(".caret-filter", "rotate");
+});
+const menuLi = document.querySelector(".menu li");
+menuLi.addEventListener("click", () => {
+  toggleClass(".menu li", "clicked");
+});
+const dropdownFilterLabels = document.querySelectorAll(
+  ".dropdown-menu-filter li label"
+);
+dropdownFilterLabels.forEach((label) => {
+  label.addEventListener("click", (e) => {
+    const value = e.target.textContent;
+    const selected = document.querySelector(".selected-filter");
+    selected.textContent = value;
+  });
+});
+// End of navBar
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";

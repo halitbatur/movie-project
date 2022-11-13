@@ -1,18 +1,187 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MovieNight</title>
+    <!-- <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    /> -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@400;500;600;700;800;900&family=Play:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Movie</title>
-</head>
+  <body>
+    <!-- Start of Header -->
+    <header>
+      <div class="logo">
+        <a href="#"> <img src="./Images/logo.svg" alt="Logo" /></a>
+      </div>
+      <div class="hamburger-menu" id="hamburger-menu">
+        <div></div>
+      </div>
+      <nav class="navbar" id="navbar">
+        <ul class="menu">
+          <li class="menu-item"><a href="#">Home</a></li>
+          <li class="menu-item dropdown" id="dropdown-genres">
+            <div
+              class="dropdown-select"
+              id="dropdown-select-genres"
+              tabindex="1"
+            >
+              <div>Genres <span class="selected-genres"></span></div>
+              <div class="caret caret-genres"></div>
+            </div>
+            <ul
+              class="dropdown-menu dropdown-menu-genres"
+              id="dropdown-menu-genres"
+            >
+              <li class="dropdown-item">
+                <input type="checkbox" name="action" id="action" />
+                <label for="action">Action</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="adventure" id="adventure" />
+                <label for="adventure">Adventure</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="animation" id="animation" />
+                <label for="animation">Animation</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="comedy" id="comedy" />
+                <label for="comedy">Comedy</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="crime" id="crime" />
+                <label for="crime">Crime</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="documentary" id="documentary" />
+                <label for="documentary">Documentary</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="drama" id="drama" />
+                <label for="drama">Drama</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="family" id="family" />
+                <label for="family">Family</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="fantasy" id="fantasy" />
+                <label for="fantasy">Fantasy</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="history" id="history" />
+                <label for="history">History</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="horror" id="horror" />
+                <label for="horror">Horror</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="music" id="music" />
+                <label for="music">Music</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="mystery" id="mystery" />
+                <label for="mystery">Mystery</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="romance" id="romance" />
+                <label for="romance">Romance</label>
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  name="science fiction"
+                  id="science fiction"
+                />
+                <label for="science fiction">Science Fiction</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="tv movie" id="tv movie" />
+                <label for="tv movie">TV Movie</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="thriller" id="thriller" />
+                <label for="thriller">Thriller</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="war" id="war" />
+                <label for="war">War</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="checkbox" name="western" id="western" />
+                <label for="western">Western</label>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item"><a href="#">Actors</a></li>
+          <li class="menu-item"><a href="#">About</a></li>
+          <li class="menu-item dropdown" id="dropdown-filter">
+            <div
+              class="dropdown-select dropdown-select-filter"
+              id="dropdown-select-filter"
+              tabindex="2"
+            >
+              <div>Filter <span class="selected-filter">Now Playing</span></div>
+              <div class="caret caret-filter"></div>
+            </div>
+            <ul
+              class="dropdown-menu dropdown-menu-filter"
+              id="dropdown-menu-filter"
+            >
+              <li class="dropdown-item">
+                <input type="radio" name="filter" id="popular" />
+                <label for="popular">Popular</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="radio" name="filter" id="latest" />
+                <label for="latest">Release Date</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="radio" name="filter" id="top_rated" />
+                <label for="top_rated">Top Rated</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="radio" name="filter" id="now_playing" checked />
+                <label for="now_playing">Now Playing</label>
+              </li>
+              <li class="dropdown-item">
+                <input type="radio" name="filter" id="upcoming" />
+                <label for="upcoming">Upcoming</label>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="search-bar-container">
+        <div class="search-pic-container">
+          <img src="./Images/search.png" alt="search logo" />
+        </div>
+        <input
+          class="search-bar"
+          type="text"
+          id="search"
+          autocomplete="off"
+          placeholder="Search MovieNight"
+        />
+      </div>
+    </header>
+    <!-- End of Header -->
 
-<body>
-    <div class="container">
-    </div>
+    <div class="container"></div>
     <script type="text/javascript" src="script.js"></script>
-</body>
-
+  </body>
 </html>
