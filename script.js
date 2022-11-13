@@ -21,16 +21,23 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  const movieCredits = await fetchMovie(movie.id+"/credits");
+  const actorRes = await fetchActors(movie.id);
   const movieTrailer = await fetchMovie(movie.id+"/videos");
   const movieSimilar = await fetchMovie(movie.id+"/similar");
-  renderMovie(movieRes,movieCredits,movieTrailer.results,movieSimilar.results);
+  renderMovie(movieRes,actorRes,movieTrailer.results,movieSimilar.results);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
   const res = await fetch(url);
+  return res.json();
+};
+
+const fetchActors = async (id) => {
+  const url = constructUrl(`movie/${id}/credits`);
+  const res = await fetch(url);
+  //console.log(res.json())
   return res.json();
 };
 
@@ -63,7 +70,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, credit, videos, similar) => {
+const renderMovie = (movie, actors, videos) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -82,20 +89,55 @@ const renderMovie = (movie, credit, videos, similar) => {
         </div>
         </div>
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <h3>Find your best Actor</h3>
+            <ul id="actors" class="list-unstyled">
+            </ul>
+            <ul id="similar" class="list-unstyled">
+            </ul>
     </div>
-      <div class="row">
-    <div class="col-md-4">
-    <img id="actor-backdrop" src=${
-      BACKDROP_BASE_URL + movie.backdrop_path
-    }>
     <iframe class="movie-trailer" src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key:videos[0].key}" 
     frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
      allowfullscreen></iframe>
-    </div>
-    </div>
-    
-    `;
-};
+  
+    `;  
+  //   const similarList = document.getElementById("similar")
+  //   similarList.append(renderSimilarMovies(similarMovies))
+  // };
+  
+  // const renderSimilarMovies = (similarMovies) =>  {
+  //   similarMovies.cast.slice(0, 5).map((similarMovies) => {
+  //     const actorDiv = document.createElement("ul");
+  //     actorDiv.innerHTML = `
+  //         <li>${similarMovies.name}</li>
+  //         <img src="${BACKDROP_BASE_URL + similarMovies.profile_path}" alt="${similarMovies.name} poster" style="width:48px ">`;
+  //     actorDiv.addEventListener("click", () => {displaySingleActorPage();});
+  //     CONTAINER.appendChild(actorDiv);
+  //   });
 
+
+
+    const actorList = document.getElementById("actors")
+    actorList.append(renderActors(actors))
+  };
+  
+  const renderActors = (actors) =>  {
+      actors.cast.slice(0, 5).map((actor) => {
+      const actorDiv = document.createElement("ul");
+      actorDiv.innerHTML = `
+          <li>${actor.name}</li>
+          <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" style="width:48px ">`;
+      actorDiv.addEventListener("click", () => {displaySingleActorPage();});
+      CONTAINER.appendChild(actorDiv);
+    });
+
+
+    const displaySingleActorPage = () => {
+      CONTAINER.innerHTML = `
+        <div class="">
+            <div class="">
+                <h1>Hello I'm Ahmad Hassoun</h1>
+            </div>`;
+    };
+
+  } 
 document.addEventListener("DOMContentLoaded", autorun);
