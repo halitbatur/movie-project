@@ -40,6 +40,7 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  console.log(movies)
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.classList.add("grid-item");
@@ -85,3 +86,16 @@ const renderMovie = (movie) => {
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
+// navbar menu for responsiving the navbar
+const main = document.querySelector("main");
+const list = document.querySelector("ul");
+const menuIcon = document.getElementById("menu-icon");
+
+menuIcon.addEventListener("click", () => {
+  console.log(menuIcon.name);
+  menuIcon.name === "menu" ? (menuIcon.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-[100]', main.classList.add('mt-[350px]')))
+        : (menuIcon.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-[100]'), main.classList.remove('mt-[350px]'))
+
+})
+
