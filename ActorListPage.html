@@ -1,18 +1,82 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-   
+    
     <link rel="stylesheet" href="style.css">
     <title>Actor</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.0/tailwind.min.css"
+    integrity="sha256-CAI/7ThhltsmP2L2zKBYa7FknB3ZwFbD0nqL8FCdxdc=" crossorigin="anonymous" />
 </head>
 
 <body>
-    <div class="actorPagecontainer">
-    </div>    
-    <script type="text/javascript" src="script.js"></script>
+    <nav class="flex items-center bg-red-600 opacity-20 p-4 flex-wrap rounded-md antialiasedd ">
+
+
+        <!-- Website Name -->
+        <span class="text-xl text-white tracking-wide font-semibold">ReMoveis</span>
+    
+    
+        <!-- Drop Down Button -->
+        <button
+          class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav toggler">
+          <i class="material-icons">menu</i>
+        </button>
+    
+    
+        <!-- Navbar List -->
+        <div class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto" id="navigation">
+          <div
+            class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
+    
+    
+            <!-- Home -->
+            <a href="#" class=" g:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center duration-700
+                hover:bg-gray-900 hover:textwhite"> <span>Home</span>
+            </a>
+    
+    
+            <!-- Moveis -->
+            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 transition duration-700 
+                hover:text-white-duration-150""> <span>Moveis</span>
+              </a>
+    
+    
+              <!-- Actors -->
+              <a
+                href="/ActorListPage.html" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+                hover:text-white"> <span>Actors</span> </a>
+    
+    
+            <!-- About -->
+            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+                hover:text-white"> <span>About</span> </a>
+    
+    
+            <!-- Search -->
+            <a href="" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+                hover:text-white"><span>Search</span></a>
+    
+    
+            <!-- Filter -->
+            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+                hover:text-white"> <span>Filter</span> </a>
+    
+          </div>
+        </div>
+      </nav>
+       
+      
+    <div class="container">
+    </div>
+    <script type="text/javascript" src="actorList.js"></script>
 </body>
 
 </html>
