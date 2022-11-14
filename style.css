@@ -65,3 +65,11 @@ p.movieDescription {
   visibility: visible;
   opacity: 1;
 }
+
+#footer {
+  background-color: #1B184A;
+}
+
+#navBar {
+  background-color: #1B184A;
+}

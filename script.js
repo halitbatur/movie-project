@@ -119,13 +119,18 @@ const createNav = async () => {
   // create navbar
   let navBar = document.createElement('div');
   navBar.setAttribute('id', 'navBar');
+  navBar.setAttribute('class', 'h-32 w-full flex p-2 justify-between');
+
   document.body.prepend(navBar);
 
   // insert nav bar HTML DOM nodes here
   navBar.innerHTML = `
-    <button id="homeButton">Home</button>
-    <input id="search" type="text" minlength="1" placeholder="search for a movie">
-    <button id="searchButton">search</button>
+    <button id="homeButton" class="text-white text-xl">Home</button>
+    <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
+    <div>
+    <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
+    <button id="searchButton" class="text-white">search</button>
+    </div>
     `;
 
   let searchButton = document.getElementById('searchButton');
@@ -157,7 +162,7 @@ const renderMedia = async (media) => {
   // remove all DOM elements to show fresh results
   CONTAINER.innerHTML =``;
 
-  console.log(media);
+  //console.log(media);
 
   // loop through all results and create DOM elements and display relevant data
   media.results.map((item) => {
