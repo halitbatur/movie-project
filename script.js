@@ -3,12 +3,11 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".container");
+const CONTAINER = document.querySelector(".containerr");
 
 // Don't touch this function please
 const autorun = async() => {
     const movies = await fetchMovies();
-    // playCard();
 
     renderMovies(movies.results);
 
@@ -24,8 +23,15 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async(movie) => {
     const movieRes = await fetchMovie(movie.id);
+    const movieCredits = await creditDetails(movie.id);
+    const relatedMoviesDiv = await relatedMovies(movie.id);
+    // console.log(movie.id);
 
-    renderMovie(movieRes);
+    const renderCreditHtml = renderCredits(movieCredits.cast);
+    const relatedMoviesHTML = renderRelatedMovies(relatedMoviesDiv.results);
+    renderMovie(movieRes, relatedMoviesHTML, renderCreditHtml);
+
+    // renderRelatedMovies(relatedMoviesDiv.results);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -45,6 +51,8 @@ const fetchMovie = async(movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+    const lastCA = document.querySelector("#lastCard");
+
     movies.map((movie) => {
         const movieDiv = document.getElementById("nowPlaying");
         const divCard = document.createElement("div");
@@ -53,7 +61,7 @@ const renderMovies = (movies) => {
 
         divCard.innerHTML = `
             <div class="triangle-right  z-50  absolute"></div>
-            <div id="triangle-topright" class="ml-1.5 z-50  absolute">   
+            <div id="triangle-topright" class="ml-1.5 z-50  absolute">
             </div>
             <div class="overlay">
                 <div class="movieheader-text mr-40 text-xl">${movie.title}</div>
@@ -63,12 +71,24 @@ const renderMovies = (movies) => {
         `;
         movieDiv.appendChild(divCard);
 
-        // movieDiv.addEventListener("click", () => {
-        //     movieDetails(movie);
-        // });
-        // CONTAINER.appendChild(movieDiv);
+        divCard.addEventListener("click", () => {
+            movieDetails(movie);
+            lastCA.remove();
+        });
+        CONTAINER.appendChild(movieDiv);
     });
 };
+
+const creditDetails = async(movieId) => {
+    const url = constructUrl(`movie/${movieId}/credits`);
+    const res = await fetch(url);
+    return res.json();
+}
+const relatedMovies = async(movie) => {
+    const url = constructUrl(`movie/${movie}/similar`);
+    const res = await fetch(url);
+    return res.json();
+}
 
 function getRating(movie) {
     let rating = "";
@@ -124,31 +144,155 @@ function movieGenre(movie) {
     return genre;
 }
 
+
 // You'll need to play with this function in order to add features and enhance the style.
-// const renderMovie = (movie) => {
-//     CONTAINER.innerHTML = `
-//     <div class="row">
-//         <div class="col-md-4">
-//              <img id="movie-backdrop" src=${
-//                BACKDROP_BASE_URL + movie.backdrop_path
-//              }>
-//         </div>
-//         <div class="col-md-8">
-//             <h2 id="movie-title">${movie.title}</h2>
-//             <p id="movie-release-date"><b>Release Date:</b> ${
-//               movie.release_date
-//             }</p>
-//             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-//             <h3>Overview:</h3>
-//             <p id="movie-overview">${movie.overview}</p>
-//         </div>
-//         </div>
-//             <h3>Actors:</h3>
-//             <ul id="actors" class="list-unstyled"></ul>
-//     </div>`;
-// };
+const renderMovie = (movie, relatedMoviesHTML, renderCreditHtml) => {
+    // console.log(movie);
+    CONTAINER.innerHTML = `
+     <div  class="bg-black w-full   absolute  ">
+        <div class="flex mt-16 ml-10">
+            <div class="mainmovie-div bg-gray-300 bg-no-repeat bg-cover bg-center "  style="background-Image: url(${BACKDROP_BASE_URL+movie.backdrop_path})">
+                <div class="movie-triangle1 z-50  absolute"></div>
+                <div class="movie-triangle2 z-50  absolute"></div>
+            </div>
+
+            <div class="red-circle w-9 h-9 bg-red-900 ml-36 mt-3 rounded-full "></div>
+            <div class="line-1 rounded absolute "></div>
+
+            <div class="mainmovie-div flex flex-col gap-24  bg-black ml-24 ">
+                <div class="">
+                    <p class="moviesparaghrap  mt-3  text-center text-5xl text-red-900 ">${movie.title}</p>
+                </div>
+                <div class="">
+                    <p class="moviesparaghrap2 font-bold  text-center text-lg text-white ">${movie.overview}</p>
+                </div>
+                <div class="flex">
+                    <p class="moviesparaghrap   text-center text-4xl mt-10 text-red-900 ">Ratings: ${getRating(movie)}</p>
+                    <div class="star-icon flex mt-10 ml-5 text-white text-4xl"></div>
+                </div>
+            </div>
+
+        </div>
+        ${renderCreditHtml}
+
+       
+       
+
+    ${relatedMoviesHTML}
+       
+    `;
+
+};
+
+//we need to call this function after the render movie is finished add this to the same div 
+
+const renderCredits = (credits) => {
+    return `
+     <div class="mt-32">
+            <p class="moviesparaghrap text-4xl text-white  ml-10">Movie Team</p>
+            <div class="grid grid-cols-3 gap-10 ml-10 mr-10  mt-12">
+
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" style="background-Image: url(${BACKDROP_BASE_URL+credits[0].profile_path})">
+                    <div class="triangle-right  z-50  absolute"></div>
+                    <div id="triangle-topright" class="ml-1.5 z-50  absolute"></div>
+
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl">
+                        ${credits[0].name}
+                        </div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">populararity : ${populararity(credits)}</p>                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">${credits[0].name}</p>
+
+                    </div>
+                     
+
+                </div>
 
 
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center"style="background-Image: url(${BACKDROP_BASE_URL+credits[1].profile_path})">
+                    <div id="triangle1-topright" class="ml-96 z-50  absolute"></div>
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl">
+                        ${credits[1].name}
+                        </div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">populararity : ${populararity(credits)}</p>
+                    </div>
+                </div>
+
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" style="background-Image: url(${BACKDROP_BASE_URL+credits[2].profile_path})">
+                    <div class="triangle-left z-50  absolute"></div>
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl">
+                        ${credits[2].name}
+                        </div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">populararity : ${populararity(credits)}</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    `
+
+}
+
+function populararity(credits) {
+    let populararity = 0;
+    for (let i = 0; i < credits.length; i++) {
+        populararity += credits[i].popularity;
+        if (i === credits.length - 1) {
+            populararity = populararity / credits.length;
+            populararity = String(populararity).slice(0, 4);
+        }
+
+    }
+    return populararity;
+}
+
+
+const renderRelatedMovies = (movie) => {
+
+
+    // create as js element and then append each card with event listener
+    return `
+         <div class="mt-32">
+                <p class="moviesparaghrap text-4xl text-white  ml-10">Related Movies</p>
+                <div class="grid grid-cols-3 gap-10 ml-10 mr-10  mt-12">
+
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center"style="background-Image: url(${BACKDROP_BASE_URL+movie[0].backdrop_path})" onClick="movieDetails(movie[0])">
+                    <div class="triangle-right  z-50  absolute"></div>
+                    <div id="triangle-topright" class="ml-1.5 z-50  absolute"></div>
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl"></div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">${movie[0].title}</p>
+                    </div>
+                </div>
+
+
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" style="background-Image: url(${BACKDROP_BASE_URL+movie[1].backdrop_path})">
+                    <div id="triangle1-topright" class="ml-96 z-50  absolute"></div>
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl"></div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">${movie[1].title}</p>
+                    </div>
+                </div>
+
+                <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" style="background-Image: url(${BACKDROP_BASE_URL+movie[2].backdrop_path})">
+                    <div class="triangle-left z-50  absolute"></div>
+                    <div class="movieoverlay">
+                        <div class="movieheader-text text-4xl"></div>
+                        <p class="moviegener-style text-lg text-white mt-64 ml-5  ">${movie[2].title}</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    `
+
+}
 
 
 

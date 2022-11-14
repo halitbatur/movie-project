@@ -22,6 +22,9 @@
 .moviesparaghrap {
     font-family: 'Radley', serif;
 }
+.moviesparaghrap2{
+  font-family: 'Poppins', sans-serif;
+}
 
 #triangle-topright {
     width: 0;
@@ -83,6 +86,7 @@
     border-top: 40px solid transparent;
     border-left: 80px solid white;
     border-bottom: 50px solid transparent;
+
 }
 
 .triangle-bottomleft {
@@ -91,6 +95,20 @@
     margin-left: -900px;
     border-bottom: 100px solid black;
     border-right: 100px solid transparent;
+}
+
+.movie-triangle1{
+  width: 0;
+  height: 0;
+  border-top: 100px solid black;
+  border-right: 100px solid transparent;
+}
+.movie-triangle2{
+  width: 0;
+  height: 0;
+  transform: rotate(180deg);
+  border-top: 100px solid #770606 ;
+  border-right: 100px solid transparent;
 }
 
 .triangle-topright {
@@ -126,7 +144,26 @@
     background-color: #770606;
 }
 
+
 .container:hover .overlay {
+    opacity: 1;
+}
+
+.movieoverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(0,0,0,0.5);
+}
+
+
+.container:hover .movieoverlay {
     opacity: 1;
 }
 
@@ -143,6 +180,31 @@
 
 .moviegener-style {
     font-family: 'Radley', serif;
+}
+
+.mainmovie-div{
+width:500px;
+height:500px;
+}
+
+.line-1{
+  margin-left:450px;
+  margin-top:300px;
+  width:400px;
+  height:2px;
+  background: white;
+  transform: rotate(90deg);
+  }
+
+#hiddenmovie-div {
+  height:5000px;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 289;
 }
 
 #movie-backdrop {
