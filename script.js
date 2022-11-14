@@ -55,7 +55,7 @@ const fetchSimilar = async (movieId) => {
 };
 
 
-const fetchActors = async (movieId) => {
+const fetchCredits = async (movieId) => {
 
   const url = constructUrl(`movie/${movieId}/credits`);
   const res = await fetch(url);
