@@ -1,0 +1,73 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.center {
+  width: 400px;
+  margin: 10% auto;
+  text-align: center;
+}
+
+.site-nav {
+  background-color: #;
+  opacity: 0.;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.animation {
+    position: relative;
+    padding: 0;
+    width: 300px;
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .overlay {
+    opacity: 0;
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    background-color: #770606;
+    width: 300px;
+    height: 300px;
+    -webkit-transition: all 400ms ease-out;
+    -moz-transition: all 400ms ease-out;
+    -o-transition: all 400ms ease-out;
+    -ms-transition: all 400ms ease-out;
+    transition: all 400ms ease-out;
+
+}
+
+.animation .overlay:hover {
+  opacity: 1;
+}
+
+.actorheader-text {
+    color: white;
+    font-family: 'Radley', serif;
+    position: absolute;
+    top: 50%;
+    left:15%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.actormovie-style {
+    font-family: 'Radley', serif;
+}
+
+
+.animation .overlay .Actordesc{
+  height: 0;
+  opacity: 1;
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+}
