@@ -5,6 +5,8 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
+// let genreList;
+
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
@@ -21,10 +23,15 @@ const constructUrl = (path) => {
 
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
+  // use promise.all to fetch all needed urls here?
   const movieRes = await fetchMovie(movie.id);
+
   const similarMovies = await fetchSimilar(movie.id);
   const credits = await fetchCredits(movie.id);
   renderMovie(movieRes, similarMovies, credits);
+
+
+
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -47,11 +54,14 @@ const fetchSimilar = async (movieId) => {
   return res.json();
 };
 
-const fetchCredits = async (movieId) => {
+
+const fetchActors = async (movieId) => {
+
   const url = constructUrl(`movie/${movieId}/credits`);
   const res = await fetch(url);
   return res.json();
 };
+
 
 const fetchGenre = async () => {
   const url = constructUrl(`genre/movie/list`);
@@ -69,15 +79,18 @@ const fetchSearch = async (searchInput) => {
   // have to add this to the end of the url
   url = url + `&query=${encoded}`;
 
+
   const res = await fetch(url);
   return res.json();
 };
+
 
 
 const filterMovieGenres = async (genId, genreList) => {
 
   // genId is array of genre ids from each specific movie
   // genreList is the entireList we fetched earlier
+
 
   let myList = [];
 
@@ -87,12 +100,15 @@ const filterMovieGenres = async (genId, genreList) => {
 
       if(genreList.genres[j].id === genId[i]) {
         myList.push(genreList.genres[j].name);
+
         // we only need the first one that matches
         // break keyword will terminate the execution of the loop and start over from the outer loop
         break;
+
       }
     }
   }
+
 
   return myList;
 }
@@ -190,12 +206,17 @@ const renderMovies = async (movies) => {
     myGenreList = myGenreList.toString();
 
     // create divs
+
+
+
     const movieDiv = document.createElement("div");
     let descriptionDiv = document.createElement("div");
 
     movieDiv.setAttribute('class', `movieWrapper`);
 
+
     // all elements for each movie on the home page go here
+
     movieDiv.innerHTML = `
         <div class="movieContainer">
           <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class="movieImage">
@@ -218,6 +239,7 @@ const renderMovies = async (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
+
 const renderMovie = async (movie, similarMovies, credits) => {
 
   // movie.production_companies.map((item) => {
@@ -235,8 +257,6 @@ const renderMovie = async (movie, similarMovies, credits) => {
   console.log(directors);
   
 
-
-  
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -252,6 +272,7 @@ const renderMovie = async (movie, similarMovies, credits) => {
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
+
             <h3>Language:${movie.original_language}</h3>
             <h3>Production Companies:${movie.production_companies.map((item) => {
               let logo = item.logo_path ? `<img src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
@@ -260,6 +281,8 @@ const renderMovie = async (movie, similarMovies, credits) => {
                 ${logo}
               `);
             })}</h3>
+
+
         </div>
         </div>
         <p id="moviedirector"> ${directors[0].name}</p>
@@ -268,6 +291,7 @@ const renderMovie = async (movie, similarMovies, credits) => {
             <h3>Similar Movies:</h3>
             <div id="similar"></div>
     </div>`;
+
 
     const actorCredits = document.getElementById('actors');
     credits = credits.cast.slice(0, 5);
@@ -294,3 +318,4 @@ const renderMovie = async (movie, similarMovies, credits) => {
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
