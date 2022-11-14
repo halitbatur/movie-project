@@ -135,6 +135,13 @@
     border-top: 100px solid black;
     border-left: 100px solid transparent;
 }
+.hobbittriangle-topright {
+    width: 0;
+    height: 0;
+    margin-left: 850px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
+}
 
 .trianglemovie-topright {
     width: 0;
@@ -194,7 +201,17 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-
+.thehobbit-text {
+           background-image: url(./images/thehobbit1.jpg);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           font-size: 50px;
+           font-weight: bold;
+           text-transform: uppercase;
+           font-family: 'Radley', serif;
+           font-weight: 500;
+           -webkit-font-smoothing: antialiased;
+       }
 .moviegener-style {
     font-family: 'Radley', serif;
 }
@@ -202,7 +219,7 @@
 .mainmovie-div{
 width:500px;
 height:500px;
-background-image: url("aboutmain.jpg");
+background-image: url(./images/aboutmain.jpg);
 }
 
 .line-1{
