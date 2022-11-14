@@ -1,21 +1,16 @@
 'use strict';
 
-
-
 let movieGenres = document.querySelector("#movieGenres");
 let openMenu = document.getElementById("mega-menu-full");
+
 function toggleIt() {
   return movieGenres.classList.toggle("hidden");
 
 }
-  function toggleItNavbar(){
 
-    return openMenu.classList.toggle("hidden");
-  }
-
-
-
-//                     -----------------------
+function toggleItNavbar(){
+  return openMenu.classList.toggle("hidden");
+}
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -44,24 +39,26 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
+  const comp = await movieRes.production_companies;
   const credits = await fetchCredits(movie.id);
-  const trailer = await fetchTrailer(movie.id);
+  const trailer = await fetchTrailer(movie.id); 
   const official = trailer.results.find(item => item.name.includes("Official Trailer"));
-  console.log(trailer);
-  // console.log(credits);
-  console.log(movieRes)
-  // const official = array.filter()
+  
   const cast = credits.cast.slice(0,5).map((actor) => { 
   if (actor.profile_path) {
   return `<li>${actor.name}</li> 
           <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="">` 
-} else return `<li>${actor.name}</li>`
-}).join('')
-  console.log(cast)
-  console.log(movie)
-console.log(official)
+  } else return `<li>${actor.name}</li>`
+  }).join('')
 
-  renderMovie({details: movieRes, cast: cast, official: official});
+  const companies = comp.map((com) => { 
+    if (com.logo_path) {
+    return `<li>${com.name}</li> 
+            <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
+  } else return `<li>${com.name}</li>`
+  }).join('')
+
+  renderMovie({details: movieRes, cast: cast, official: official, companies: companies});
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -75,23 +72,11 @@ const fetchMovies = async () => {
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
+  console.log("hi" + url);
   const res = await fetch(url);
+  console.log("hello" +res);
   return res.json();
 };
-
-
-// document.addEventListener('submit',(e) =>{
-//   e.preventDefault()
-//   const searchValue = search.value;
-//   if (searchValue && searchValue !== "") {
-//     fetchMovies(SEARCH_URL + search.value)
-//     searchValue=''
-//      } else {
-//       window.location.reload()
-//      }
-
-//     })
-
 
 const fetchCredits = async (movieId) => {
   const credits = constructUrl(`/movie/${movieId}/credits`);
@@ -104,6 +89,18 @@ const trailer = constructUrl(`/movie/${movieId}/videos`)
 const res = await fetch(trailer);
 return res.json();
 };
+// document.addEventListener('submit',(e) =>{
+//   e.preventDefault()  
+//   const searchValue = search.value;
+//   if (searchValue && searchValue !== "") {
+//     fetchMovies(SEARCH_URL + search.value)  
+//     searchValue=''
+//      } else {
+//       window.location.reload()  
+//      }
+
+//     })
+
 
 
 
@@ -130,8 +127,10 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
- const {details,cast,official} = movieDetails
+
+ const {details,cast,official,companies} = movieDetails
  const{poster_path,title,release_date,runtime,overview,vote_average,vote_count,backdrop_path} = details
+
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -150,6 +149,7 @@ const renderMovie = (movieDetails) => {
             <p id="vote-count"><b>Vote Count:</b> ${vote_count}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${overview}</p>
+            <ul>Production Companies: ${companies}<ul>
         </div>
         </div>
             <h3>Actors:</h3> 
