@@ -24,3 +24,8 @@
     width: 100%;
     position: relative;
   } */
+
+ .poster {
+    max-height: 600px;
+    min-height: 200px;
+  }

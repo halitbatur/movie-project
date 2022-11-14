@@ -6,6 +6,20 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
 const CONTAINER2 = document.querySelector(".container2");
 const ACTORS = document.querySelector('#actorsLink');
 
+
+
+let movieGenres = document.querySelector("#movieGenres");
+let openMenu = document.getElementById("mega-menu-full");
+function toggleIt() {
+  return movieGenres.classList.toggle("hidden");
+
+}
+  function toggleItNavbar(){
+
+    return openMenu.classList.toggle("hidden");
+}
+
+
 const constructUrl = (path) => {
     return `${TMDB_BASE_URL}/${path}?api_key=${atob(
       "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
@@ -34,7 +48,7 @@ const autorun2 = async () => {
             <img class="cursor-pointer" src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${
           actor.name
         } poster">
-            <h3>${actor.name}</h3>`;
+            <h3 class="text-white font-gotham text-500">${actor.name}</h3>`;
         // movieDiv.addEventListener("click", () => {
         //   movieDetails(movie);
         // });
