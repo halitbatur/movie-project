@@ -168,5 +168,3 @@ const displaySingleAMoviePage = () => {
           </div>`;
 };
 document.addEventListener("DOMContentLoaded", autorun);
-
-  
