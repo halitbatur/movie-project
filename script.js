@@ -54,8 +54,24 @@ const CONTAINER = document.querySelector(".container");
 
 // Don't touch this function please
 const autorun = async () => {
+  const genres = await fetchMoviesGenres();
+  renderMoviesGenres(genres.genres)
   const movies = await fetchMovies();
   renderMovies(movies.results);
+  document.getElementById("searchInput").addEventListener('keydown', async(e)=>{
+    if(e.key === "Enter"){
+      const input = document.getElementById("searchInput");
+      const inputVal = input.value;
+      const searchRes = await searchForMovie(inputVal)
+      displayMovieSearchResults(searchRes.results)
+    }
+  })
+  document.getElementById('searchBtn').addEventListener('click', async ()=>{
+    const input = document.getElementById("searchInput");
+    const inputVal = input.value;
+    const searchRes = await searchForMovie(inputVal)
+    displayMovieSearchResults(searchRes.results)
+  })
 };
 
 // Don't touch this function please
@@ -124,5 +140,83 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const fetchMoviesGenres = async () => { // to get all genres of movies, will return objs {id , name}
+  const url = constructUrl(`/genre/movie/list`);
+  const res = await fetch(url);
+  return res.json();
+}
+// this function create button for each genre, add an event listner to change the content according to which genre the user clicks on
+const renderMoviesGenres = (genres) =>{
+  let dropDownListContent = document.getElementById("dropdown-menu-genres");
+  genres.map((genre)=>{// objects of genres
+    var genreElement = document.createElement('li');
+    
+    genreElement.innerHTML = `<input type="checkbox" name="${genre.name}" id="${genre.name}" />
+    <label for="${genre.name}">${genre.name}</label>`
+    genreElement.classList += "dropdown-item"
+
+    genreElement.addEventListener('click', async ()=>{
+      let x = await chooseByGenres(genre.id);
+      displayMovieSearchResults(x.results)
+  })
+  dropDownListContent.appendChild(genreElement)
+  })
+}
+const chooseByGenres = async (genreId) =>{
+  const url = constructUrl(`discover/movie`)
+  var urlWithQuery = new URL(url);
+  urlWithQuery.searchParams.append('with_genres', genreId);
+  const res = await fetch(urlWithQuery);
+  return res.json();
+}
+const filterMovies = async () =>{
+  const url = constructUrl(`discover/movie`)
+  var urlWithQuery = new URL(url);
+  urlWithQuery.searchParams.append('with_genres', genreId);
+  const res = await fetch(urlWithQuery);
+  return res.json();
+}
+const showMovieElement = (element) =>{
+  if(element.classList.contains("hide")){
+    element.classList.remove("hide");
+    element.classList += (" show")
+  }
+}
+const hideMovieElement = (element) =>{
+  if(element.classList.contains("show")){
+    element.classList.remove("show");
+    element.classList += (" hide")
+  }
+}
+const searchForMovie = async(input) =>{
+  if(input === "" || input === " ") return ;
+  const url = constructUrl(`search/movie`)
+  var urlWithQuery = new URL(url);
+  urlWithQuery.searchParams.append('query', input);
+  const res = await fetch(urlWithQuery);
+  return res.json();
+}
+const displayMovieSearchResults = async (results) =>{
+  CONTAINER.innerHTML =""
+  results.map((movie) => {
+    const movieDiv = document.createElement("div");
+    movieDiv.classList = `movieDiv`
+    movieDiv.classList += " show ";
+    for(let i=0; i<movie.genre_ids.length; i++){
+      movieDiv.classList += ` ${movie.genre_ids[i]} `;//each movie element now have it's genre in the class name, we will use this while filtering
+    }
+    movieDiv.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
+      movie.original_title
+    } poster">
+        <h3>${movie.original_title}</h3>`;
+    movieDiv.addEventListener("click", () => {
+      movieDetails(movie);
+    });
+    CONTAINER.appendChild(movieDiv);
+  });
+}
 
 document.addEventListener("DOMContentLoaded", autorun);
