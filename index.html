@@ -4,15 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Movie</title>
 </head>
 
-<body>
-    <div class="container">
-    </div>
-    <script type="text/javascript" src="script.js"></script>
+<body class="bg-white text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100">
+  <h1 class="logo">IMBD<span>V2.0</span></h1>
+  <div class="menu-bar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Actors</a></li>
+      <li><a href="#">Movies Genres<i class="fas fa-caret-down"></i></a>
+
+        <div class="dropdown-menu">
+          <ul>
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Comedy</a></li>
+            <li><a href="#">Horror</a></li>
+            <li><a href="#">Drama</a></li>
+          </ul>
+        </div>
+
+      <li><a href="#">About</a></li>
+      <li><a href="#">Search</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <form action="https://www.google.com/search" method="get" class="search-bar">
+      <input type="text" placeholder="search anything" name="q">
+      <button type="submit"><img src="C:\Users\spark\AppData\Local\Temp\Rar$DIa9864.1200\search.png"></button>
+    </form>
+  </div>
+
+  <div class="navbar"></div>
+  <div class="container mx-auto flex flex-wrap justify-center max-w-screen-lg gap-4">
+  </div>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" type="text/javascript" src="script.js"></script>
 </body>
 
 </html>
