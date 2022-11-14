@@ -9,3 +9,18 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+
+/* .swiper {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+  }
+  .swiper-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .swiper-wrap > div {
+    float: left;
+    width: 100%;
+    position: relative;
+  } */
