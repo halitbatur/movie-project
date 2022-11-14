@@ -51,6 +51,8 @@ const fetchMovie = async(movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+    const lastCA = document.querySelector("#lastCard");
+
     movies.map((movie) => {
         const movieDiv = document.getElementById("nowPlaying");
         const divCard = document.createElement("div");
@@ -71,10 +73,18 @@ const renderMovies = (movies) => {
 
         divCard.addEventListener("click", () => {
             movieDetails(movie);
+            lastCA.remove();
         });
         CONTAINER.appendChild(movieDiv);
     });
 };
+
+const rederActors = async() => {
+    const url = constructUrl(`person/popular`);
+    const res = await fetch(url);
+    // console.log(res.json());
+    return res.json();
+}
 const creditDetails = async(movieId) => {
     const url = constructUrl(`movie/${movieId}/credits`);
     const res = await fetch(url);
@@ -289,5 +299,7 @@ const renderRelatedMovies = (movie) => {
     `
 
 }
+
+
 
 document.addEventListener("DOMContentLoaded", autorun);
