@@ -4,7 +4,7 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
-
+const traileCONTAINER = document.querySelector(".trailer");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
@@ -78,7 +78,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, actors, videos) => {
+const renderMovie = (movie, actors, videos,releated) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -103,9 +103,10 @@ const renderMovie = (movie, actors, videos) => {
             <ul id="similar" class="list-unstyled">
             </ul>
     </div>
+    <div>
     <iframe class="movie-trailer" src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key:videos[0].key}" 
     frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-     allowfullscreen></iframe>
+     allowfullscreen></iframe>  </div>`;
   
     `;  
   //   const similarList = document.getElementById("similar")
@@ -128,10 +129,18 @@ const renderMovie = (movie, actors, videos) => {
     actorList.append(renderActors(actors))
   
    
+    
+    const releatedList = document.getElementById("releated")
+    releatedList.append(renderReleatedMovies(releated))
+
+    traileCONTAINER.innerHTML = ` <div>
+    <iframe class="movie-trailer" src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key:videos[0].key}" 
+    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+     allowfullscreen></iframe>  </div>`;
 
 
   };
-  
+  //__________________________      renderActors  __________________________________________________
   const renderActors = (actors) =>  {
       actors.cast.slice(0, 5).map((actor) => {
       const actorDiv = document.createElement("ul");
@@ -152,4 +161,21 @@ const renderMovie = (movie, actors, videos) => {
     };
 
   } 
+
+  const renderReleatedMovies = (releateds) =>  {
+    releateds.similar.slice(0, 5).map((relate) => {
+    const relateDiv = document.createElement("ul");
+    relateDiv.innerHTML = `
+        <li>${actor.name}</li>
+        <img src="${BACKDROP_BASE_URL + relate.backdrop_path}" alt="${  relate.title } poster">`;
+
+          relateDiv.addEventListener("click", () => {
+      //displaySingleActorPage();
+    });
+    CONTAINER.appendChild(relateDiv);
+  });
+
+}
+
+
 document.addEventListener("DOMContentLoaded", autorun);
