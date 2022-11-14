@@ -26,7 +26,7 @@
     cursor: pointer;
     overflow: hidden;
   }
-  
+
   .overlay {
     opacity: 0;
     font-size: 20px;
@@ -42,12 +42,28 @@
     -o-transition: all 400ms ease-out;
     -ms-transition: all 400ms ease-out;
     transition: all 400ms ease-out;
-    
+
 }
 
 .animation .overlay:hover {
   opacity: 1;
 }
+
+.actorheader-text {
+    color: white;
+    font-family: 'Radley', serif;
+    position: absolute;
+    top: 50%;
+    left:15%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.actormovie-style {
+    font-family: 'Radley', serif;
+}
+
 
 .animation .overlay .Actordesc{
   height: 0;
