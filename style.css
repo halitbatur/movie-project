@@ -397,3 +397,33 @@ input.search-bar:focus {
     white-space: nowrap;
   }
 }
+#movie-backdrop {
+  width: 100%;
+}
+
+.container {
+  padding-top: 32px;
+}
+
+#actors {
+  margin: 24px 16px 0 0;
+}
+
+.show {
+  display: block;
+}
+.hide{
+  display: none;
+}
+
+/* Variables */
+:root {
+--primary: #a8baf9;
+--primary-dark: rgb(77, 90, 104);
+--primary-focus: rgb(60, 70, 81);
+--primary-darker: rgb(55, 60, 81);
+--secondary: #de66f1;
+--font-logo: "Play", sans-serif;
+--font-title: "Libre Franklin", sans-serif;
+--font-text: "Fira Sans Condensed", sans-serif;
+}
