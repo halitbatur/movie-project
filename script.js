@@ -4,6 +4,7 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
+const actorPage = document.querySelector(".actor-page")
 
 
 // Don't touch this function please
@@ -115,5 +116,65 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
 };
+
+const actorsAutoRun = async () => {
+  const actors = await fetchActors();
+  console.log(actors);
+  renderActors(actors.results);
+};
+
+
+const actorDetails = async (actor) => {
+    const actorRes = await fetchActor(actor.id);
+    renderActor(actorRes);
+  };
+
+const fetchActors = async () => {
+  const url = constructUrl(`person/popular`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+
+const fetchActor = async (actorId) => {
+    const url = constructUrl(`person/${actorId}`);
+    const res = await fetch(url);
+    return res.json();
+  };
+
+
+  const renderActors = (actors) => {
+    actors.map((actor) => {
+      const actorDiv = document.createElement("div");
+      actorDiv.innerHTML = `
+          <img class ="hover:opacity-[30%] via-gray-300 to-white"src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.name}">
+          <h2 class= "text-white text-center py-2">${actor.name}</h2>
+          `;
+      actorDiv.addEventListener("click", () => {
+        actorDetails(actor);
+      });
+      CONTAINER.appendChild(actorDiv);
+    });
+  };
+
+  const renderActor = (actor) => {
+    CONTAINER.innerHTML = `
+      <div class="row">
+          <div class="col-md-4">
+               <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
+          </div>
+          <div class="col-md-8 text-white">
+              <h2>${actor.name}</h2>
+              </div>
+      </div>`;
+  };
+
+  if(actorPage){
+    actorPage.addEventListener("click", function (e) {
+      e.preventDefault();
+        CONTAINER.replaceChildren();
+        actorsAutoRun();
+      });
+  }
 
 document.addEventListener("DOMContentLoaded", autorun);
