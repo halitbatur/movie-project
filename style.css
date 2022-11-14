@@ -97,6 +97,23 @@
     border-right: 100px solid transparent;
 }
 
+.about-triangle1{
+  width: 0;
+  height: 0;
+  margin-left:400px;
+  border-top: 100px solid black;
+  border-left: 100px solid transparent;
+}
+
+.about-triangle2{
+  width: 0;
+  height: 0;
+  margin-left:400px;
+  transform: rotate(180deg);
+  border-top: 100px solid #770606;
+  border-left: 100px solid transparent;
+}
+
 .movie-triangle1{
   width: 0;
   height: 0;
@@ -185,10 +202,11 @@
 .mainmovie-div{
 width:500px;
 height:500px;
+background-image: url("aboutmain.jpg");
 }
 
 .line-1{
-  margin-left:450px;
+  margin-left:406px;
   margin-top:300px;
   width:400px;
   height:2px;
