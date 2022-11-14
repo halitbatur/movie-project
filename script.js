@@ -21,6 +21,9 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
+const CONTAINER2 = document.querySelector(".container2");
+const ACTORS = document.querySelector('#actorsLink');
+const SWIPER = document.querySelector('.swiper');
 
 // Don't touch this function please
 const autorun = async () => {
@@ -64,6 +67,7 @@ console.log(official)
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
+  const actors = constructUrl(`person/popular`);
   const res = await fetch(url);
   return res.json();
 };
@@ -115,7 +119,10 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
+    const backdropDiv = document.createElement("div");
+    backdropDiv.innerHTML = `<img class="cursor-pointer " src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">`
     CONTAINER.appendChild(movieDiv);
+    SWIPER.appendChild(backdropDiv);
   });
 };
 
@@ -124,7 +131,7 @@ const renderMovies = (movies) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
  const {details,cast,official} = movieDetails
- const{poster_path,title,release_date,runtime,overview,vote_average,vote_count} = details
+ const{poster_path,title,release_date,runtime,overview,vote_average,vote_count,backdrop_path} = details
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -148,6 +155,10 @@ const renderMovie = (movieDetails) => {
             <h3>Actors:</h3> 
             <ul id="actors" class="list-unstyled">${cast}</ul>
     </div>`;
+    SWIPER.innerHTML =   `<main class="grid grid-cols-3">
+    <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
+      BACKDROP_BASE_URL + backdrop_path
+    }></div></main>`
 };
 
 const movieSearchBox = document.getElementById("movie-search-box");
@@ -155,4 +166,3 @@ const searchList = document.getElementById("search-list");
 
 
 document.addEventListener("DOMContentLoaded", autorun);
-
