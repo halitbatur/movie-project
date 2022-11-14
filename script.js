@@ -245,14 +245,8 @@ function populararity(credits) {
 }
 
 
-
-
-
 const renderRelatedMovies = (movie) => {
 
-    // const html = `<div class="mt-32">
-    //             <p class="moviesparaghrap text-4xl text-white  ml-10">Related Movies</p>
-    //             <div class="grid grid-cols-3 gap-10 ml-10 mr-10  mt-12">`
 
     // create as js element and then append each card with event listener
     return `
