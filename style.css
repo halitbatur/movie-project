@@ -22,19 +22,9 @@ body{
     column-gap: 3rem;
     row-gap: 1.5rem;
     margin-bottom:100px;
-=======
+
 }
-/* home page */
-.container {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: center;
-  column-gap: 3rem;
-  row-gap: 1.5rem;
-  
->>>>>>> 979114ab95ceaada33c46816aa3716344fead086
-}
+
 .grid-item{
 position: relative;
 background-color: #233a50;
