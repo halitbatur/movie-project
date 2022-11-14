@@ -11,7 +11,6 @@ const autorun = async () => {
   renderMovies(movies.results);
   console.log(movies.results)
 };
-
 // Don't touch this function please
 const constructUrl = (path) => {
   return `${TMDB_BASE_URL}/${path}?api_key=${atob(
