@@ -1,18 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
-    <title>Movie</title>
+    <link rel="stylesheet" href="mainslider.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://kit.fontawesome.com/1b2ca39d1b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MOVIES</title>
 </head>
 
-<body>
-    <div class="container">
+
+<body class="bg-black">
+
+<div class="aboutdescreption-bage">
+<p class="moviesparaghrap  mt-3  text-center text-5xl text-white ">WHO WE ARE?</p>
+  <div class="flex mt-20 ml-10">
+
+    <div class="mainmovie-div flex flex-col gap-24  bg-black ml-24 ">
+      <div class="">
+        <p class="moviesparaghrap  mt-3  text-center text-5xl text-red-900 ">Popcorn Store</p>
+      </div>
+      <div class="">
+        <p class="moviesparaghrap2 font-bold center text-center text-lg text-white ">Popcorn Store is a place where it is okay to judge a good movie or a series just kidding but do not say anything bad about the office  here we can give good suggestions about which movie to watch tonight,made with love by Rokaya UI Master Rozhiar the JS wizard and Wafa the Design Lord.</p>
+      </div>
+
     </div>
-    <script type="text/javascript" src="script.js"></script>
+
+  <div class="red-circle w-9 h-9 bg-red-900 mr-32  mt-3 rounded-full "></div>
+  <div class="line-1 rounded absolute "></div>
+
+  <div class="mainmovie-div  bg-no-repeat bg-cover bg-center " >
+     <div class="about-triangle1 z-50  absolute"></div>
+     <div class="about-triangle2 z-50   absolute"></div>
+     </div>
+
+
+
+    </div>
+  </div>
+
+  <div class="jokermovie flex justify-center mt-52 ">
+            <div class="triangle-right1 mt-40 z-50  absolute"></div>
+            <a class="triangle-right2 mt-36 z-50  absolute" target="_blank" href="https://www.youtube.com/watch?v=zAGVQLHvwOY"></a>
+            <div class="triangle-bottomleft  mt-72 z-50  absolute"></div>
+            <div class="hobbittriangle-topright  -mt-8  z-50  absolute"></div>
+            <div class="w-auto h-80 ">
+                <div class="flex flex-col  justify-center absolute">
+                    <p class="thehobbit-text ml-3  mt-3 z-50   bg-no-repeat bg-cover bg-center " >THE<br> HOBBIT</p>
+                </div>
+
+                <div class="w-80 h-96 bg-white opacity-30 absolute ">
+                </div>
+                <img class="object-cover w-80 h-96 " src="./images/thehobbit2.jpg" alt="">
+            </div>
+
+            <div class="w-auto h-80 bg-red-500">
+                <img class="object-cover h-96 " style="width:650px" src="./images/thehobbit1.jpg" alt="">
+            </div>
+
+        </div>
+
+        <div class="w-full h-auto  mt-72">
+<img class="object-cover w-full h-96 " src="./images/11.png" alt="">
+<p class="moviesparaghrap   -mt-80  absolute z-50 text-center text-6xl text-white " style="margin-left:500px;">RECENT MOVIES</p>
+<div class="absolute -mt-48">
+  <img class="bg-cover  " src="./images/traingle3.png" alt="">
+  <img class="bg-cover -mt-56" src="./images/traingle4.png" alt="">
+</div>
+
+<div class="grid grid-cols-3 gap-10  ml-10 mr-10  -mt-24">
+  <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" >
+   <div class="triangle-right  z-50  absolute"></div>
+   <div id="triangle-topright" class="ml-1.5 z-50  absolute"></div>
+   <div class="overlay">
+     <div class="movieheader-text text-4xl"></div>
+     <p class="moviegener-style text-lg text-white mt-64 ml-5  "></p>
+     <div class="star-icon flex mt-5 ml-5 text-white text-5xl"></div>
+   </div>
+   </div>
+
+
+   <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" >
+
+   <div class="overlay">
+     <div class="movieheader-text text-4xl"></div>
+     <p class="moviegener-style text-lg text-white mt-64 ml-5  "></p>
+     <div class="star-icon flex mt-5 ml-5 text-white text-5xl"></div>
+   </div>
+   </div>
+
+   <div class="container h-96 bg-gray-300 bg-no-repeat bg-cover bg-center" >
+   <div class="triangle-left z-50  absolute"></div>
+   <div class="overlay">
+     <div class="movieheader-text text-4xl"></div>
+     <p class="moviegener-style text-lg text-white mt-64 ml-5  "></p>
+     <div class="star-icon flex mt-5 ml-5 text-white text-5xl"></div>
+   </div>
+   </div>
+
+</div>
+        </div>
+
+
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,249 @@
-#movie-backdrop {
-    width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Radley&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.center {
+    width: 400px;
+    margin: 10% auto;
+    text-align: center;
+}
+
+.site-nav {
+    background-color: #;
+    opacity: 0.;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.moviesparaghrap {
+    font-family: 'Radley', serif;
+}
+.moviesparaghrap2{
+  font-family: 'Poppins', sans-serif;
+}
+
+#triangle-topright {
+    width: 0;
+    height: 0;
+    margin-top: 320.5px;
+    border-top: 49px solid #770606;
+    border-left: 49px solid transparent;
+    transform: rotate(-18.5deg);
+}
+
+#triangle2-topright {
+    width: 0;
+    height: 0;
+    margin-left: 350px;
+    border-top: 47px solid #770606;
+    border-left: 47px solid transparent;
+    transform: rotate(-198.6deg);
+}
+
+#triangle1-topright {
+    width: 0;
+    height: 0;
+    border-top: 60px solid black;
+    border-left: 60px solid transparent;
+}
+
+.triangle-left {
+    width: 0;
+    height: 0;
+    margin-top: 330px;
+    margin-left: 310px;
+    border-top: 50px solid transparent;
+    border-right: 100px solid black;
+    border-bottom: 50px solid transparent;
+}
+
+.triangle-right {
+    width: 0;
+    height: 0;
+    margin-top: 330px;
+    border-top: 50px solid transparent;
+    border-left: 100px solid black;
+    border-bottom: 50px solid transparent;
+}
+
+.triangle-right1 {
+    width: 0;
+    height: 0;
+    margin-left: -320px;
+    border-top: 40px solid transparent;
+    border-left: 80px solid black;
+    border-bottom: 50px solid transparent;
+}
+
+.triangle-right2 {
+    width: 0;
+    height: 0;
+    margin-left: -320px;
+    border-top: 40px solid transparent;
+    border-left: 80px solid white;
+    border-bottom: 50px solid transparent;
+
+}
+
+.triangle-bottomleft {
+    width: 0;
+    height: 0;
+    margin-left: -900px;
+    border-bottom: 100px solid black;
+    border-right: 100px solid transparent;
+}
+
+.about-triangle1{
+  width: 0;
+  height: 0;
+  margin-left:400px;
+  border-top: 100px solid black;
+  border-left: 100px solid transparent;
+}
+
+.about-triangle2{
+  width: 0;
+  height: 0;
+  margin-left:400px;
+  transform: rotate(180deg);
+  border-top: 100px solid #770606;
+  border-left: 100px solid transparent;
+}
+
+.movie-triangle1{
+  width: 0;
+  height: 0;
+  border-top: 100px solid black;
+  border-right: 100px solid transparent;
+}
+.movie-triangle2{
+  width: 0;
+  height: 0;
+  transform: rotate(180deg);
+  border-top: 100px solid #770606 ;
+  border-right: 100px solid transparent;
+}
+
+.triangle-topright {
+    width: 0;
+    height: 0;
+    margin-left: 800px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
+}
+.hobbittriangle-topright {
+    width: 0;
+    height: 0;
+    margin-left: 850px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
+}
+
+.trianglemovie-topright {
+    width: 0;
+    height: 0;
+    margin-left: 900px;
+    border-top: 100px solid black;
+    border-left: 100px solid transparent;
 }
 
 .container {
-    padding-top: 32px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #770606;
+}
+
+
+.container:hover .overlay {
+    opacity: 1;
+}
+
+.movieoverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(0,0,0,0.5);
+}
+
+
+.container:hover .movieoverlay {
+    opacity: 1;
+}
+
+.movieheader-text {
+    color: white;
+    font-family: 'Radley', serif;
+    position: absolute;
+    top: 50%;
+    left: 26%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.thehobbit-text {
+           background-image: url(./images/thehobbit1.jpg);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           font-size: 50px;
+           font-weight: bold;
+           text-transform: uppercase;
+           font-family: 'Radley', serif;
+           font-weight: 500;
+           -webkit-font-smoothing: antialiased;
+       }
+.moviegener-style {
+    font-family: 'Radley', serif;
+}
+
+.mainmovie-div{
+width:500px;
+height:500px;
+background-image: url(./images/aboutmain.jpg);
+}
+
+.line-1{
+  margin-left:406px;
+  margin-top:300px;
+  width:400px;
+  height:2px;
+  background: white;
+  transform: rotate(90deg);
+  }
+
+#hiddenmovie-div {
+  height:5000px;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 289;
+}
+
+#movie-backdrop {
+    width: 100%;
 }
 
 #actors {
