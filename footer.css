@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Poppins;
+}
+.footer-container{
+    background: #000;
+    height: 25vmax;
+}
+h3{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 800;
+font-size: 24px;
+line-height: 36px;
+display: flex;
+}
+h5{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.314769px;
+
+}
+.footer_triangle_2{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 200px 200px 0 0;
+    border-color: #860808 transparent transparent transparent;
+    margin-left: 900px;
+    transform: rotate(180deg);
+    position: absolute;
+    margin-top: 60px;
+    padding-bottom: 70px;
+  }
+  .footer_triangle_1{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 200px 200px 0 0;
+    border-color: #860808 transparent transparent transparent;
+    position: absolute;
+    margin-left: 288px;
+    margin-top: 25px;
+  }
+  .socials{
+    position: absolute;
+width: 300px;
+height: 363px;
+left: 0px;
+top: 25px;
+
+background: rgba(255, 255, 255, 0.95);
+  }
+  .dark_logo{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+  .fa-square-instagram{
+    position: absolute;
+left: 26%;
+right: 74%;
+top: 70%;
+bottom: 30%;
+font-size: 45px;
+color: #400404;
+ }
+
+ .fa-square-facebook{
+    position: absolute;
+left: 42%;
+right: 20%;
+top: 70%;
+bottom: 30%;
+font-size: 45px ;
+color: #400404;
+ }
+
+ .fa-linkedin{
+    position: absolute;
+left: 58%;
+right: 20%;
+top: 70%;
+bottom: 30%;
+font-size: 45px ;
+color: #400404;
+ }

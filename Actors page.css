@@ -48,28 +48,5 @@
     transform: translateY(40px);
     -webkit-transform: translateY(40px);
   }
-  .footer_triangle_2{
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 200px 200px 0 0;
-    border-color: #860808 transparent transparent transparent;
-    margin-left: 25px;
-    transform: rotate(180deg);
-    position: absolute;
-    margin-top: 25px;
-  }
-  .footer_triangle_1{
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 200px 200px 0 0;
-    border-color: #860808 transparent transparent transparent;
-    position: absolute;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
   
   
