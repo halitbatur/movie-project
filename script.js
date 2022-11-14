@@ -208,9 +208,5 @@ const navbarMenu = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", autorun(), renderAbout(), renderSearchMovies(), renderHome(), navbarMenu());
-
-
-
-
+document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderHome(), navbarMenu());
 
