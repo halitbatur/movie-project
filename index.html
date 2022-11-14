@@ -14,33 +14,32 @@
     <nav class="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
             <a href="#" class="flex items-center">
-                <img src="https://cdn.vanguardngr.com/wp-content/uploads/2013/12/movies.gif" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
+                <img src="https://cdn.vanguardngr.com/wp-content/uploads/2013/12/movies.gif" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"></span>
             </a>
             <button onclick="toggleItNavbar()" data-collapse-toggle="mega-menu-full" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mega-menu-full" aria-expanded="false">
                     <span  class="sr-only">Open main menu</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
             </button>
-            <div id="mega-menu-full" class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1">
-                <ul class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <div id="mega-menu-full" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a href="./index.html" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
+                        <a href="./index.html" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
                     </li>
                     <li>
-                        <button onclick="toggleIt()" id="mega-menu-full-dropdown-button" data-collapse-toggle="mega-menu-full-dropdown" class=" flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded md:w-auto hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Movies <svg class="ml-1 w-5 h-5 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+                        <button onclick="toggleIt()" id="mega-menu-full-dropdown-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-700 rounded md:w-auto hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Movies <svg class="w-5 h-5 ml-1 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Actor List</a>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Actor List</a>
                     </li>
                     <li>
-                        <a href="./about.html" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                        <a href="./about.html" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">About</a>
                     </li>
                 </ul>
-                <input type="text" id="search-navbar" class="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
             </div>
         </div>
-        <div id="mega-menu-full-dropdown" class="mt-1 bg-gray-50 border-gray-200 shadow-sm md:bg-white border-y dark:bg-gray-800 dark:border-gray-600">
-            <div id="movieGenres" class="grid py-5 px-4 mx-auto max-w-screen-xl text-gray-900 dark:text-white sm:grid-cols-2 md:px-6 hidden ">
+        <div id="mega-menu-full-dropdown" class="mt-1 border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-800 dark:border-gray-600">
+            <div id="movieGenres" class="grid hidden max-w-screen-xl px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:px-6 ">
                 <ul>
                     <li>
                         <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -85,87 +84,33 @@
         </div>
     </div>
     </nav>
-                            <!-- start of Search Bar -->
-                            <div class="search-container">
-                                <div class="search-element">
-                                    <form class="flex items-center">   
-                                        <div class="relative w-full">
-                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                                        <!-- start of Search Bar -->
+                                            <div class="flex items-center">   
+                                                <div class="relative w-full">
+                                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                                                    </div>
+                                                    <input id="movie-search-box" type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for movies, actors..." required>
+                                                </div>
+                                                <button id="movie-search-btn"  type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: msFilter"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                                                </button>
+                                            </div> 
+                                            <div class="absolute flex flex-col search-list" id="search-list">
+                                                <div id="errorMessage" class="text-lg text-red-600"></div>
+                                                <ul id="render-search" class="text-black bg-white rounded-sm poflex search-list-item dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                </ul>
                                             </div>
-                                            <input type="text" id="movie-search-box" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for movies, actors..." required>
-                                        </div>
-                                        <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: msFilter"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
-                                        </button>
-                                    </form> 
+
+                                                        
+                                                        
                                 </div>
-                                <div class="search-list
-                                flex flex-col absolute" id="search-list">
-                                    <div class="search-list-item flex  text-black
-                                    bg-white
-                                    dark:bg-gray-900
-                                    dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-600
-                                    rounded-sm">
-                                        <div class="search-item-thumbnail">
-                                            <img class="flex w-16" src="https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_FMjpg_UX1000_.jpg" alt="harry potter">
-                                        </div>
-                                        <div class="search-item-info flex flex-col justify-center m-2 p-4">
-                                            <h3>Harry Potter and the Deathly Hallows: Part 1</h3>
-                                            <p>2010</p>
-                                            <p><span style="font-size:100%;color:yellow;">&starf;</span> 9.1</p>
-                                        </div>
-                                    </div>
-                                    <div class="search-list-item flex  text-black
-                                    bg-white
-                                    dark:bg-gray-900
-                                    dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-600
-                                    rounded-sm">
-                                        <div class="search-item-thumbnail">
-                                            <img class="flex w-16" src="https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_FMjpg_UX1000_.jpg" alt="harry potter">
-                                        </div>
-                                        <div class="search-item-info flex flex-col justify-center m-2 p-4">
-                                            <h3>Harry Potter and the Deathly Hallows: Part 1</h3>
-                                            <p>2010</p>
-                                            <p><span style="font-size:100%;color:yellow;">&starf;</span> 9.1</p>
-                                        </div>
-                                    </div>
-                                    <div class="search-list-item flex  text-black
-                                    bg-white
-                                    dark:bg-gray-900
-                                    dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-600
-                                    rounded-sm">
-                                        <div class="search-item-thumbnail">
-                                            <img class="flex w-16" src="https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_FMjpg_UX1000_.jpg" alt="harry potter">
-                                        </div>
-                                        <div class="search-item-info flex flex-col justify-center m-2 p-4">
-                                            <h3>Harry Potter and the Deathly Hallows: Part 1</h3>
-                                            <p>2010</p>
-                                            <p><span style="font-size:100%;color:yellow;">&starf;</span> 9.1</p>
-                                        </div>
-                                    </div>
-                                    <div class="search-list-item flex w-screen text-black
-                                    bg-white
-                                    dark:bg-gray-900
-                                    dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-600
-                                    rounded-sm">
-                                        <div class="search-item-thumbnail">
-                                            <img class="flex w-16" src="https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_FMjpg_UX1000_.jpg" alt="harry potter">
-                                        </div>
-                                        <div class="search-item-info flex flex-col justify-center m-2 p-4">
-                                            <h3>Harry Potter and the Deathly Hallows: Part 1</h3>
-                                            <p>2010</p>
-                                            <p><span style="font-size:100%;color:yellow;">&starf;</span> 9.1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end of Search Bar -->
+                                    <!--     end of Search Bar -->
                 
                             <!-- end of the Navbar -->
    
     <main>
-        <div class="grid grid-cols-3 container gap-5"></div>
+        <div class="container grid grid-cols-3 gap-5"></div>
     </main>
     
     <!-- <div><footer class="">
