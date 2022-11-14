@@ -158,7 +158,7 @@ const renderMovie = async (movie) => {
     </div>`;
     
 
-  
+
 
     let similarMovies = await fetchSimilar(movie.id);
 
