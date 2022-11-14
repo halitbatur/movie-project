@@ -79,12 +79,6 @@ const renderMovies = (movies) => {
     });
 };
 
-const rederActors = async() => {
-    const url = constructUrl(`person/popular`);
-    const res = await fetch(url);
-    // console.log(res.json());
-    return res.json();
-}
 const creditDetails = async(movieId) => {
     const url = constructUrl(`movie/${movieId}/credits`);
     const res = await fetch(url);
