@@ -1,12 +1,14 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Radley&display=swap');
+.footerfont-style {
     margin: 0;
     padding: 0;
     color: white;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
 }
 .footer-container{
-    background: #000;
-    height: 25vmax;
+    background: #0E0C0C;
+
 }
 h3{
     font-family: 'Poppins';
@@ -35,11 +37,11 @@ letter-spacing: -0.314769px;
     border-style: solid;
     border-width: 200px 200px 0 0;
     border-color: #860808 transparent transparent transparent;
-    margin-left: 900px;
+    margin-left:1166px;
     transform: rotate(180deg);
     position: absolute;
     margin-top: 60px;
-    padding-bottom: 70px;
+    padding-bottom: 102px;
   }
   .footer_triangle_1{
     display: inline-block;
@@ -49,11 +51,10 @@ letter-spacing: -0.314769px;
     border-width: 200px 200px 0 0;
     border-color: #860808 transparent transparent transparent;
     position: absolute;
-    margin-left: 288px;
-    margin-top: 25px;
+    margin-left: 300px;
+
   }
   .socials{
-    position: absolute;
 width: 300px;
 height: 363px;
 left: 0px;
@@ -67,7 +68,6 @@ background: rgba(255, 255, 255, 0.95);
     padding-top: 10px;
   }
   .fa-square-instagram{
-    position: absolute;
 left: 26%;
 right: 74%;
 top: 70%;
@@ -77,7 +77,6 @@ color: #400404;
  }
 
  .fa-square-facebook{
-    position: absolute;
 left: 42%;
 right: 20%;
 top: 70%;
@@ -87,7 +86,7 @@ color: #400404;
  }
 
  .fa-linkedin{
-    position: absolute;
+
 left: 58%;
 right: 20%;
 top: 70%;
