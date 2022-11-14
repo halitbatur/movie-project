@@ -36,9 +36,11 @@ const renderActor = async (actor) => {
         <p id="movie-language" class="text-base">
           <b>Popularity: </b>${actor.popularity}
         </p>
+        ${actor.deathday ? `
         <p id="movie-language" class="text-base">
           <b>Death Day: </b>${actor.deathday}
         </p>
+        ` : ''}
         <p id="actor-biography" class="text-base">
           <b>biography: </b> ${actor.biography.length > 500
     ? `${actor.biography.slice(0, 500)} ...
