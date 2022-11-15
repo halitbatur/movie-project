@@ -13,9 +13,6 @@ const constructUrl = (path) => {
   )}`;
 };
 
-
-
-
 // ____________________________________actor rendering___________________________-
 //Fetching Actors and Single Actors //
 const actorsPage = async () => {

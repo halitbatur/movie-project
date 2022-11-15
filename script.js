@@ -61,10 +61,14 @@ const fetchRelatedFilms = async (id) => {
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    movieDiv.style="display: flex; width:30%;  flex-wrap: wrap; @media" ;
     movieDiv.innerHTML = `
+          <div class="flex flex-col rounded-lg justify-center item-center  my-2">
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
-      } poster">
-        <h3>${movie.title}</h3>`;
+      } poster"class="" >
+        <h3>${movie.title}</h3>
+        </div>
+        `;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -75,17 +79,30 @@ const renderMovies = (movies) => {
 // rendring the details inside this HTML
 const renderMovie = (movie, actors, videos, relatedFilms) => {
   CONTAINER.innerHTML = `
-          <div class="row">
-          <div> <iframe class="movie-trailer" src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key : videos[0].key}" 
+          
+          <section>
+          <div class="flex flex-col w-full rounded-lg p-10 shadow-2xl mt-20">
+
+          <div class="w-full flex justify-center items-center text-dark text-4xl font-bold my-4">
+          <h1 class="text-6xl font-bold text-center font-serif">The Trailer of the Movie</h1> 
+          </div>
+          <div class="flex justify-center w-full h-96 px-10 py-4" style=";
+          height: 27rem;">
+          <iframe class="flex movie-trailer w-2/4 justify-center h-full " src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key : videos[0].key}" 
           frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
            allowfullscreen></iframe>
-              </div>
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path
-    }>
+              </div> 
+          </div>
+          
+        
+        <div class="flex flex-row justify-center w-full my-32 text-white  shadow-2xl rounded-lg bg-red-600 p-24">
+        <div class="w-2/4">
+             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path} class="h-full border-2 ">
         </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
+
+
+        <div class="w-2/4 ml-5">
+            <h2 id="movie-title" class="text-3xl font-bold text-center my-2">${movie.title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
     }</p>
            <p id="movie-release-date"><b>Movie Language</b> ${movie.original_language.toUpperCase()
@@ -108,17 +125,31 @@ const renderMovie = (movie, actors, videos, relatedFilms) => {
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
+
+        </div>
+       <div class="flex flex-col w-full justify-center item-center my-24 shadow-2xl bg-white text-dark w-full">
+       <div>
+       <h3 class="text-6xl font-bold text-center font-serif mt-5">Movie's Actors</h3>
+       </div>
+       <div>
+       <ul id="actors" class="flex flex-wrap rounded-lg justify-center item-center space-x-6 my-2 ">
+       </ul> 
+       </div>
+       </div>
        
-            <h3>Actors:</h3>
-            <h3>Find your best Actor</h3>
-            <ul id="actors" class="list-unstyled">
-            </ul> 
-            <h3>Similar Films</h3>
-            <ul id="similarFilms" class="list-unstyled">
-            </ul>
-    </div>
+
+       <div class="flex flex-col w-full justify-center bg-red-600 item-center my-24 shadow-2xl">
+       <div>
+       <h3 class="text-6xl font-bold text-white text-center font-serif mt-5 ">Similar Films</h3>
+       <ul id="similarFilms" class="flex flex-wrap rounded-lg justify-center item-center space-x-6 my-2">
+       </ul>
+       </div>
+       </div>
+
+           
+      </div>
    
-  
+  </section>
     `;
   renderActors(actors)
   renderSimilarFilms(relatedFilms)
@@ -130,8 +161,8 @@ const renderActors = (actors) => {
   actors.cast.slice(0, 5).map((actor) => {
     const actorDiv = document.createElement("ul");
     actorDiv.innerHTML = `
-        <li>${actor.name}</li>
-        <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" style="width:48px">`;
+        <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" style="width:200px" class="rounded-lg pt-5">
+        <li class="text-2xl text-b py-2 font-serif font-bold my-3 text-center">${actor.name}</li>`;
     actorDiv.addEventListener("click", () => { displaySingleActorPage(); });
     actorList.appendChild(actorDiv);
   });
@@ -145,8 +176,8 @@ const renderSimilarFilms = (similarFilms) => {
   similarFilms.results.slice(0, 5).map((film) => {
     const filmDiv = document.createElement("ul");
     filmDiv.innerHTML = `
-        <li>${film.original_title}</li>
-        <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px">`;
+        <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px" class="rounded-lg pt-5">
+        <li class="text-2xl text-b py-2 font-serif font-bold my-3 text-center">${film.original_title}</li>`;
     filmDiv.addEventListener("click", () => { displaySingleAMoviePage(); });
     relatedFilmsList.appendChild(filmDiv);
   });

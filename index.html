@@ -2,22 +2,21 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Movie</title>
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
-    integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Movie</title>
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+  integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.0/tailwind.min.css"
-    integrity="sha256-CAI/7ThhltsmP2L2zKBYa7FknB3ZwFbD0nqL8FCdxdc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.0/tailwind.min.css"
+  integrity="sha256-CAI/7ThhltsmP2L2zKBYa7FknB3ZwFbD0nqL8FCdxdc=" crossorigin="anonymous" />
+
 </head>
 
-<body>
+<body class=" justify-center">
 
-    <nav class="flex items-center bg-red-600 opacity-20 p-4 flex-wrap rounded-md antialiasedd ">
+    <nav class="flex items-center bg-red-600  p-4 flex-wrap rounded-md antialiasedd ">
 
 
         <!-- Website Name -->
@@ -32,56 +31,57 @@
     
     
         <!-- Navbar List -->
-        <div class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto" id="navigation">
+        <div class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto space-x-10" id="navigation">
           <div
             class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
     
     
             <!-- Home -->
-            <a href="#" class=" g:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center duration-700
+            <a href="#" class="text-3xl g:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center duration-700
                 hover:bg-gray-900 hover:textwhite"> <span>Home</span>
             </a>
     
     
             <!-- Moveis -->
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 transition duration-700 
+            <a href="#" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 transition duration-700 
                 hover:text-white-duration-150""> <span>Moveis</span>
               </a>
     
     
               <!-- Actors -->
               <a
-                href="/ActorListPage.html" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+                href="/ActorListPage.html" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 duration-700
                 hover:text-white"> <span>Actors</span> </a>
     
     
             <!-- About -->
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+            <a href="#" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 duration-700
                 hover:text-white"> <span>About</span> </a>
     
     
             <!-- Search -->
-            <a href="" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+            <a href="" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 duration-700
                 hover:text-white"><span>Search</span></a>
     
     
             <!-- Filter -->
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 duration-700
+            <a href="#" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 duration-700
                 hover:text-white"> <span>Filter</span> </a>
     
           </div>
         </div>
       </nav>
 
-    <div class="container">
+    <div class="flex flex-wrap container gap-3 w-full item-center justify-center md\:flex-col">
     </div>    
+
     <script type="text/javascript" src="script.js"></script>
 
 
       <!-- Footer -->
-  <footer class="p-4 bg-black rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-  <div class="flex flex-wrap">
-    <span class="text-sm text-white sm:text-center dark:text-gray-400"> Contact Us On </span>
+  <footer class="flex flex-row p-4 bg-red-600  rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+  <div class="basis-2/4">
+    <span class="tex/t-sm text-white sm:text-center dark:text-gray-400"> Contact Us</span>
     <svg aria-hidden="true"
         focusable="false" data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github w-4" role="img"
         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
