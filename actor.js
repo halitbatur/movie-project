@@ -51,6 +51,7 @@ const fetchMovieCredits = async (actorId) => {
   const res = await fetch(url2);
   return res.json();
 };
+//6614
 //fetch Single Actor Function
 const fetchActor = async (actorId) => {
   const url2 = constructUrl(`person/${actorId}`);
@@ -180,41 +181,160 @@ const renderMedia = async (media) => {
 //render Single Actor Function
 const renderActor = (actor, movieCredits) => {
   //console.log(actor, movieCredits)
+
   CONTAINER.innerHTML = `
-<div class="row bg-white text-black mx-auto w-full">
-   <div class="col-md-4">
-        <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
-   </div>
-   <div class="col-md-8 bg-white text-black w-full">
-       <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
-       <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
-       <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
-       <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
-       <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
-       <h3 class="pt-6"><b>Biography:</b></h3>
-       <p id="actor-biography">${actor.biography}</p>
-   </div>
-   <h3>List of Movies the Actor Participated in:</h3>
-   <ul id="list-of-movies-actor-participated-in" class="list-unstyled" >
-        <li>
-           <a href="#"> ${movieCredits.cast[0].title}</a>
-        </li>
-        <li>
-           <a href="#"> ${movieCredits.cast[1].title}</a>
-        </li>
-        <li>
-           <a href="#"> ${movieCredits.cast[2].title} </a>
-        </li>
-        <li>
-           <a href="#">${movieCredits.cast[3].title} </a>
-        </li>
-        <li>
-           <a href="#"> ${movieCredits.cast[4].title}</a>
-        </li>
-  
-    </ul>
-</div>`;
+  <div
+  class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
+  <div class="px-6">
+      <div class="flex flex-wrap justify-center">
+          <div class="w-full flex justify-center">
+              <!--Image-->
+              <div class="w-56 h-56 rounded-full relative"
+                  style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + actor.profile_path}) ;">
+              </div>
+          </div>
+          <!--Name-->
+          <div class="text-center mt-2">
+              <h3 class="text-2xl text-slate-700 font-black leading-normal mb-1">${actor.name}</h3>
+              <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                  <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>${actor.gender == 1 ? 'female' : 'male'}
+              </div>
+              <!--Details-->
+              <div class="w-full text-center mt-1">
+                  <div class="flex justify-between lg:pt-4 pt-8 pb-0">
+                      <div class="p-3 text-center">
+                          <span class="text-sm text-slate-400">Popularity</span>
+                          <span
+                              class="text-xl font-bold block uppercase tracking-wide text-slate-700">${actor.popularity}</span>
+
+                      </div>
+                      <div class="p-3 text-center">
+                          <span class="text-sm text-slate-400">Birth-Year</span>
+                          <span
+                              class="text-xl font-bold block uppercase tracking-wide text-slate-700">${parseInt(actor.birthday) }</span>
+
+                              
+                      </div>
+
+
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+      <!--Biography-->
+      <div class="mt-6 py-6 border-t border-slate-200 text-center">
+          <div class="flex flex-wrap justify-center">
+              <div class="w-full px-4">
+                  <span
+                      class="text-l font-bold block uppercase tracking-wide text-slate-700 mb-5">Biography</span>
+                  <p class="font-light leading-relaxed text-slate-600 mb-4">${actor.biography}</p>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Cards -->
+
+<div class="flex flex-col bg-white m-auto p-auto">
+<h1
+        class="flex py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-4xl text-gray-800"
+      >
+        Example
+      </h1>
+      <div
+        class="flex overflow-x-scroll pb-10 hide-scroll-bar"
+      >
+        <div
+          class="flex flex-nowrap lg:ml-40 md:ml-20 ml-10 "
+        >
+          <div class="inline-block px-3" >
+            <div  style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}) ;"
+              class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+            ></div>
+            <h1> ${movieCredits.cast[0].title} </h1>
+          </div>
+          <div class="inline-block px-3">
+            <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[1].backdrop_path}) ;"
+              class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+            ></div>
+            <h1> ${movieCredits.cast[1].title} </h1>
+          </div>
+          <div class="inline-block px-3">
+          <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[2].backdrop_path}) ;"
+            class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+          ></div>
+          <h1> ${movieCredits.cast[2].title} </h1>
+        </div>
+        
+        <div class="inline-block px-3">
+        <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[3].backdrop_path}) ;"
+          class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+        ></div>
+        <h1> ${movieCredits.cast[3].title} </h1>
+      </div>
+      
+      <div class="inline-block px-3">
+      <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[4].backdrop_path}) ;"
+        class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+      ></div>
+      <h1> ${movieCredits.cast[4].title} </h1>
+    </div>
+    
+          </div>
+        </div>
+      </div>
+</div>
+<style>
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+</style>
+  `;
+
 };
 
 document.addEventListener("DOMContentLoaded", autorun2);
 
+
+// CONTAINER.innerHTML = `
+// <div class="row bg-white text-black mx-auto w-full">
+//    <div class="col-md-4">
+//         <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
+//    </div>
+//    <div class="col-md-8 bg-white text-black w-full">
+//        <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
+//        <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
+//        <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
+//        <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
+//        <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
+//        <h3 class="pt-6"><b>Biography:</b></h3>
+//        <p id="actor-biography">${actor.biography}</p>
+//    </div>
+//    <h3>List of Movies the Actor Participated in:</h3>
+//    <ul id="list-of-movies-actor-participated-in" class="list-unstyled" >
+//         <li>
+//            <a href="#"> ${movieCredits.cast[0].title}</a>
+//         </li>
+//         <li>
+//            <a href="#"> ${movieCredits.cast[1].title}</a>
+//         </li>
+//         <li>
+//            <a href="#"> ${movieCredits.cast[2].title} </a>
+//         </li>
+//         <li>
+//            <a href="#">${movieCredits.cast[3].title} </a>
+//         </li>
+//         <li>
+//            <a href="#"> ${movieCredits.cast[4].title}</a>
+//         </li>
+  
+//     </ul>
+// </div>`;
