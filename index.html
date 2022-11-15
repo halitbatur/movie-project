@@ -2,17 +2,228 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- this link for icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+    <!--google font link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Nunito:wght@200&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!--tailwind link-->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
     <title>Movie</title>
+    <!-- customizing break point size tailwind  -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'screen': { 'min': '1024px' },
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
-    <div class="container">
+    <!-- navbar section -->
+    <nav class="px-5 bg-[#020d18] shadow screen:flex screen:items-center screen:justify-between">
+        <!-- logo part -->
+        <div class="flex justify-between items-center">
+            <span class="home z-[4000]"> <img class=" screen:w-3/4 w-1/2 screen:px-[1rem] py-[1.5rem] cursor-pointer "
+                    src="tmdb.png" alt=""></span>
+
+            <span class="text-3xl cursor-pointer screen:hidden block mx-2">
+                <ion-icon name="menu" id="menu-icon"></ion-icon>
+                <!-- <ion-icon name=" menu" id="menu-icon" onclick=" Menu(this)"></ion-icon> -->
+            </span>
+        </div>
+
+
+        <ul
+            class="pl-4 screen:flex screen:items-center z-10 screen:z-auto screen:static absolute bg-[#020d18] w-full left-0 screen:w-auto  screen:opacity-100 opacity-0  transition-all ease-in duaration-500">
+            <!-- Home nav -->
+            <li class=" home mx-4 my-6 screen:my-0">
+                <a href="#" class="text-lg font-bold hover:text-[#dcf836]  duration-200 hover:no-underline">Home</a>
+            </li>
+            <!-- Actors nav-->
+            <li class=" mx-4 my-6 screen:my-0">
+                <a href="#" class=" text-lg font-bold hover:text-[#dcf836]  duration-200 hover:no-underline">Actors</a>
+            </li>
+
+            <!-- Geners dropdown -->
+            <div class=" group">
+                <div id="geners" class=" hidden absolute  bg-[#fff] min-w-[116px] z-[1000] group-hover:block ml-4">
+                <button class="ml-4 text-lg  border-none focus:outline-none text-[#fff] font-bold ">Geners
+                    <i class="fa fa-caret-down text-sm"></i></button>
+                <div class=" hidden absolute  bg-[#fff] min-w-[116px] z-[1000] group-hover:block ml-4">
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left  text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Action</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Adventure</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Animation</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Comedy</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Crime</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Documentary</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Drama</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Family</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Horror</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Mystery</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Romance</a>
+                    </li>
+                    <li class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Science Fiction</a>
+                    </li>
+                </div>
+                    </div>
+            </div>
+
+            <!-- end of Geners drop down -->
+
+
+            <!-- filter dropdown -->
+            <div class=" group screen:mt-0 mt-6">
+                <button class="ml-4 text-lg  border-none focus:outline-none text-[#fff] font-bold ">Filter <i
+                        class="fa fa-caret-down text-sm"></i></button>
+                <div id="filter" class=" hidden absolute  bg-[#fff] min-w-[116px] z-[1000] group-hover:block ml-4">
+                    <li id="popular" class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left  text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Popular</a>
+                    </li>
+                    <li id="top_rated" class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Top Rated</a>
+                    </li>
+                    <li id="now_playing" class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Now Playing</a>
+                    </li>
+                    <li id="upcoming" class="py-[5px] pl-2 hover:bg-[#233a50]">
+                        <a class="text-[#020d18] text-left   text-base font-bold  hover:text-[#dcf836] duration-200 hover:no-underline"
+                            href="#">Upcoming</a>
+                    </li>
+
+                </div>
+            </div>
+
+            <!-- end of filter drop down -->
+            <!-- About nav-->
+            <li id="about" class="mx-4 mt-6 screen:my-0">
+                <a href="#" class="text-lg font-bold hover:text-[#dcf836] duration-200 hover:no-underline">About</a>
+            </li>
+            <!-- search part -->
+            <form id="form-search" action="" class=" py-4">
+                <input id="search-input"
+                    class=" bg-[#233a50] px-6 py-2 ml-lg-4  rounded-3xl  focus:outline-none screen:w-60 w-3/6  "
+                    type="text" placeholder="search for a movie">
+
+                <button id="searchBtn" type=" submit"
+                    class="font-semibold bg-[#233a50]  font-[poppins] duration-200  px-2.5  py-2  hover:bg-[#dcf836] rounded-3xl hover:text-[#020d18] focus:outline-none">
+                    search
+                </button>
+            </form>
+
+
+        </ul>
+
+    </nav>
+
+    <!-- end of navbar section -->
+
+
+    <!-- body main section -->
+    <main class="screen:mt-0">
+        <div class="container">
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div class=" mb-0 bg-[#27394a] px-4 pt-6 ">
+        <h2 class="font-black md:text-2xl text-lg tracking-wider text-center ">Team Members</h2>
+        <div class=" flex flex-row justify-center  py-7 ">
+            <!--  -->
+            <div class="flex flex-col shadow-2xl text-center px-2">
+                <a href="https://github.com/ShahlaKamal96" target="_blank">
+                    <ion-icon name="logo-github" class="md:text-5xl text-3xl hover:text-[#020d18]"></ion-icon>
+                </a>
+                <p class="font-semibold  py-2"> shahla kamal</p>
+            </div>
+            <!--  -->
+            <div class="flex flex-col shadow-2xl text-center px-2 md:ml-20 ml-10">
+                <a href=" https://github.com/Sarah-Albalawi" target="_blank">
+                    <ion-icon name="logo-github" class="md:text-5xl text-3xl hover:text-[#020d18]"></ion-icon>
+                </a>
+                <p class="font-semibold  py-2">Sarah Albalawi</p>
+            </div>
+            <!--  -->
+            <div class="flex flex-col shadow-2xl text-center px-2 md:ml-20  ml-10">
+                <a href=" https://github.com/iamyahia" target="_blank">
+                    <ion-icon name="logo-github" class="md:text-5xl text-3xl hover:text-[#020d18]"></ion-icon>
+                </a>
+                <p class="font-semibold  py-2"> Yahia lastName</p>
+            </div>
+            <!--  -->
+            <div class="flex flex-col shadow-2xl text-center px-2 md:ml-20  ml-10">
+                <a href=" https://github.com/Roubaaa" target="_blank">
+                    <ion-icon name="logo-github" class="md:text-5xl text-3xl hover:text-[#020d18]"></ion-icon>
+                </a>
+                <p class="font-semibold  py-2">Ruba Alsoheil</p>
+            </div>
+
+        </div>
+
+
     </div>
+
+
     <script type="text/javascript" src="script.js"></script>
 </body>
 
+
 </html>
+
+<!--  -->
