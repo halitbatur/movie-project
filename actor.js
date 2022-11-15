@@ -304,37 +304,3 @@ const renderActor = (actor, movieCredits) => {
 document.addEventListener("DOMContentLoaded", autorun2);
 
 
-// CONTAINER.innerHTML = `
-// <div class="row bg-white text-black mx-auto w-full">
-//    <div class="col-md-4">
-//         <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
-//    </div>
-//    <div class="col-md-8 bg-white text-black w-full">
-//        <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
-//        <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
-//        <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
-//        <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
-//        <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
-//        <h3 class="pt-6"><b>Biography:</b></h3>
-//        <p id="actor-biography">${actor.biography}</p>
-//    </div>
-//    <h3>List of Movies the Actor Participated in:</h3>
-//    <ul id="list-of-movies-actor-participated-in" class="list-unstyled" >
-//         <li>
-//            <a href="#"> ${movieCredits.cast[0].title}</a>
-//         </li>
-//         <li>
-//            <a href="#"> ${movieCredits.cast[1].title}</a>
-//         </li>
-//         <li>
-//            <a href="#"> ${movieCredits.cast[2].title} </a>
-//         </li>
-//         <li>
-//            <a href="#">${movieCredits.cast[3].title} </a>
-//         </li>
-//         <li>
-//            <a href="#"> ${movieCredits.cast[4].title}</a>
-//         </li>
-  
-//     </ul>
-// </div>`;
