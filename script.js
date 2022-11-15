@@ -195,6 +195,41 @@ const renderSearchMovies = () => {
 }
 
 //ending of search for movies
+// genre part
+const fetchingGenre = async () => {
+  const url = constructUrl("genre/movie/list");
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.genres;
+}
+
+const fetchingDiscover = async (genersId) => {
+  const url = constructUrl("discover/movie");
+  const res = await fetch(`${url}&with_genres=${genersId} `);
+  const data = await res.json();
+  return data.results;
+}
+
+const generes = async (genereId) => {
+  const movies = await fetchingDiscover(genereId);
+  console.log(movies)
+  CONTAINER.innerHTML = "";
+  renderMovies(movies);
+}
+
+//for rendering Generes movies
+const renderGeners = async () => {
+  const genersElements = document.querySelector("#geners");
+  const typeOfgeners = await fetchingGenre();
+  genersElements.addEventListener("click", (e) => {
+    return typeOfgeners.forEach((i) => {
+      if (i.name === e.target.innerText) {
+        generes(i.id);
+      }
+    })
+  })
+}
+console.log(renderGeners());
 
 // navbar menu for responsiving the navbar
 const navbarMenu = () => {
