@@ -9,19 +9,47 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <style>
+        .navbar { 
+            display: flex;
+            background-color: #1B184A;
+           font-family: sans-serif;
+        } 
+       ul {
+           display: flex;
+          flex-direction: row;
+         list-style: none; 
+        } 
+        ul>li>a {
+           padding: 0 12px;
+           color: white; 
+           font-size: 12px;
+         }
+        @media screen and (max-width: 992px) { 
+          ul>li>a { 
+           font-size: 16px; padding: 0 6px; 
+         } 
+        .navbar { 
+             background-color: #2689B9;
+               background: linear-gradient(to right, #40B6C0 40%, #2689B9 80%);
+         } 
+        } 
+    </style>
 </head>
 
 <body>
- 
- 
+
+    
+    <div class="navbar">
+      <ul> 
+        <li><a class="active" href="index.html"><b>HOME</b></a></li>
+        <li><a href="index.html">Movies</a></li> 
+        <li><a href="actor.html">Actor list</a></li> 
+    
+      </ul> 
+    </div> 
     <div class="container">
-        <div id="apiDiv">
-            <!-- <h4>Enter the Search Text and Press Submit Button</h4>
-            <input type="text" id="searchInput" placeholder="Search actor" />
-            <button id="submit">Submit</button> -->
-            <div id="message">
-            </div>
-        </div>
+
         <ul id="pagination"></ul>
     </div>
 
