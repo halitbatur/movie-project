@@ -131,3 +131,12 @@
     transition: all .3s ease;
 }
 
+.singleActorImg{
+     align-self: center;
+    justify-content: center;
+    width: 20rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+    box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+}

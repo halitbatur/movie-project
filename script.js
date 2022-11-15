@@ -164,7 +164,7 @@ const renderActors = (actors) => {
     actorDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" style="width:200px" class="actorImg rounded-lg pt-5">
         <li class="text-2xl text-b py-2 font-serif font-bold my-3 text-center">${actor.name}</li>`;
-    actorDiv.addEventListener("click", () => { displaySingleActorPage(); });
+    actorDiv.addEventListener("click", () => { displaySingleActorPage(actor); });
     actorList.appendChild(actorDiv);
   });
 }
@@ -177,20 +177,38 @@ const renderSimilarFilms = (similarFilms) => {
   similarFilms.results.slice(0, 5).map((film) => {
     const filmDiv = document.createElement("ul");
     filmDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px" class="shadow-2xl rounded-lg mt-5">
-        <li class="bg-white text-2xl text-black py-2 font-serif font-bold my-3 text-center">${film.original_title}</li>`;
+        <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px" class="shadow-2xl rounded-lg mt-">
+        <li class="bg-white text-l text-black py-2 font-serif font-bold my-3 text-center ">${film.original_title}</li>`;
     filmDiv.addEventListener("click", () => { displaySingleAMoviePage(); });
     relatedFilmsList.appendChild(filmDiv);
   });
 
 }
-const displaySingleActorPage = () => {
+const displaySingleActorPage = (actor) => {
   CONTAINER.innerHTML = `
-      <div class="row">
-          <div class="col-md-4">
-               <h1>welcome, you are in actor page</h1>
-          </div>`;
+        <div class="">
+        <h1 class="text-6xl font-bold shadow-lg py-3 px-5 rounded-xl">welcome, you are in actor page</h1>
+        </div>
+
+      <div class="mb-20 mt-5 p-10 flex flex-row justify-center items-center shadow-lg rounded-xl w-full">
+          <div class="w-2/4 flex justify-center items-center p-5">
+               <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" class="singleActorImg">
+          </div>
+          <div class="w-2/4 flex flex-col text-2xl p-5">
+             <div >
+            <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
+            <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
+            <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
+            <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
+            <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
+            <h3 class="pt-6"><b>Biography:</b></h3>
+            <p id="actor-biography">${actor.biography}</p>
+        </div>
+          </div>
+      </div>
+  `;
 };
+
 
 const displaySingleAMoviePage = () => {
   CONTAINER.innerHTML = `
