@@ -114,7 +114,7 @@ const createNav = async () => {
     `;
 
   let searchButton = document.getElementById('searchButton');
-
+  searchButton.setAttribute("class", "mt-8 mr-4 text-white")
   searchButton.addEventListener('click', async (e) => {
 
     let searchInput = document.getElementById('search');
