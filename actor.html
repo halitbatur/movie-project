@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Movie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <h1>Implement TheMovieDB (TMDB) API </h1>
+    <h2><a href="https://api.themoviedb.org/3">Read the tutorial » </a><button id="reset">Reset »</button></h2>
+    <div class="navbar">
+      <ul> 
+        <li><a class="active" href="index.html"><b>HOME</b></a></li>
+        <li><a href="index.html">Movies</a></li> 
+        <li><a href="actor.html">Actor list</a></li> 
+        <li><a href="about.html">ABOUT</a></li> 
+      </ul> 
+    </div> 
+    <div class="container">
+        <div id="apiDiv">
+            <h4>Enter the Search Text and Press Submit Button</h4>
+            <input type="text" id="searchInput" placeholder="Search actor" />
+            <button id="submit">Submit</button>
+            <div id="message">
+            </div>
+        </div>
+        <ul id="pagination"></ul>
+    </div>
+
+  <div id="actors"></div>
+  <script type="text/javascript" src="actor.js"></script>
+
+</body>
+
+</html>
