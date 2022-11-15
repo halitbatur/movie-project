@@ -53,9 +53,9 @@ const movieDetails = async (movie) => {
 }).join('')
   const companies = comp.map((com) => { 
     if (com.logo_path) {
-    return `<li>${com.name}</li> 
-            <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
-  } else return `<li>${com.name}</li>`
+    return `<li>${comp.name}</li> 
+            <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="">` 
+  } else return `<li>${comp.name}</li>`
   }).join('')
 
   renderMovie({details: movieRes, cast: cast, official: official, companies: companies});
