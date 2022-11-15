@@ -9,8 +9,8 @@ const CONTAINER = document.querySelector(".container");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  console.log(movies.results)
 };
+
 // Don't touch this function please
 const constructUrl = (path) => {
   return `${TMDB_BASE_URL}/${path}?api_key=${atob(
@@ -95,31 +95,28 @@ const FilterMovies = async (typeFilter) => {
   const movies = await fetchFilterMovies(typeFilter);
   renderMovies(movies.results);
 }
-const renderFilterMovies = () => {
-  const popular = document.querySelector("#popular");
-  popular.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("popular")
-  })
-  const topRated = document.querySelector("#top_rated");
-  topRated.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("top_rated")
-  })
+const popular = document.querySelector("#popular");
+popular.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("popular")
+})
+const topRated = document.querySelector("#top_rated");
+topRated.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("top_rated")
+})
 
-  const nowPlaying = document.querySelector("#now_playing");
-  nowPlaying.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("now_playing")
-  })
+const nowPlaying = document.querySelector("#now_playing");
+nowPlaying.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("now_playing")
+})
 
-  const upComing = document.querySelector("#upcoming");
-  upComing.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("upcoming")
-  })
-  return popular, topRated, nowPlaying, upComing;
-}
+const upComing = document.querySelector("#upcoming");
+upComing.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("upcoming")
+})
 // end of filter nav
 
 // rendering Home page
@@ -157,6 +154,46 @@ const renderAbout = () => {
 
 }
 
+// searching for movies
+
+const fetchSearch = async (nameOfMovie) => { //for fetching the search url
+  const url = constructUrl("search/movie");
+  const res = await fetch(`${url}&query=${nameOfMovie}`);
+  return res.json();
+}
+const SearchMovies = async (nameOfMovie) => {
+  const res = await fetchSearch(nameOfMovie);
+  //if there is no movie under the name that is written in the input field
+  if (res.results.length === 0) {
+    const noMovies = document.querySelector("#noMovies");
+    noMovies.style.display = "block"; //noMovies div is hidden in the html and  we wan to show the message that's why we change display none to display block
+    document.addEventListener("click", () => { //to disappear the message
+      noMovies.style.display = "none";
+    })
+  }
+  //else if we have movies under the name show us 
+  else {
+    CONTAINER.innerHTML = "";
+    renderMovies(res.results);
+  }
+}
+
+const renderSearchMovies = () => {
+  const searchForm = document.querySelector("#form-search");
+  const inputValue = document.querySelector("#search-input");
+  //to give functionality to the close icon
+  document.querySelector(".close").addEventListener("click", () => {
+    return searchForm.reset();
+  })
+  //giving the name of the movie to SearchMovies method
+  return searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    SearchMovies(inputValue.value);
+  })
+
+}
+
+//ending of search for movies
 
 // navbar menu for responsiving the navbar
 const navbarMenu = () => {
@@ -171,5 +208,9 @@ const navbarMenu = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderHome(), navbarMenu());
+document.addEventListener("DOMContentLoaded", autorun(), renderAbout(), renderSearchMovies(), renderHome(), navbarMenu());
+
+
+
+
 

@@ -152,16 +152,29 @@
             <li id="about" class="mx-4 mt-6 screen:my-0">
                 <a href="#" class="text-lg font-bold hover:text-[#dcf836] duration-200 hover:no-underline">About</a>
             </li>
+
             <!-- search part -->
-            <form id="form-search" action="" class=" py-4">
+            <form id="form-search" action="" class="relative  py-4 ">
+
+                <!-- input field -->
                 <input id="search-input"
                     class=" bg-[#233a50] px-6 py-2 ml-lg-4  rounded-3xl  focus:outline-none screen:w-60 w-3/6  "
                     type="text" placeholder="search for a movie">
-
+                <!-- close icon -->
+                <span class="close text-[#020d18] absolute right-[5.7rem] top-[calc(50%-0.5em)]  ">
+                    <ion-icon name="close"></ion-icon>
+                </span>
+                <!-- search button -->
                 <button id="searchBtn" type=" submit"
                     class="font-semibold bg-[#233a50]  font-[poppins] duration-200  px-2.5  py-2  hover:bg-[#dcf836] rounded-3xl hover:text-[#020d18] focus:outline-none">
                     search
                 </button>
+                <!-- if there is no movie under the written name in the input field -->
+                <div id="noMovies" class=" hidden absolute left-[1.5rem] py-2 px-4 m-[0.2rem] bg-[#233a50] z-10 hidden">
+                    <p class="text-xl font-semibold">MOVIES (0) - VIEW ALL</p>
+                    <p class="text-base font-medium text-center">Nothing Found</p>
+                </div>
+
             </form>
 
 
