@@ -139,6 +139,7 @@ const createNav = async () => {
     `;
 
   let searchButton = document.getElementById('searchButton');
+  searchButton.setAttribute("class", "mt-8 mr-4 text-white")
 
   searchButton.addEventListener('click', async (e) => {
 
@@ -265,27 +266,30 @@ const renderMovie = async (movie, similarMovies, credits) => {
   }
   );
   console.log(directors);
-  
+
+
+  CONTAINER.setAttribute("class", "flex  p-12 items-center")
 
   CONTAINER.innerHTML = `
     <div class="">
         <div class="">
-             <img id="movie-backdrop" src=${
+             <img class="rounded-2xl mb-2" id="movie-backdrop" src=${
                BACKDROP_BASE_URL + movie.backdrop_path
              }>
         </div>
         <div class="">
-            <h2 id="movie-title">${movie.title}</h2>
+            <h2 class="text-2xl mb-4" id="movie-title">${movie.title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
             }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
+            <p class="mb-2" id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <h3 class="font-bold mt-2">Rating: <p class="font-semibold">${movie.vote_average}</p></h3>
+            <h3 class="font-bold mt-2">Overview:</h3>
+            <p class="" id="movie-overview">${movie.overview}</p>
 
-            <h3>Language:${movie.original_language}</h3>
-            <h3>Production Companies:${movie.production_companies.map((item) => {
-              let logo = item.logo_path ? `<img src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
+            <h3 class="font-bold mt-2">Language: <p class="font-semibold">${movie.original_language}</p></h3>
+            <h3 class="mt-2 font-bold">Production Company:${movie.production_companies.map((item) => {
+              let logo = item.logo_path ? `<img class="rounded-xl mt-2" src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
               return (`
                 ${item.name}
                 ${logo}
@@ -295,11 +299,11 @@ const renderMovie = async (movie, similarMovies, credits) => {
 
         </div>
         <div>
-        <p id="moviedirector"> Director: ${directors[0].name}</p>
-            <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-            <h3>Similar Movies:</h3>
-            <div id="similar"></div>
+        <p class="font-bold mt-4" id="moviedirector"> Director: ${directors[0].name}</p>
+            <h3 class="mt-2 font-bold">Cast</h3>
+            <div class="flex gap-4 w-full mt-1" id="actors" class="list-unstyled"></div>
+            <h3 class="mt-8 font-bold">Similar Movies:</h3>
+            <div class="flex gap-4 w-full mt-1" id="similar"></div>
     </div>
 
     `;
@@ -309,11 +313,17 @@ const renderMovie = async (movie, similarMovies, credits) => {
     credits = credits.cast.slice(0, 5);
 
     credits.map((actor,index) => {
-      let actorItem = document.createElement('li');
-      actorItem.innerHTML = `${actor.name}`;
+      let actorItem = document.createElement('div');
+      actorItem.innerHTML = `
+      ${actor.name}
+      <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
+      `;
+      
 
       actorCredits.append(actorItem);
     });
+
+    
 
     const similarDiv = document.getElementById('similar');
 
@@ -323,7 +333,14 @@ const renderMovie = async (movie, similarMovies, credits) => {
     similarMovies.map((movie, index) => {
       let similarChild = document.createElement("div");
       similarChild.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">
+
+
+      
+
+
+
+
+        <img class='rounded-2xl' src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">
         <h3>${movie.title}</h3>`;
 
         similarDiv.addEventListener("click", () => {
@@ -337,4 +354,7 @@ const renderMovie = async (movie, similarMovies, credits) => {
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+
+
+
 
