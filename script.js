@@ -283,12 +283,13 @@ const renderMovie = async (movie, similarMovies, credits) => {
               movie.release_date
             }</p>
             <p class="mb-2" id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3 class="font-bold">Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
+            <h3 class="font-bold mt-2">Rating: <p class="font-semibold">${movie.vote_average}</p></h3>
+            <h3 class="font-bold mt-2">Overview:</h3>
+            <p class="" id="movie-overview">${movie.overview}</p>
 
-            <h3>Language:${movie.original_language}</h3>
-            <h3>Production Companies:${movie.production_companies.map((item) => {
-              let logo = item.logo_path ? `<img src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
+            <h3 class="font-bold mt-2">Language: <p class="font-semibold">${movie.original_language}</p></h3>
+            <h3 class="mt-2 font-bold">Production Company:${movie.production_companies.map((item) => {
+              let logo = item.logo_path ? `<img class="rounded-xl mt-2" src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
               return (`
                 ${item.name}
                 ${logo}
@@ -298,8 +299,9 @@ const renderMovie = async (movie, similarMovies, credits) => {
 
         </div>
         <div>
-        <p id="moviedirector"> Director: ${directors[0].name}</p>
-            <ul id="actors" class="list-unstyled"></ul>
+        <p class="font-bold mt-4" id="moviedirector"> Director: ${directors[0].name}</p>
+            <h3 class="mt-2 font-bold">Cast</h3>
+            <div class="flex gap-4 w-full mt-1" id="actors" class="list-unstyled"></div>
             <h3 class="mt-8 font-bold">Similar Movies:</h3>
             <div class="flex gap-4 w-full mt-1" id="similar"></div>
     </div>
@@ -311,15 +313,17 @@ const renderMovie = async (movie, similarMovies, credits) => {
     credits = credits.cast.slice(0, 5);
 
     credits.map((actor,index) => {
-      let actorItem = document.createElement('li');
+      let actorItem = document.createElement('div');
       actorItem.innerHTML = `
-      <h3>Actors</h3>
       ${actor.name}
       <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
       `;
+      
 
       actorCredits.append(actorItem);
     });
+
+    
 
     const similarDiv = document.getElementById('similar');
 
