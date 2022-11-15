@@ -5,10 +5,32 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
+//start button collap
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+
+//end button collap
+
+
 // Don't touch this function please
 const autorun = async (filterType) => {
   const movies = await fetchMovies(filterType);
-  console.log(movies)
+  console.log("Movies results ids",movies.results.map(e=> e.id));
+  console.log("Movies results",movies.results.map(e=> e.original_title));
+  CONTAINER.innerHTML = "";
+  // console.log(renderGenres());
   renderMovies(movies.results);
 };
 
@@ -27,7 +49,7 @@ const movieDetails = async (movie) => {
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async (filterType) => {
-  const url = constructUrl(`movie/filterType`);
+  const url = constructUrl(`movie/${filterType}`);
   console.log(url)
   const res = await fetch(url);
   return res.json();
