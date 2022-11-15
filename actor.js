@@ -30,6 +30,21 @@ const fetchActors = async () => {
   const res = await fetch(url2);
   return res.json();
 };
+
+const fetchSearch = async (searchInput) => {
+
+  // encodes the string to give it proper syntax for the url
+
+  let encoded = encodeURIComponent(searchInput);
+  let url = constructUrl(`search/multi`);
+
+  // have to add this to the end of the url
+  url = url + `&query=${encoded}`;
+
+
+  const res = await fetch(url);
+  return res.json();
+};
 //fetch Movie Credits Function for each Actor
 const fetchMovieCredits = async (actorId) => {
   const url2 = constructUrl(`person/${actorId}/movie_credits`);
@@ -75,6 +90,93 @@ const renderActors = (actors) => {
     CONTAINER.appendChild(newDiv2);
   });
 };
+
+
+const createNav = async () => {
+
+  // create navbar
+  let navBar = document.createElement('div');
+  navBar.setAttribute('id', 'navBar');
+  navBar.setAttribute('class', 'h-32 w-full flex p-2 justify-between');
+
+  document.body.prepend(navBar);
+
+  // insert nav bar HTML DOM nodes here
+  navBar.innerHTML = `
+    <button id="homeButton" class="text-white text-xl"><a href="index.html">Home</a></button>
+    <button id="homeButton" class="text-white text-xl"><a href="actor.html">Actors List</a></button>
+
+    <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
+    <div>
+    <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
+    <button id="searchButton" class="text-white">search</button>
+    </div>
+    `;
+
+  let searchButton = document.getElementById('searchButton');
+
+  searchButton.addEventListener('click', async (e) => {
+
+    let searchInput = document.getElementById('search');
+    searchInput = searchInput.value;
+    let media = await fetchSearch(searchInput);
+
+    // call function to create and display media page
+    // this part is for the search bar to display actors and movies search results
+    renderMedia(media);
+  });
+
+  // home button runs the same function that is invoked when the app is first loaded
+  // this gets the home page with an updated fetched list of movies
+  let homeButton = document.getElementById('homeButton');
+  homeButton.addEventListener('click', autorun);
+
+}
+
+// create nav bar
+createNav();
+
+// render movies and actors
+const renderMedia = async (media) => {
+
+  // remove all DOM elements to show fresh results
+  CONTAINER.innerHTML =``;
+
+  console.log(media);
+
+  // loop through all results and create DOM elements and display relevant data
+  media.results.map((item) => {
+    // console.log(item);
+    // logic for getting the different data for actors since all results are mixed together in the array
+
+    let title = item.name ? item.name : item.title;
+    let image = item.profile_path ? item.profile_path : item.backdrop_path
+    ? item.backdrop_path : item.poster_path;
+
+    // create elements here
+    const itemDiv = document.createElement("div");
+    itemDiv.innerHTML = `
+        <div class="movieContainer">
+        <img src="${BACKDROP_BASE_URL + image}" alt="${title} poster" class="movieImage">
+        </div>
+        <h3>${title}</h3>
+        `;
+
+        // this will call the movie page for details of each individual movie
+        // you'll have to add some logic in the renderMovie function to filter out actor pages
+        itemDiv.addEventListener("click", () => {
+          movieDetails(item);
+        });
+
+      // append items here
+      CONTAINER.appendChild(itemDiv);
+  });
+
+};
+
+
+
+
 //render Single Actor Function
 const renderActor = (actor, movieCredits) => {
   //console.log(actor, movieCredits)
