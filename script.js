@@ -6,8 +6,8 @@ const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
 // Don't touch this function please
-const autorun = async () => {
-  const movies = await fetchMovies();
+const autorun = async (filterType) => {
+  const movies = await fetchMovies(filterType);
   console.log(movies)
   renderMovies(movies.results);
 };
@@ -26,8 +26,8 @@ const movieDetails = async (movie) => {
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
-const fetchMovies = async () => {
-  const url = constructUrl(`movie/now_playing`);
+const fetchMovies = async (filterType) => {
+  const url = constructUrl(`movie/filterType`);
   console.log(url)
   const res = await fetch(url);
   return res.json();
@@ -59,26 +59,35 @@ const renderMovies = (movies) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
+    <div class="movie-poster">
              <img id="movie-backdrop" src=${
                BACKDROP_BASE_URL + movie.backdrop_path
              }>
         </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <h2 id="movie-title1">${movie.vote_average}Rating</h2>
-      
-            <p id="movie-release-date"><b>Release Date:</b> ${
+        <div class = "movie-info">
+            <h3 id="movie-title">${movie.title}</h3>
+            <ul class = "movie-misc-info">
+            <li class="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
+            }</li>
+            <li class ="Movie-rate"><b>Ratings:</b> ${
+              movie.vote_average
+            }</li>
+            <li class="Movie-genre"><b>Genre:</b> ${
+              movie.genre_ids
+            }</li>
+            </ul>
+            
+            <p class ="Movie-lang"><b>Language:</b> ${
+              movie.original_language
             }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <p class="star-icon">${movie.movieRate}</p>
-            <h3>Overview:</h3>
+            <p id="movie-adult"><b>Adult:</b> ${movie.adult}</p>
             <p id="movie-overview">${movie.overview}</p>
         </div>
+        
         </div>
-            <h3>Actors:</h3>
+            <h3 class = "actor" >Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
     </div>
     
@@ -97,8 +106,53 @@ fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=542003918769df50083
   .catch(error => console.log('error', error));
 
 
+  function movieGenre(movie) {
+    let genre = "";
+    for (let i = 0; i < movie.genre_ids.length; i++) {
+        if (movie.genre_ids[i] === 28) {
+            genre += "Action ";
+        } else if (movie.genre_ids[i] === 12) {
+            genre += "Adventure ";
+        } else if (movie.genre_ids[i] === 16) {
+            genre += "Animation ";
+        } else if (movie.genre_ids[i] === 35) {
+            genre += "Comedy ";
+        } else if (movie.genre_ids[i] === 80) {
+            genre += "Crime ";
+        } else if (movie.genre_ids[i] === 99) {
+            genre += "Documentary ";
+        } else if (movie.genre_ids[i] === 18) {
+            genre += "Drama ";
+        } else if (movie.genre_ids[i] === 10751) {
+            genre += "Family ";
+        } else if (movie.genre_ids[i] === 14) {
+            genre += "Fantasy ";
+        } else if (movie.genre_ids[i] === 36) {
+            genre += "History ";
+        } else if (movie.genre_ids[i] === 27) {
+            genre += "Horror ";
+        } else if (movie.genre_ids[i] === 10402) {
+            genre += "Music ";
+        } else if (movie.genre_ids[i] === 9648) {
+            genre += "Mystery ";
+        } else if (movie.genre_ids[i] === 10749) {
+            genre += "Romance ";
+        } else if (movie.genre_ids[i] === 878) {
+            genre += "Science Fiction ";
+        } else if (movie.genre_ids[i] === 10770) {
+            genre += "TV Movie ";
+        } else if (movie.genre_ids[i] === 53) {
+            genre += "Thriller ";
+        } else if (movie.genre_ids[i] === 10752) {
+            genre += "War ";
+        } else if (movie.genre_ids[i] === 37) {
+            genre += "Western ";
+        }
+    }
+    return genre;
+}
 
 
 
 
-document.addEventListener("DOMContentLoaded", autorun);
+document.addEventListener("DOMContentLoaded", autorun("now_playing"));
