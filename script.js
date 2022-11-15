@@ -30,8 +30,25 @@ const autorun = async (filterType) => {
   console.log("Movies results ids",movies.results.map(e=> e.id));
   console.log("Movies results",movies.results.map(e=> e.original_title));
   CONTAINER.innerHTML = "";
-  // console.log(renderGenres());
+  console.log(renderGenres());
   renderMovies(movies.results);
+};
+const fetchGenres = async () => {
+  const url = constructUrl(`genre/movie/list`);
+  console.log("URL",url);
+  const res = await fetch(url);
+  console.log("response",res);
+  return res.json(); 
+};
+const renderGenres = async() =>{
+  let genreList = await fetchGenres();
+  const contentGenre = document.querySelector(".content-genre");
+  console.log("genre list rendering test",genreList.genres.map(e=>e.name));
+  genreList.genres.map(genre => {    
+    const aLink = document.createElement("a");
+    aLink.innerText = genre.name;
+    contentGenre.append(aLink);
+  })
 };
 
 // Don't touch this function please
