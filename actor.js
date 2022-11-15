@@ -253,33 +253,33 @@ const renderActor = (actor, movieCredits) => {
         >
           <div class="inline-block px-3" >
             <div  style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}) ;"
-              class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
             ></div>
             <h1> ${movieCredits.cast[0].title} </h1>
           </div>
           <div class="inline-block px-3">
             <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[1].backdrop_path}) ;"
-              class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
             ></div>
             <h1> ${movieCredits.cast[1].title} </h1>
           </div>
           <div class="inline-block px-3">
           <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[2].backdrop_path}) ;"
-            class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+            class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
           ></div>
           <h1> ${movieCredits.cast[2].title} </h1>
         </div>
         
         <div class="inline-block px-3">
         <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[3].backdrop_path}) ;"
-          class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+          class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
         ></div>
         <h1> ${movieCredits.cast[3].title} </h1>
       </div>
       
       <div class="inline-block px-3">
       <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[4].backdrop_path}) ;"
-        class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+        class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
       ></div>
       <h1> ${movieCredits.cast[4].title} </h1>
     </div>
