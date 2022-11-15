@@ -5,6 +5,8 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
+
+
 // let genreList;
 
 // Don't touch this function please
@@ -125,7 +127,10 @@ const createNav = async () => {
 
   // insert nav bar HTML DOM nodes here
   navBar.innerHTML = `
-    <button id="homeButton" class="text-white text-xl">Home</button>
+  <div class="mt-4">
+    <button id="homeButton" class="text-white text-xl"><a href="index.html">Home</a></button>
+    <button id="homeButton" class="text-white text-xl ml-2"><a href="actor.html">Actors List</a></button>
+  </div>
     <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
     <div>
     <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
@@ -162,7 +167,7 @@ const renderMedia = async (media) => {
   // remove all DOM elements to show fresh results
   CONTAINER.innerHTML =``;
 
-  //console.log(media);
+  console.log(media);
 
   // loop through all results and create DOM elements and display relevant data
   media.results.map((item) => {
@@ -263,13 +268,13 @@ const renderMovie = async (movie, similarMovies, credits) => {
   
 
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
+    <div class="">
+        <div class="">
              <img id="movie-backdrop" src=${
                BACKDROP_BASE_URL + movie.backdrop_path
              }>
         </div>
-        <div class="col-md-8">
+        <div class="">
             <h2 id="movie-title">${movie.title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
@@ -289,13 +294,15 @@ const renderMovie = async (movie, similarMovies, credits) => {
 
 
         </div>
-        </div>
-        <p id="moviedirector"> ${directors[0].name}</p>
+        <div>
+        <p id="moviedirector"> Director: ${directors[0].name}</p>
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
             <h3>Similar Movies:</h3>
             <div id="similar"></div>
-    </div>`;
+    </div>
+
+    `;
 
 
     const actorCredits = document.getElementById('actors');
@@ -318,8 +325,15 @@ const renderMovie = async (movie, similarMovies, credits) => {
       similarChild.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">
         <h3>${movie.title}</h3>`;
+
+        similarDiv.addEventListener("click", () => {
+          movieDetails(movie);
+        });
+
         similarDiv.appendChild(similarChild);
     });
+
+    
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
