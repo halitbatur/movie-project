@@ -7,6 +7,7 @@ const CONTAINER = document.querySelector(".container");
 const actorPage = document.querySelector(".actor-page")
 
 
+
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
