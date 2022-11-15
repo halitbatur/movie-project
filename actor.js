@@ -94,37 +94,37 @@ const renderActors = (actors) => {
 
 const createNav = async () => {
 
-  // create navbar
-  let navBar = document.createElement('div');
-  navBar.setAttribute('id', 'navBar');
-  navBar.setAttribute('class', 'h-32 w-full flex p-2 justify-between');
+  // // create navbar
+  // let navBar = document.createElement('div');
+  // navBar.setAttribute('id', 'navBar');
+  // navBar.setAttribute('class', 'h-32 w-full flex p-2 justify-between');
 
-  document.body.prepend(navBar);
+  // document.body.prepend(navBar);
 
-  // insert nav bar HTML DOM nodes here
-  navBar.innerHTML = `
-    <button id="homeButton" class="text-white text-xl"><a href="index.html">Home</a></button>
-    <button id="homeButton" class="text-white text-xl"><a href="actor.html">Actors List</a></button>
+  // // insert nav bar HTML DOM nodes here
+  // navBar.innerHTML = `
+  //   <button id="homeButton" class="text-white text-xl"><a href="index.html">Home</a></button>
+  //   <button id="homeButton" class="text-white text-xl"><a href="actor.html">Actors List</a></button>
 
-    <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
-    <div>
-    <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
-    <button id="searchButton" class="text-white">search</button>
-    </div>
-    `;
+  //   <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
+  //   <div>
+  //   <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
+  //   <button id="searchButton" class="text-white">search</button>
+  //   </div>
+  //   `;
 
-  let searchButton = document.getElementById('searchButton');
-  searchButton.setAttribute("class", "mt-8 mr-4 text-white")
-  searchButton.addEventListener('click', async (e) => {
+  // let searchButton = document.getElementById('searchButton');
+  // searchButton.setAttribute("class", "mt-8 mr-4 text-white")
+  // searchButton.addEventListener('click', async (e) => {
 
-    let searchInput = document.getElementById('search');
-    searchInput = searchInput.value;
-    let media = await fetchSearch(searchInput);
+  //   let searchInput = document.getElementById('search');
+  //   searchInput = searchInput.value;
+  //   let media = await fetchSearch(searchInput);
 
-    // call function to create and display media page
-    // this part is for the search bar to display actors and movies search results
-    renderMedia(media);
-  });
+  //   // call function to create and display media page
+  //   // this part is for the search bar to display actors and movies search results
+  //   renderMedia(media);
+  // });
 
   // home button runs the same function that is invoked when the app is first loaded
   // this gets the home page with an updated fetched list of movies
