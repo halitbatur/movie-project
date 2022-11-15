@@ -119,10 +119,10 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
-    const backdropDiv = document.createElement("div");
-    backdropDiv.innerHTML = `<img class="cursor-pointer " src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">`
+    // const backdropDiv = document.createElement("div");
+    // backdropDiv.innerHTML = `<img class="cursor-pointer " src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">`
     CONTAINER.appendChild(movieDiv);
-    SWIPER.appendChild(backdropDiv);
+    // SWIPER.appendChild(backdropDiv);
   });
 };
 
@@ -155,10 +155,10 @@ const renderMovie = (movieDetails) => {
             <h3>Actors:</h3> 
             <ul id="actors" class="list-unstyled">${cast}</ul>
     </div>`;
-    SWIPER.innerHTML =   `<main class="grid grid-cols-3">
- <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
-      BACKDROP_BASE_URL + backdrop_path
-    }></div>`
+//     SWIPER.innerHTML =   `<main class="grid grid-cols-3">
+//  <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
+//       BACKDROP_BASE_URL + backdrop_path
+//     }></div>`
 };
 
 const movieSearchBox = document.getElementById("movie-search-box");
