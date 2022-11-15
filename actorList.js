@@ -56,7 +56,6 @@ const fetchActor = async (actorId) => {
 const renderActor = (actor) => {
   CONTAINER.innerHTML = `
     <div class="row">
-
         <div ><img src=${PROFILE_BASE_URL + actor.profile_path}></div>
         
             <div >
