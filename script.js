@@ -127,11 +127,15 @@ const createNav = async () => {
 
   // insert nav bar HTML DOM nodes here
   navBar.innerHTML = `
-  <div class="mt-4">
-    <button id="homeButton" class="text-white text-xl"><a href="index.html">Home</a></button>
-    <button id="homeButton" class="text-white text-xl ml-2"><a href="actor.html">Actors List</a></button>
-  </div>
-    <img class="w-20 h-20" src="img/NBAH.png" alt=""> 
+  <div class="navbar">
+  <ul> 
+    <li><a class="active" href="index.html"><b>HOME</b></a></li>
+    <li><a href="index.html">Movies</a></li> 
+    <li><a href="actor.html">Actor list</a></li> 
+
+  </ul> 
+</div> 
+    
     <div>
     <input class="rounded-2xl w-72 p-2" id="search" type="text" minlength="1" placeholder="search for a movie or an actor">
     <button id="searchButton" class="text-white">search</button>
@@ -182,6 +186,7 @@ const renderMedia = async (media) => {
     // create elements here
     const itemDiv = document.createElement("div");
     itemDiv.innerHTML = `
+    
         <div class="movieContainer">
         <img src="${BACKDROP_BASE_URL + image}" alt="${title} poster" class="movieImage">
         </div>
