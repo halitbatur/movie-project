@@ -1,5 +1,5 @@
 'use strict';
-
+//declaration 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
@@ -85,6 +85,7 @@ const renderMovie = (movie) => {
 
 
 // filter nav
+// this is the filter nav
 const fetchFilterMovies = async (typeFilter) => {
   const url = constructUrl(`movie/${typeFilter}`);
   const res = await fetch(url);

@@ -21,6 +21,7 @@ body{
     column-gap: 3rem;
     row-gap: 1.5rem;
     margin-bottom:100px;
+<<<<<<< HEAD
 }
 /* home page */
 .container {
@@ -31,7 +32,11 @@ body{
   column-gap: 3rem;
   row-gap: 1.5rem;
   
+=======
+
+>>>>>>> 5bb84e50506f7a306929d50fe72e883a5212e91d
 }
+
 .grid-item{
 position: relative;
 background-color: #233a50;
