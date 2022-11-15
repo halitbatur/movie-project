@@ -46,11 +46,11 @@ const movieDetails = async (movie) => {
   
   const cast = credits.cast.slice(0,5).map((actor) => { 
   if (actor.profile_path) {
-  return `<li>${actor.name}</li> 
-          <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="">` 
-  } else return `<li>${actor.name}</li>`
-  }).join('')
 
+  return `<img src="${PROFILE_BASE_URL + actor.profile_path}" alt="">
+  <li class="text-white font-gotham text-500">${actor.name}</li> ` 
+} else return `<li class="text-white font-gotham text-500">${actor.name}</li>`
+}).join('')
   const companies = comp.map((com) => { 
     if (com.logo_path) {
     return `<li>${com.name}</li> 
@@ -109,10 +109,10 @@ const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
-        <img class="cursor-pointer" src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${
+        <img id="poster" class="cursor-pointer" src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${
       movie.title
     } poster">
-        <h3>${movie.title}</h3>`;
+        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -139,26 +139,27 @@ const renderMovie = (movieDetails) => {
              }>
         </div>
         <div><iframe width="560" height="315" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
+        <div class="col-md-8 text-white w-80">
+            <h2 id="movie-title class="text-white">${title}</h2>
+            <p id="movie-release-date class="text-white"><b>Release Date:</b> ${
             release_date
             }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${runtime} Minutes</p>
-            <p id="movie-rating"><b>Rating:</b> ${Math.round(vote_average)}</p>
-            <p id="vote-count"><b>Vote Count:</b> ${vote_count}</p>
+            <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
+            <p id="movie-rating class="text-yellow"><b>Rating:</b> ${Math.round(vote_average)}</p>
+            <p id="vote-count class="text-yellow"><b>Vote Count:</b> ${vote_count}</p>
             <h3>Overview:</h3>
-            <p id="movie-overview">${overview}</p>
+            <p id="movie-overview class="text-red">${overview}</p>
             <ul>Production Companies: ${companies}<ul>
+
         </div>
         </div>
             <h3>Actors:</h3> 
             <ul id="actors" class="list-unstyled">${cast}</ul>
     </div>`;
     SWIPER.innerHTML =   `<main class="grid grid-cols-3">
-    <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
+ <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
       BACKDROP_BASE_URL + backdrop_path
-    }></div></main>`
+    }></div>`
 };
 
 const movieSearchBox = document.getElementById("movie-search-box");
