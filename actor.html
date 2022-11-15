@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Movie</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <style>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Movie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png"
+    href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+     <style>
         .navbar { 
             display: flex;
             background-color: #1B184A;
@@ -38,60 +42,75 @@
 </head>
 
 <body>
+  <h1>Implement TheMovieDB (TMDB) API </h1>
+  <h2><a href="https://api.themoviedb.org/3">Read the tutorial » </a><button id="reset">Reset »</button></h2>
+  <div class="navbar">
+    <ul>
+      <li><a class="active" href="index.html"><b>HOME</b></a></li>
+      <li><a href="index.html">Movies</a></li>
+      <li><a href="actor.html">Actor list</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <div id="apiDiv">
+      <h4>Enter the Search Text and Press Submit Button</h4>
+      <input type="text" id="searchInput" placeholder="Search actor" />
+      <button id="submit">Submit</button>
+      <div id="message">
+      </div>
 
-    
-    <div class="navbar">
-      <ul> 
-        <li><a class="active" href="index.html"><b>HOME</b></a></li>
-        <li><a href="index.html">Movies</a></li> 
-        <li><a href="actor.html">Actor list</a></li> 
-    
-      </ul> 
-    </div> 
-    <div class="container">
-
-        <ul id="pagination"></ul>
     </div>
+    <ul id="pagination"></ul>
+  </div>
 
   <div id="actors"></div>
   <script type="text/javascript" src="actor.js"></script>
 
 </body>
+
+
+
+<!--Footer-->
 <footer id="footer" class="w-full h-72 mt-24 fex flex-col justify-center items-center">
-  <div class="flex justify-center w-full"><h1 class="text-white mt-6 text-4xl">Coded By Apple Engineers:</h1></div>
+  <div class="flex justify-center w-full">
+    <h1 class="text-white mt-6 text-4xl">Coded By Apple Engineers:</h1>
+  </div>
   <div class="flex justify-between w-full mt-14">
-      <div class="ml-12 text-white flex flex-col">
-          <p class="text-3xl">Noor Ridha</p>
-          <div class="flex justify-center">
-          <a href="https://github.com/noor-ridha"><img class="mr-1 w-12 h-12 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
-          <a href="https://www.linkedin.com/in/noor-r-8b646824b/"><img class="ml-1 w-12 h-12 mr-3 mt-2" src="img/LinkedIn.png" alt=""></a>
-           </div>
+    <div class="ml-12 text-white flex flex-col">
+      <p class="text-3xl">Noor Ridha</p>
+      <div class="flex justify-center">
+        <a href="https://github.com/noor-ridha"><img class="mr-1 w-12 h-12 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
+        <a href="https://www.linkedin.com/in/noor-r-8b646824b/"><img class="ml-1 w-12 h-12 mr-3 mt-2"
+            src="img/LinkedIn.png" alt=""></a>
       </div>
-      <div>
-          <div class="text-white flex flex-col">
-              <p class="text-3xl">Ameen Abdulsamad</p>
-              <div class="flex justify-center">
-              <a href="https://github.com/AmenCHW"><img class="mr-1 w-12 h-12 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
-              <a href="https://www.linkedin.com/in/ameen-chawshly-195959215/"><img class="ml-1 w-12 h-12 mr-3 mt-2" src="img/LinkedIn.png" alt=""></a>
-               </div>
-          </div>
+    </div>
+    <div>
+      <div class="text-white flex flex-col">
+        <p class="text-3xl">Ameen Abdulsamad</p>
+        <div class="flex justify-center">
+          <a href="https://github.com/AmenCHW"><img class="mr-1 w-12 h-12 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
+          <a href="https://www.linkedin.com/in/ameen-chawshly-195959215/"><img class="ml-1 w-12 h-12 mr-3 mt-2"
+              src="img/LinkedIn.png" alt=""></a>
+        </div>
       </div>
-      <div>
-          <div class="text-white flex flex-col">
-          <p class="text-3xl">Hevar Tofiq</p>
-          <div class="flex justify-center">
+    </div>
+    <div>
+      <div class="text-white flex flex-col">
+        <p class="text-3xl">Hevar Tofiq</p>
+        <div class="flex justify-center">
           <a href=""><img class="w-12 h-12 mr-1 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
           <a href=""><img class="w-12 h-12 ml-1 mr-3 mt-2" src="img/LinkedIn.png" alt=""></a>
-           </div>
+        </div>
       </div>
-  </div>
-  <div class="mr-12 text-white flex flex-col">
+    </div>
+    <div class="mr-12 text-white flex flex-col">
       <p class="text-3xl">Batoul Almansour</p>
       <div class="flex justify-center">
-      <a href=""><img class="w-12 h-12 mr-1 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
-      <a href=""><img class="w-12 h-12 ml-1 mr-3 mt-2" src="img/LinkedIn.png" alt=""></a>
-       </div>
-  </div>
+        <a href=""><img class="w-12 h-12 mr-1 ml-3 mt-2" src="img/GitHub.png" alt=""></a>
+        <a href=""><img class="w-12 h-12 ml-1 mr-3 mt-2" src="img/LinkedIn.png" alt=""></a>
+      </div>
+    </div>
 </footer>
 
 </html>
