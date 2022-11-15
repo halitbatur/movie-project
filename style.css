@@ -18,7 +18,6 @@ body{
     max-width: 100%;
 }
 .overview{
- 
     max-height: 100%;
     transform: translateY(100%);
     transition:transform 0.5s ease-in-out;
