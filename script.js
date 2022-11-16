@@ -187,7 +187,7 @@ const renderSimilarFilms = (similarFilms) => {
 const displaySingleActorPage = (actor) => {
   CONTAINER.innerHTML = `
         <div class="">
-        <h1 class="text-6xl font-bold shadow-lg py-3 px-5 rounded-xl">welcome, you are in actor page</h1>
+        <h1 class="text-6xl font-bold shadow-lg py-3 px-5 rounded-xl bg-black text-white">welcome, you are in actor page</h1>
         </div>
 
       <div class="mb-20 mt-5 p-10 flex flex-row justify-center items-center shadow-lg rounded-xl w-full">
