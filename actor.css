@@ -17,7 +17,7 @@
     margin: 24px 16px 0 0;
 }
 .collapsible {
-    /* background-color: #777; */
+   /* background-color: #777; */
     color: white;
     cursor: pointer;
     /* padding: 18px; */
@@ -55,29 +55,29 @@
 
 body{
     font-family: 'Inter', sans-serif;
-    /* background-color: #292929; */
+     background-color: #292929; 
     /* padding-top: 8px; */
 }
 
 
-.movie-poster {
+.actor-poster {
     max-width: 500px;
     margin: 0 auto;
     border: 4px solid #fff;
 }
 
-.movie-info{
+.actor-info{
     text-align: center;
     color: #fff;
     padding-top: 3rem;
 }
 
-#movie-title{
+#Actor-name{
     font-size: 2rem;
     color: var(--yellow-color);
 }
 
-.movie-misc-info{
+.actor-misc-info{
     list-style-type: none;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -91,7 +91,7 @@ body{
     padding: 1rem;
 }
 
-.movie-info .movie-release-date{
+.actor-info .actor-birth-date{
     background-color: var(--yellow-color);
     padding: 0.4rem;
     margin: 0 0.4rem;
@@ -99,45 +99,37 @@ body{
     font-weight: 600;
 }
 
-.movie-info .Movie-rate{
+.actor-info .actor-placeofbirth{
     background-color: var(--yellow-color);
     padding: 0.4rem;
     margin: 0 0.4rem;
     border-radius: 3px;
     font-weight: 600;
 }
-.movie-info .Movie-genre{
+.actor-info .actor-popularity{
     background-color: var(--yellow-color);
     padding: 0.4rem;
     margin: 0 0.4rem;
     border-radius: 3px;
     font-weight: 600;
 }
+.actor-info #bio-head{
+    color:#d4aa11
+}
 
-.movie-info .Movie-lang{
-    color: var(--yellow-color);
-    font-style: italic;
-}
-.movie-info #movie-runtime {
-    color: var(--yellow-color);
-    font-style: italic;
-}
-.movie-info #movie-adult {
+.actor-info .known for department{
     color: var(--yellow-color);
     font-style: italic;
 }
 
-.actor{
-    color: #fff;
-}
 
 @media(min-width: 800px){
 
-    .movie-info{
+    .actor-info{
         text-align: left;
         padding-top: 0;
     }
-    .movie-info .movie-misc-info{
+    .actor-info .actor-misc-info{
         -webkit-box-pack: start;
             -ms-flex-pack: start;
                 justify-content: flex-start;
@@ -147,13 +139,13 @@ body{
 
 
 @media(max-width: 450px){
-    .movie-misc-info{
+    .actor-misc-info{
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
     }
-    .movie-misc-info li:nth-child(2){
+    .actor-misc-info li:nth-child(2){
         margin: 0.8rem 0;
     }
 }
