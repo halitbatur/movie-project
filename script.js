@@ -8,6 +8,44 @@ function toggleIt() {
 function toggleItNavbar() {
   return openMenu.classList.toggle("hidden");
 }
+const genres ={
+  28:"Action",
+  12:"Adventure",
+  16:"Animation",
+  35:"Comedy",
+  80:"Crime",
+  99:"Documentary",
+  18:"Drama",
+  10751:"Family",
+  14:"Fantasy",
+  36:"History",
+  27:"Horror",
+  10402:"Music",
+  9648:"Mystery",
+  10749:"Romance",
+  878:"Science Fiction",
+  10770:"TV Movie",
+  53:"Thriller",
+  10752:"War",
+  37:"Western"
+}
+console.log(genres)
+let keys = Object.keys(genres)
+let values = Object.values(genres)
+console.log(keys)
+console.log(values)
+function convertGenres(key){
+  if(key === genres.key)
+  return genres
+
+      // for(let i=0; i< genres.length; i++){
+      // let converter = genres[i].id
+      // converter = genres[i].name
+      // return converter
+      // }
+
+}
+console.log(convertGenres(18))
 
 //                     -----------------------
 
@@ -248,8 +286,12 @@ function renderResults(results){
     const container = document.createElement("div")
     container.innerHTML = `
     <div class="flex w-full">
-    <img class="h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-    <span class="flex flex-1 justify-center items-center text-center">${result.original_title}</span>
+    <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+    <ul class="flex w-full flex-col">
+    <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
+    <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
+    <li><div class="flex"><p>${result.genre_ids}</p> </div></li>
+    </ul>
     </div>
     `
     element.appendChild(container)
