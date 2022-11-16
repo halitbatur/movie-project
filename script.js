@@ -34,6 +34,12 @@ const fetchMovies = async () => {
   return res.json();
 };
 
+const searchMovies = async (searchQuery) => {
+  const url = constructUrl("search/movie") + "&query=" + searchQuery
+  const res = await fetch(url);
+  return res.json();
+}
+
 const fetchActor = async (id) => {
   const url = constructUrl(`movie/${id}/credits`);
   const res = await fetch(url);
@@ -59,6 +65,9 @@ const fetchRelatedFilms = async (id) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  while (CONTAINER.firstChild) {
+    CONTAINER.removeChild(CONTAINER.firstChild);
+  }
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.style="display: flex; width:30%;  flex-wrap: wrap;" ;
@@ -73,6 +82,7 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
+
     CONTAINER.appendChild(movieDiv);
   });
 };
@@ -218,3 +228,12 @@ const displaySingleAMoviePage = () => {
           </div>`;
 };
 document.addEventListener("DOMContentLoaded", autorun);
+const searchBtn = document.getElementById("searchBtn")
+searchBtn.addEventListener("click", async () => {
+  const searchInputValue = document.getElementById("searchInput").value
+  if (searchInputValue) {
+    const movies = await searchMovies(searchInputValue)
+    renderMovies(movies.results)
+  }
+
+})
