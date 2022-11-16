@@ -59,13 +59,6 @@ const renderActors = (actors) => {
     });
   }; 
            
- function knownFor(actor) {
-    let known = "";
-    actor.known_for.map((movie) => {
-        known += movie.title + ", ";
-    });
-     return known;
-}
 const renderActor = (actor) => {
     CONTAINER.innerHTML = `
       <div class="actor-poster">
