@@ -41,13 +41,17 @@ const movieDetails = async (movie) => {
   const credits = await fetchCredits(movie.id);
   const trailer = await fetchTrailer(movie.id);
   const comp = await movieRes.production_companies;
+  const genre = await movieRes.genres;
   const official = trailer.results.find((item) =>
     item.name.includes("Official Trailer")
   );
-  const renderGenres = async (genre) => {
-    const genreRes = await fetchGenres();
-    console.log(genre);
-  }
+  const genres = genre.map((g) => { 
+    return `<li>${g.name}</li> `
+  }).join('')
+  // const renderGenres = async (genre) => {
+  //   const genreRes = await fetchGenres();
+  //   console.log(genre);
+  // }
   const director = credits.crew.find((item) =>
   item.job.toLowerCase().includes("Director")
   );
@@ -66,14 +70,14 @@ const movieDetails = async (movie) => {
         return `<li id="${actor.id}" class="actor text-white font-gotham text-500 cursor-pointer"><h1>${actor.name}</h1></li>`;
     })
     .join("");
-    const companies = comp.map((com) => { 
-      if (com.logo_path) {
-      return `<li>${com.name}</li> 
-              <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
-    } else return `<li>${com.name}</li>`
-    }).join('')
+  const companies = comp.map((com) => { 
+    if (com.logo_path) {
+    return `<li>${com.name}</li> 
+            <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
+  } else return `<li>${com.name}</li>`
+  }).join('')
 
-    renderMovie({details: movieRes, cast: cast, official: official, companies: companies});
+  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres});
   };
 
 
@@ -106,7 +110,7 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const { details, cast,companies, official ={} } = movieDetails;
+  const { details, cast,companies, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
 
   CONTAINER.innerHTML = `
@@ -121,6 +125,7 @@ const renderMovie = (movieDetails) => {
         }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="col-md-8 text-white w-80">
             <h2 id="movie-title class="text-white">${title}</h2>
+            <p>Movie Genre: ${genres}<p>
             <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
             <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
             <p id="movie-rating class="text-yellow"><b>Rating:</b> ${Math.round(
