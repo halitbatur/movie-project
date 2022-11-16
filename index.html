@@ -16,24 +16,25 @@
 
 <body class=" justify-center">
 
-    <nav class="flex items-center bg-red-600  p-4 flex-wrap rounded-md antialiasedd font-bold ">
+  <nav class="flex bg-red-600 justify-center items-center  p-4 flex-wrap rounded-md antialiasedd font-bold ">
 
-
-        <!-- Website Name -->
-        <span class="ml-10 text-5xl text-white tracking-wide font-semibold">ReMovies</span>
+    <div class="w-1/4">
+    <!-- Website Name -->
+    <span class="ml-10 text-5xl text-white tracking-wide font-semibold">ReMovies</span>
     
     
-        <!-- Drop Down Button -->
-        <button
-          class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav toggler">
-          <i class="material-icons">menu</i>
-        </button>
+    <!-- Drop Down Button -->
+    <button
+      class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav toggler">
+      <i class="material-icons">menu</i>
+    </button>
+    </div>
+        
     
     
         <!-- Navbar List -->
-        <div class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto space-x-10" id="navigation">
-          <div
-            class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
+        <div class="w-2/4 flex justify-center items-center hidden top-navbar lg:inline-flex lg:flex-grow lg:w-auto space-x-10" id="navigation">
+         
     
     
             <!-- Home -->
@@ -64,19 +65,14 @@
             <!-- Filter -->
             <a href="#" class="text-3xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 duration-700
             hover:text-white"> <span>Filter</span> </a>
-
-
-
-
-             <!-- Search -->
-            <div>
-              <input id="searchInput" placeholder="Search" class="text-xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black items-center justify-center" />
-              <button id="searchBtn" class="px-4 py-2 rounded text-xl text-white bg-blue-400">Search</button>
-            </div>
-
             
           </div>
-        </div>
+            <!-- Search -->
+            <div class="w-1/4">
+              <input id="searchInput" placeholder="Search" class="text-xl lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black items-center justify-center" />
+              <button id="searchBtn" class="px-4 py-2 rounded text-xl text-white bg-black">Search</button>
+            </div>
+      
       </nav>
 
     <div class="flex flex-wrap container gap-5 w-full item-center justify-center md\:flex-col">

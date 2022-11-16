@@ -42,6 +42,8 @@
         transition: all .3s ease;
         position: relative;
         cursor: pointer;
+        border-radius: 30px;
+        box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
     }
 
 
@@ -65,10 +67,8 @@
 .movieImg{
     width: 100%;
     object-fit: cover;
-    border-radius: 2rem;
     height: 35rem;
     cursor: pointer;
-    box-shadow: -5px -2px 9px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -106,11 +106,10 @@
 .movieImg{
     align-self: center;
     justify-content: center;
-    width: 35rem;
+    width: 25rem;
     height: 27rem;
     border-radius: 1rem;
     position: relative;
-    box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
   
 }
 
@@ -139,4 +138,20 @@
     border-radius: 1rem;
     position: relative;
     box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+}
+
+.lastImg{
+    align-self: center;
+    justify-content: center;
+    width: 20rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.lastImg:hover{
+    transform: translateY(-1rem);
+    transition: all .3s ease;
+    filter: blur(.4rem) contrast(70%) ;
+    transition: all .3s ease;
 }

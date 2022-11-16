@@ -70,10 +70,10 @@ const renderMovies = (movies) => {
   }
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
-    movieDiv.style="display: flex; width:30%;  flex-wrap: wrap;" ;
+    movieDiv.style="display: flex; width:30%;  flex-wrap: wrap;  border-radius: 30px;" ;
     movieDiv.setAttribute("class", "all-movies");
     movieDiv.innerHTML = `
-          <div class="movieList flex flex-col rounded shadow-lg justify-center item-center  my-3 ">
+          <div class="movieList flex flex-col justify-center item-center  my-3 ">
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
       } poster" class="movieImg" >
         <h3 class="text-center text-2xl font-bold my-10 ">${movie.title}</h3>

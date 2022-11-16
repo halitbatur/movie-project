@@ -31,11 +31,13 @@ const renderActors = (actors) => {
   
   actors.map((actor) => {
     const actorDiv = document.createElement("div");
+    actorDiv.style="display: flex; width:30%;  flex-wrap: wrap;" ;
     // const actorDiv2 = document.getElementById("actorPageContainer");
     actorDiv.innerHTML = `
+    <div class="movieList flex flex-col shadow-lg justify-center item-center  my-3 ">
           <img src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.name
-      } poster">
-          <h3>${actor.name}</h3>`;
+      } poster"  class="lastImg" >
+          <h3 class="text-center text-2xl font-bold my-10 ">${actor.name}</h3>`;
     actorDiv.addEventListener("click", () => {
       actorDetails(actor);
     });
@@ -54,20 +56,24 @@ const fetchActor = async (actorId) => {
   return res.json();
 };
 const renderActor = (actor) => {
+  
+
+  
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div ><img src=${PROFILE_BASE_URL + actor.profile_path}></div>
+    <div class="flex flex-wrap my-32 rounded-3xl shadow-lg">
+        <div class="w-1/4 "><img src=${PROFILE_BASE_URL + actor.profile_path} class="w-96 rounded-lg"></div>
         
-            <div >
-            <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
-            <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
-            <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
-            <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
-            <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
-            <h3 class="pt-6"><b>Biography:</b></h3>
-            <p id="actor-biography">${actor.biography}</p>
+            <div class="w-3/4 mt-10">
+            <h2 id="actor-name" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600">Name:</b> ${actor.name}</h2>
+            <p id="actor-gender" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600">Gender:</b> ${actor.gender}</p>
+            <p id="actor-popularity" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600">Popularity:</b> ${actor.popularity} </p>
+            <p id="actor-birthday" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600">Birthday:</b> ${actor.birthday} </p>
+            <p id="actor-deathday" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600">Deathday:</b> ${actor.deathday} </p>
+            <h1 class="pt-6" class="text-2xl  font-bold ml-10 my-2"><b class="text-red-600 text-3xl ml-10 my-2">Biography:</b></h1>
+            <p id="actor-biography" class="text-2xl  font-bold ml-10 my-2">${actor.biography}</p>
         </div>
         <div >  `;
+        
 };
 
 
