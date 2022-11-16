@@ -40,30 +40,17 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const credits = await fetchCredits(movie.id);
   const trailer = await fetchTrailer(movie.id);
-  console.log(movie)
-  console.log(credits)
   const comp = await movieRes.production_companies;
   const official = trailer.results.find((item) =>
     item.name.includes("Official Trailer")
   );
-
   const renderGenres = async (genre) => {
     const genreRes = await fetchGenres();
     console.log(genre);
   }
-
-  // function checkDirector({known_for_department}){
-  //   return known_for_department === "Directing"
-  // }
-  // const directorObject = credits.cast.map(checkDirector)
-  // console.log(directorObject)
-  // const directorName = directorObject.name
-  // console.log(directorName)
-
   const director = credits.crew.find((item) =>
   item.job.toLowerCase().includes("Director")
-);
-
+  );
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -81,11 +68,11 @@ const movieDetails = async (movie) => {
     .join("");
     const companies = comp.map((com) => { 
       if (com.logo_path) {
-      return `<li>${comp.name}</li> 
-              <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="">` 
-    } else return `<li>${comp.name}</li>`
+      return `<li>${com.name}</li> 
+              <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
+    } else return `<li>${com.name}</li>`
     }).join('')
-  
+
     renderMovie({details: movieRes, cast: cast, official: official, companies: companies});
   };
 
@@ -103,7 +90,8 @@ const renderMovies = (movies) => {
         <img id="poster" class="cursor-pointer" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
-        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>`;
+        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>
+        <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -118,7 +106,7 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const { details, cast, official ={} } = movieDetails;
+  const { details, cast,companies, official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
 
   CONTAINER.innerHTML = `
@@ -143,6 +131,7 @@ const renderMovie = (movieDetails) => {
 
             <h3>Overview:</h3>
             <p id="movie-overview class="text-red">${overview}</p>
+            <ul>Production Companies: ${companies}<ul>
         </div>
         </div>
             <h3>Actors:</h3> 
@@ -248,8 +237,12 @@ function renderResults(results){
     const container = document.createElement("div")
     container.innerHTML = `
     <div class="flex w-full">
-    <img class="h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-    <span class="flex flex-1 justify-center items-center text-center">${result.original_title}</span>
+      <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+      <ul class="flex w-full flex-col">
+        <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
+        <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
+        <li><div class="flex"><p>${result.genre_ids}</p> </div></li>
+      </ul>
     </div>
     `
     element.appendChild(container)
