@@ -1,5 +1,5 @@
 'use strict';
-//declaration 
+
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
@@ -30,12 +30,18 @@ const fetchMovies = async () => {
   const res = await fetch(url);
   return res.json();
 };
+
+
+
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
-  return res.json();
+  const data = await res.json();
+  // return await data.genres;
+  return data;
 };
+// console.log(fetchMovie(122))
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
@@ -85,7 +91,6 @@ const renderMovie = (movie) => {
 
 
 // filter nav
-// this is the filter nav
 const fetchFilterMovies = async (typeFilter) => {
   const url = constructUrl(`movie/${typeFilter}`);
   const res = await fetch(url);
@@ -96,28 +101,31 @@ const FilterMovies = async (typeFilter) => {
   const movies = await fetchFilterMovies(typeFilter);
   renderMovies(movies.results);
 }
-const popular = document.querySelector("#popular");
-popular.addEventListener("click", () => {
-  CONTAINER.innerHTML = "";
-  FilterMovies("popular")
-})
-const topRated = document.querySelector("#top_rated");
-topRated.addEventListener("click", () => {
-  CONTAINER.innerHTML = "";
-  FilterMovies("top_rated")
-})
 
-const nowPlaying = document.querySelector("#now_playing");
-nowPlaying.addEventListener("click", () => {
-  CONTAINER.innerHTML = "";
-  FilterMovies("now_playing")
-})
+const renderFilterMovies = () => {
+  const popular = document.querySelector("#popular");
+  popular.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("popular")
+  })
+  const topRated = document.querySelector("#top_rated");
+  topRated.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("top_rated")
+  })
 
-const upComing = document.querySelector("#upcoming");
-upComing.addEventListener("click", () => {
-  CONTAINER.innerHTML = "";
-  FilterMovies("upcoming")
-})
+  const nowPlaying = document.querySelector("#now_playing");
+  nowPlaying.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("now_playing")
+  })
+
+  const upComing = document.querySelector("#upcoming");
+  upComing.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("upcoming")
+  })
+}
 // end of filter nav
 
 // rendering Home page
@@ -196,21 +204,66 @@ const renderSearchMovies = () => {
 
 //ending of search for movies
 
+///////////////////////////////////////////////////////
+
+// genre part
+const fetchingGenre = async () => {
+  const url = constructUrl("genre/movie/list");
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.genres;
+}
+
+const fetchingDiscover = async (genersId) => {
+  const url = constructUrl("discover/movie");
+  const res = await fetch(`${url}&with_genres=${genersId} `);
+  const data = await res.json();
+  return data.results;
+}
+
+const generes = async (genereId) => {
+  const movies = await fetchingDiscover(genereId);
+  console.log(movies)
+  CONTAINER.innerHTML = "";
+  renderMovies(movies);
+}
+
+//for rendering Generes movies
+const renderGeners = async () => {
+  const genersElements = document.querySelector("#geners");
+  const typeOfgeners = await fetchingGenre();
+  genersElements.addEventListener("click", (e) => {
+    return typeOfgeners.forEach((i) => {
+      if (i.name === e.target.innerText) {
+        generes(i.id);
+      }
+    })
+  })
+}
+console.log(renderGeners());
+
+
+
+// end of genre /////////////////////////////////////
+
+
+
+
+
 // navbar menu for responsiving the navbar
 const navbarMenu = () => {
   const main = document.querySelector("main");
   const list = document.querySelector("ul");
   const menuIcon = document.getElementById("menu-icon");
   return menuIcon.addEventListener("click", () => {
-    console.log(menuIcon.name);
+    // console.log(menuIcon.name);
     menuIcon.name === "menu" ? (menuIcon.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-[100]', main.classList.add('mt-[350px]')))
       : (menuIcon.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-[100]'), main.classList.remove('mt-[350px]'))
 
   })
 }
 
-document.addEventListener("DOMContentLoaded", autorun(), renderAbout(), renderSearchMovies(), renderHome(), navbarMenu());
-
+document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderSearchMovies(), renderHome(), navbarMenu());
 
 
 
