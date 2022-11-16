@@ -118,7 +118,7 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const { details, cast, official } = movieDetails;
+  const { details, cast, official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
 
   CONTAINER.innerHTML = `
@@ -226,8 +226,8 @@ function searchShow(query){
 fetch(search_URL)
 .then((resp)=>resp.json())
 .then((jsonData)=>{
-  const results = jsonData.results.map(movie =>movie.original_title)
-  renderResults(results)
+  // const results = jsonData.results.map(movie =>movie.original_title)
+  renderResults(jsonData.results)
   // console.log( jsonData)
   document.getElementById("errorMessage").innerHTML = ""
 }).catch((error => {
@@ -241,11 +241,19 @@ function renderResults(results){
    results.forEach(result => {
      list.setAttribute("class","flex flex-col bg-white cursor-pointer")
     let element = document.createElement("li")
-    let image = document.createElement("img")
-    image.setAttribute("src", ``)
-    element.appendChild(image)
-    element.innerHTML =result;
+    element.addEventListener("click", ()=>{
+      movieDetails(result)
+    })
+    const container = document.createElement("div")
+    container.innerHTML = `
+    <div class="flex w-full">
+    <img class="h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+    <span class="flex flex-1 justify-center items-center text-center">${result.original_title}</span>
+    </div>
+    `
+    element.appendChild(container)
     list.appendChild(element)
+    console.log(result)
   })
   }
 window.onload = ()=> {
