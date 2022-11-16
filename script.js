@@ -42,19 +42,22 @@ const movieDetails = async (movie) => {
   const trailer = await fetchTrailer(movie.id);
   const comp = await movieRes.production_companies;
   const genre = await movieRes.genres;
+  const director = await credits.crew;
   const official = trailer.results.find((item) =>
     item.name.includes("Official Trailer")
   );
   const genres = genre.map((g) => { 
     return `<li>${g.name}</li>`
   }).join('')
-  // const renderGenres = async (genre) => {
-  //   const genreRes = await fetchGenres();
-  //   console.log(genre);
-  // }
-  const director = credits.crew.find((item) =>
-  item.job.toLowerCase().includes("Director")
-  );
+  const directorJob = director.map((dir) => { 
+    if (dir.job == "Director") {
+      return `<h3>${dir.name}</h3> ` 
+    } 
+  }).join('')
+  console.log(directorJob + "hi")
+  // const director = credits.crew.find((item) =>
+  //   item.job.toLowerCase().includes("Director")
+  // );
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -77,7 +80,7 @@ const movieDetails = async (movie) => {
   } else return `<li>${com.name}</li>`
   }).join('')
 
-  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres});
+  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres, director: directorJob });
   };
 
 
@@ -110,7 +113,7 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const {details, cast,companies, genres,official ={} } = movieDetails;
+  const {details, cast,companies,director, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = `
     <div class="row">
@@ -136,6 +139,7 @@ const renderMovie = (movieDetails) => {
             <h3>Overview:</h3>
             <p id="movie-overview class="text-red">${overview}</p>
             <ul>Production Companies: ${companies}<ul></ul>
+            <h3>Director: ${director}</h3> 
         </div>
         </div>
             <h3>Actors:</h3> 
