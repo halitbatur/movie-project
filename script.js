@@ -30,7 +30,6 @@ const fetchMovies = async () => {
   const res = await fetch(url);
   return res.json();
 };
-
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
@@ -40,34 +39,40 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  // console.log(movies)
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    movieDiv.classList.add("grid-item");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
+    <img id="image"  src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" />
+    <span class="yearOfRelease">${movie.release_date}</span>
+    <p class="title">${movie.title}</p>
+    <span class="rating">
+    <ion-icon name="star" class="star"></ion-icon>
+    ${movie.vote_average}/10
+    </span>`
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
+
   });
 };
+
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
+             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path
+    }>
         </div>
         <div class="col-md-8">
             <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
+            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
+    }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
@@ -78,4 +83,92 @@ const renderMovie = (movie) => {
     </div>`;
 };
 
-document.addEventListener("DOMContentLoaded", autorun);
+
+// filter nav
+const fetchFilterMovies = async (typeFilter) => {
+  const url = constructUrl(`movie/${typeFilter}`);
+  const res = await fetch(url);
+  return res.json();
+}
+
+const FilterMovies = async (typeFilter) => {
+  const movies = await fetchFilterMovies(typeFilter);
+  renderMovies(movies.results);
+}
+const popular = document.querySelector("#popular");
+popular.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("popular")
+})
+const topRated = document.querySelector("#top_rated");
+topRated.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilterMovies("top_rated")
+})
+
+  const nowPlaying = document.querySelector("#now_playing");
+  nowPlaying.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("now_playing")
+  })
+
+  const upComing = document.querySelector("#upcoming");
+  upComing.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("upcoming")
+  })
+  return popular, topRated, nowPlaying, upComing;
+}
+// end of filter nav
+
+// rendering Home page
+const renderHome = () => {
+  const home = document.querySelectorAll(".home");
+  home.forEach((i) => {
+    i.addEventListener("click", () => {
+      CONTAINER.innerHTML = "";
+      return autorun();
+    })
+  })
+}
+
+// Rendering about page
+const renderAbout = () => {
+  const about = document.querySelector("#about");
+  about.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    CONTAINER.innerHTML = `
+    <div class="  pt-12 mb-20  px-20 ml-[100px]">
+    <div class="text-center">
+    <h1 class="text-[#dcf836] md:text-6xl  text-3xl tracking-wide font-extrabold mb-7">Let's talk about TMDB</h1>
+    <p class=" md:text-xl text-base   mx-auto  leading-8  ">The Movie Database (TMDB) is a 
+    community built movie and TV database. Every piece of data has been added by our amazing 
+    community dating back to 2008. TMDb's strong international focus and breadth of data is
+     largely unmatched and something we're incredibly proud of. Put simply, we live and 
+     breathe community and that's precisely what makes us different.
+     Every year since 2008, the number of contributions to our database has increased. With over 400,000 developers and companies using our platform, TMDB has become a premiere source for metadata.
+     We're international. While we officially support 39 languages we also have extensive regional data. Every single day TMDB is used in over 180 countries.</p>
+    
+   </div>
+    </div>
+    `
+  })
+
+}
+
+
+// navbar menu for responsiving the navbar
+const navbarMenu = () => {
+  const main = document.querySelector("main");
+  const list = document.querySelector("ul");
+  const menuIcon = document.getElementById("menu-icon");
+  return menuIcon.addEventListener("click", () => {
+    console.log(menuIcon.name);
+    menuIcon.name === "menu" ? (menuIcon.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-[100]', main.classList.add('mt-[350px]')))
+      : (menuIcon.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-[100]'), main.classList.remove('mt-[350px]'))
+
+  })
+}
+
+document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderHome(), navbarMenu());
+
