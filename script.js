@@ -14,6 +14,7 @@ function toggleItNavbar() {
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
+const GENRE = document.querySelector(".genres")
 const CONTAINER = document.querySelector(".container");
 const CONTAINER2 = document.querySelector(".container2");
 const ACTORS = document.querySelector("#actorsLink");
@@ -34,7 +35,6 @@ const constructUrl = (path) => {
 
 // const SEARCH_URL = `https://api.themoviedb.org/3/search/multi?api_key=NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=&language=en-US&page=1&include_adult=false`
 // console.log(SEARCH_URL)
-
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
@@ -46,7 +46,7 @@ const movieDetails = async (movie) => {
     item.name.includes("Official Trailer")
   );
   const genres = genre.map((g) => { 
-    return `<li>${g.name}</li> `
+    return `<li>${g.name}</li>`
   }).join('')
   // const renderGenres = async (genre) => {
   //   const genreRes = await fetchGenres();
@@ -110,9 +110,8 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const { details, cast,companies, genres,official ={} } = movieDetails;
+  const {details, cast,companies, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
-
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -136,7 +135,7 @@ const renderMovie = (movieDetails) => {
 
             <h3>Overview:</h3>
             <p id="movie-overview class="text-red">${overview}</p>
-            <ul>Production Companies: ${companies}<ul>
+            <ul>Production Companies: ${companies}<ul></ul>
         </div>
         </div>
             <h3>Actors:</h3> 
@@ -179,7 +178,6 @@ const searchList = document.getElementById("search-list");
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
-  const actors = constructUrl(`person/popular`);
   const res = await fetch(url);
   return res.json();
 };
@@ -209,11 +207,28 @@ const fetchPersonDetails = async (personId) => {
   return res.json();
 };
 
+
 const fetchGenres = async () => {
   const genres = constructUrl(`/genre/movie/list`);
   const res = await fetch(genres);
-return res.json();
+  return res.json();
 }
+const autorunGenre = async () => {
+  const genre = await fetchGenres();
+  genresList(genre.name);
+};
+const genresList = async(genres) => {
+  // const genres = await fetchGenres();
+  genres.map((g) => { 
+    const genreDiv = document.createElement("div");
+    genreDiv.innerHTML = `
+    <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
+      ${g.name}
+    </a>`;
+    GENRE.appendChild(genreDiv);
+  });
+}
+  
 
 function searchShow(query){
   const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
@@ -252,7 +267,6 @@ function renderResults(results){
     `
     element.appendChild(container)
     list.appendChild(element)
-    console.log(result)
   })
   }
 window.onload = ()=> {
