@@ -243,6 +243,7 @@ function renderResults(results){
     let element = document.createElement("li")
     element.addEventListener("click", ()=>{
       movieDetails(result)
+      document.getElementById("render-search").classList.toggle("hidden")
     })
     const container = document.createElement("div")
     container.innerHTML = `
