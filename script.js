@@ -88,11 +88,11 @@ const movieDetails = async (movie) => {
     item.name.includes("Official Trailer")
   );
   const genres = genre.map((g) => { 
-    return `<li>${g.name}</li>`
+    return `<li class="list-none inline-flex justify-between mr-1 text-xs">${g.name}</li>`
   }).join('')
   const directorJob = director.map((dir) => { 
     if (dir.job == "Director") {
-      return `<h3>${dir.name}</h3> ` 
+      return `<h3 class="inline-block">${dir.name}</h3> ` 
     } 
   }).join('')
   console.log(directorJob + "hi")
@@ -129,7 +129,7 @@ const actorDetails = async (actor) => {
   const details = await fetchPersonDetails(actor);
   renderActorPage(details);
 };
-
+const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -151,41 +151,46 @@ const renderMovies = (movies) => {
     CONTAINER.appendChild(movieDiv);
     // SWIPER.appendChild(backdropDiv);
   });
+  CONTAINER.setAttribute('class',gridColumns);
 };
+
+const noGrid = "container mx-auto"
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
   const {details, cast,companies,director, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
+    <div class="w-100">
+    <div class="flex justify-center"><iframe width="1400" height="800"src="https://www.youtube.com/embed/${
+      official.key
+    }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        
+    <div class="grid grid-cols-2"><div class="w-2/4">
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
-        <div><iframe width="560" height="315" src="https://www.youtube.com/embed/${
-          official.key
-        }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        <div class="col-md-8 text-white w-80">
-            <h2 id="movie-title class="text-white">${title}</h2>
-            <p>Movie Genre: ${genres}<p>
+  
+        <div class=" text-white w-4/5 font-gotham">
+          <h2 id="movie-title class="text-white font-gotham text-2xl">${title}</h2>
+            <p>${genres}<p>
+            <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
             <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
             <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
-            <p id="movie-rating class="text-yellow"><b>Rating:</b> ${Math.round(
+            <p id="movie-rating class="text-yellow-300"><b></b> <span style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
               vote_average
             )}</p>
-            <p id="vote-count class="text-yellow"><b>Vote Count:</b> ${vote_count}</p>
-            <p id="vote-count"><b>The language:</b> ${original_language}</p>
-
-            <h3>Overview:</h3>
-            <p id="movie-overview class="text-red">${overview}</p>
-            <ul>Production Companies: ${companies}<ul></ul>
-            <h3>Director: ${director}</h3> 
+            <p id="vote-count class="text-yellow-300"><b>Vote Count:</b> ${vote_count}</p>
+            <p id="vote-count"><b></b> ${original_language}</p>
+            <ul class="w-1/4">Production Companies: ${companies}<ul></ul>
+           
         </div>
         </div>
-            <h3>Actors:</h3> 
-            <ul id="actors" class="list-unstyled">${cast}</ul>
+        <h3 class="font-gotham">Overview</h3>
+        <p id="movie-overview class="text-red">${overview}</p>
+            <h3 class="flex justify-center">Actors</h3> 
+            <ul id="actors" class="list-unstyled grid grid-cols-3 justify-center">${cast}</ul></div>
     </div>`;
   //   SWIPER.innerHTML = `<main class="grid grid-cols-3">
   //  <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
@@ -198,6 +203,7 @@ const renderMovie = (movieDetails) => {
       actorDetails(actor.id);
     });
   }
+  CONTAINER.setAttribute('class',noGrid)
 };
 
 const renderActorPage = (actor) => {
