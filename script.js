@@ -143,7 +143,7 @@ const createNav = async () => {
     `;
 
   let searchButton = document.getElementById('searchButton');
-  searchButton.setAttribute("class", "mt-8 mr-4 text-white")
+  searchButton.setAttribute("class", "mt-16 mr-4 text-white")
 
   searchButton.addEventListener('click', async (e) => {
 
@@ -188,7 +188,7 @@ const renderMedia = async (media) => {
     itemDiv.innerHTML = `
     
         <div class="movieContainer">
-        <img src="${BACKDROP_BASE_URL + image}" alt="${title} poster" class="movieImage">
+        <img src="${BACKDROP_BASE_URL + image}" alt="${title} poster" class=" movieImage">
         </div>
         <h3>${title}</h3>
         `;
@@ -234,14 +234,16 @@ const renderMovies = async (movies) => {
     // all elements for each movie on the home page go here
 
     movieDiv.innerHTML = `
-        <div class="movieContainer">
-          <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class="movieImage">
-          <p class="movieDescription">${movie.overview}</p>
+        <div class=" movieContainer">
+          <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class="rounded-2xl movieImage">
+          <p class=" text-indigo-900 font-serif text-xl movieDescription">${movie.overview}</p>
         </div>
-        <h3>${movie.title}</h3>
-        <h3>Rating: ${movie.vote_average}</h3>
-        <h3>${myGenreList}</h3>
+        <h3 class="mt-2 font-bold text-center    ">${movie.title}</h3>
+        <h3 class=" text-center    ">Rating: ${movie.vote_average}</h3>
+        <h3 class=" text-center"><span class="font-bold">Genre:</span> ${myGenreList}</h3>
         `;
+
+
 
 
     movieDiv.addEventListener("click", () => {
