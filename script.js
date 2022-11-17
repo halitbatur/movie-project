@@ -92,6 +92,16 @@ const movieDetails = async (movie) => {
   const genres = genre.map((g) => { 
     return `<li class="list-none inline-flex justify-between mr-1 text-xs">${g.name}</li>`
   }).join('')
+
+
+  // const renderGenres = async (genre) => {
+  //   const genreRes = await fetchGenres();
+  //   console.log(genre);
+  // }
+  const director = credits.crew.find((item) =>
+  item.job.toLowerCase().includes("Director")
+  );
+
   const directorJob = director.map((dir) => { 
     if (dir.job == "Director") {
       return `<h3 class="inline-block">${dir.name}</h3> ` 
@@ -101,6 +111,7 @@ const movieDetails = async (movie) => {
   // const director = credits.crew.find((item) =>
   //   item.job.toLowerCase().includes("Director")
   // );
+
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -131,11 +142,16 @@ const actorDetails = async (actor) => {
   const details = await fetchPersonDetails(actor);
   renderActorPage(details);
 };
+
+
 const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+
     movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95">
     <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
@@ -151,28 +167,34 @@ const renderMovies = (movies) => {
       BACKDROP_BASE_URL + movie.backdrop_path
     }" alt="${movie.title} poster">`;
     CONTAINER.appendChild(movieDiv);
+   
     // SWIPER.appendChild(backdropDiv);
   });
-  CONTAINER.setAttribute('class',gridColumns);
+
+   CONTAINER.setAttribute('class',gridColumns);
+
 };
 
 const noGrid = "container mx-auto"
 
+console.log(CONTAINER) 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const {details, cast,companies,director, genres,official ={} } = movieDetails;
-  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
+  const { details, cast,companies, genres,official ={} } = movieDetails;
+  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language,backdrop_path} = details;
+  CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
-    <div class="w-100">
-    <div class="flex justify-center"><iframe width="1400" height="800"src="https://www.youtube.com/embed/${
-      official.key
-    }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        
-    <div class="grid grid-cols-2"><div class="w-2/4">
+  <div class = "w-full"><iframe width="560" height="315" src="https://www.youtube.com/embed/${
+          official.key
+        }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="row">
+        <div class="col-md-4">
+
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
+
   
         <div class=" text-white w-4/5 font-gotham">
           <h2 id="movie-title class="text-white font-gotham text-2xl">${title}</h2>
