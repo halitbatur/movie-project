@@ -8,10 +8,12 @@ function toggleIt() {
 function toggleItNavbar() {
   return openMenu.classList.toggle("hidden");
 }
-window.addEventListener("click", ()=>{
+
+document.getElementById("movie-search-box").addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
 })
+
 // const genreTranslations = {
 //   28:"Action",
 //   12:"Adventure",
@@ -267,6 +269,7 @@ return res.json();
 }
 
 
+
 function genresList(genres) {
   // const genres = await fetchGenres();
   genres.forEach((g) => { 
@@ -281,6 +284,7 @@ const genreDiv = document.createElement("div");
 const fetchMoviesByGenre = (genreId) => {
 
 }
+
 
 function searchShow(query){
   const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
@@ -331,12 +335,12 @@ function renderResults(results){
     })
     const container = document.createElement("div")
     container.innerHTML = `
-    <div class="flex w-full">
-    <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-    <ul class="flex w-full flex-col">
+    <div class="flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+    <img class=" h-20 w-18" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+    <ul class="flex w-full flex-col dark:text-white font-sans p-2">
     <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
     <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-    <li><div class="flex"><p>${genresConverter}</p> </div></li>
+    <li><p> ${genresConverter}</p></li>
     </ul>
     </div>
     `
