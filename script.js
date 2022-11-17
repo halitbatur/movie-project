@@ -5,21 +5,43 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
-//start button collap
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    } 
-  });
-}
+function show_hide_genre() {  
+  let click = document.querySelector("#genreList");  
+  if(click.style.display ==="none") {  
+     click.style.display ="block";  
+  } else {  
+     click.style.display ="none";  
+  }   
+}  
+function show_hide_filter() {  
+  let click = document.querySelector("#filterList");  
+  if(click.style.display ==="none") {  
+     click.style.display ="block";  
+  } else {  
+     click.style.display ="none";  
+  }   
+  let alink = document.querySelector(".genre-link");
+  alink.addEventListener("click", async ()=> {
+    // click.style.display="none";  //?
+  })
+}  
+
+//start button collap
+// var coll = document.getElementsByClassName("collapsible");
+// var i;
+
+// for (i = 0; i < coll.length; i++) {
+//   coll[i].addEventListener("click", function() {
+//     this.classList.toggle("active");
+//     var content = this.nextElementSibling;
+//     if (content.style.maxHeight){
+//       content.style.maxHeight = null;
+//     } else {
+//       content.style.maxHeight = content.scrollHeight + "px";
+//     } 
+//   });
+// }
 
 //end button collap
 
@@ -30,7 +52,7 @@ const autorun = async (filterType) => {
   console.log("Movies results ids",movies.results.map(e=> e.id));
   console.log("Movies results",movies.results.map(e=> e.original_title));
   CONTAINER.innerHTML = "";
-  console.log(renderGenres());
+  renderGenres();
   renderMovies(movies.results);
 };
 const fetchGenres = async () => {
@@ -42,14 +64,34 @@ const fetchGenres = async () => {
 };
 const renderGenres = async() =>{
   let genreList = await fetchGenres();
-  const contentGenre = document.querySelector(".content-genre");
+  let contentGenre = document.querySelector(".content-genre");  
   console.log("genre list rendering test",genreList.genres.map(e=>e.name));
   genreList.genres.map(genre => {    
     const aLink = document.createElement("a");
+    aLink.style.cursor = "pointer";
     aLink.innerText = genre.name;
     contentGenre.append(aLink);
+    aLink.addEventListener("click", async ()=> {
+      contentGenre.style.display="none";
+        console.log(genre.id);
+        let res = await  moviesGenreList(genre.id);
+        console.log(res.results.map(e=>e.genre_ids));
+        
+        renderMovies(res.results);
+        // console.log(res);
+
+    });    
   })
+  
 };
+const moviesGenreList = async(genreId)=>{
+  const url = `${TMDB_BASE_URL}/discover/movie?api_key=542003918769df50083a13c415bbc602&with_genres=${genreId}
+  `;
+  const moviesList = await fetch(url);
+  console.log(moviesList);
+  return moviesList.json();
+};
+
 
 // Don't touch this function please
 const constructUrl = (path) => {
@@ -81,10 +123,11 @@ const fetchMovie = async (movieId) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  CONTAINER.innerHTML = '';
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
+        <img class="h-20 w-40" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
       movie.title
     } poster">
         <h3>${movie.title}</h3>`;
