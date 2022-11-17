@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -9,7 +9,6 @@ const CONTAINER = document.querySelector(".container");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  console.log(movies.results)
 };
 
 // Don't touch this function please
@@ -22,11 +21,11 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  const actors = await fetchActors();
-  console.log("actors is : ", actors.results.slice(0, 5));
-  // console.log("movieRes is : ", movieRes);
+  const casts = await fetchMovieCredits(movie.id);
+  const trailor = await fetchingMovieTrailor(movie.id);
+  const similar = await fetchingSimilarMovies(movie.id);
 
-  renderMovie(movieRes, actors);
+  renderMovie(movieRes, casts, trailor.results, similar);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -43,27 +42,18 @@ const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
   const data = await res.json();
-  // return await data.genres;
   return data;
 };
-// console.log(fetchMovie(122))
+
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
-  // console.log(movies)
   const gridContainer = document.createElement("div");
   gridContainer.classList.add("gridContainer");
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.classList.add("grid-item");
-    movieDiv.innerHTML = `
-    <img id="image"  src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" />
-    <span class="yearOfRelease">${movie.release_date}</span>
-    <p class="title">${movie.title}</p>
-    <span class="rating">
-    <ion-icon name="star" class="star"></ion-icon>
-    ${movie.vote_average}/10
-    </span>`
+    movieDiv.innerHTML = `<img id="image" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" /> <span class="yearOfRelease">${movie.release_date}</span> <p class="title">${movie.title}</p> <span class="rating"> <ion-icon name="star" class="star"></ion-icon> ${movie.vote_average}/10 </span>`;
 
     movieDiv.addEventListener("click", () => {
 
@@ -75,120 +65,125 @@ const renderMovies = (movies) => {
   CONTAINER.appendChild(gridContainer);
 };
 
+///single page
 
-// You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, actorsData) => {
-  const actors = actorsData.results.slice(0, 5);
-
-  console.log("inside renderMoviefn: actors =", actors);
-  CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
-        </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-        </div> 
-        </div>
-        <h3>Actors:</h3>
-        <ul id="actors" class="list-unstyled"></ul>
-</div>`;
-
-  //? isWork
-
-  // movie.production_companies[index].name
-
-  const production_cps = movie.production_companies;
-  const production_Row = document.createElement("div");
-  production_Row.classList.add("row", "main-production_companies-row");
-  CONTAINER.appendChild(production_Row);
-
-  const cmHtml = document.createElement("h4");
-  cmHtml.classList.add("h4", "block");
-  cmHtml.innerHTML = `
-     production companies:  
-  `;
-  production_Row.appendChild(cmHtml);
-  // !  map
-  production_cps.map((companie, index) => {
-    const newDivRowData = document.createElement("p");
-    newDivRowData.innerHTML = `
-      <p>${companie.name}</p>
-    `;
-    production_Row.appendChild(newDivRowData);
-  });
-
-  const productionDiv = document.createElement("div");
-  productionDiv.classList.add("productionDiv");
-  productionDiv.innerHTML = `
-
-    <br></br>
-    <h4>original language: </h4>
-    <p> ${movie.original_language}</p>
-    <br></br>
-    <h4>release datef</h4>
-    <p>${movie.release_date}</p>
-
-    <br></br>
-    <h4>vote count</h4>
-    <p>${movie.vote_count}</p>
-    <br></br>
-    <h4>movie rating</h4>
-    <p>${movie.vote_average}</p>
-    <br></br>
-    <h4>directory name: </h4>
-    <p>name</p>
-  `;
-  CONTAINER.appendChild(productionDiv);
-
-  // const production_company =
-};
-
-// ! filter nav
-const fetchFilterMovies = async (typeFilter) => {
-  const url = constructUrl(`movie/${typeFilter}`);
+//fetching movie credits
+const fetchMovieCredits = async (movie_id) => {
+  const url = constructUrl(`movie/${movie_id}/credits`);
   const res = await fetch(url);
   return res.json();
+}
+
+//fetching movie videos
+//trailor
+const fetchingMovieTrailor = async (movie_id) => {
+  const url = constructUrl(`movie/${movie_id}/videos`);
+  const res = await fetch(url);
+  return res.json();
+}
+//fetching similar movies
+const fetchingSimilarMovies = async (movie_id) => {
+  const url = constructUrl(`movie/${movie_id}/similar`);
+  const res = await fetch(url);
+  return res.json();
+}
+
+
+// You'll need to play with this function in order to add features and enhance the style.
+//rendering single page
+const renderMovie = (movie, castsData, trailor, similar) => {
+  const casts = castsData.cast.slice(0, 5);
+  const similarMovies = similar.results.slice(0, 5);
+  console.log(similarMovies)
+  CONTAINER.innerHTML = `
+    <div class=" w-full">
+     <div class="flex p-12">
+        <div class="grid-item mx-12 w-9/12">
+            <img class="w-full h-full" src=${BACKDROP_BASE_URL + movie.poster_path}>
+        </div>
+        <div class="text-lg flex flex-col gap-2">
+            <h2 class="text-[1.5rem] font-bold" >${movie.title}</h2>
+            <p ><span class="text-xl font-bold mr-2">Release Date:</span> ${movie.release_date}</p>
+            <p ><span class="text-xl font-bold mr-2">Rating:</span> ${movie.vote_average}</p>
+            <p ><span class="text-xl font-bold mr-2">Runtime:</span> ${movie.runtime} Minutes</p>
+            <p ><span class="text-xl font-bold mr-2">Genre:</span> ${movie.genres.map(genre => "   " + genre.name)}</p>
+            <p ><span class="text-xl font-bold mr-2">Language:</span> ${movie.spoken_languages.map(lang => "   " + lang.english_name)}</p>
+            <h3 class="text-3xl font-bold">Overview:</h3>
+            <p class="text-lg">${movie.overview}</p>
+          </div> 
+    </div>
+    </div>`;
+  //? isWork
+  //casts profile picture and their names
+  const castsDiv = document.createElement("div");
+  castsDiv.classList.add("flex", "flex-row", "justify-evenly", "py-24", "text-center");
+  casts.map((cast) => {
+    const castDiv = document.createElement("div");
+    castDiv.innerHTML = `
+    <img src="${PROFILE_BASE_URL + cast.profile_path}" class="rounded-full grid-item">
+    <p class="mt-2 text-xl font-bold">${cast.original_name}</p>
+    `
+    castsDiv.appendChild(castDiv);
+  })
+  //trailor
+  const keyUrl = trailor.map(key => key.key)
+  const trailorDiv = document.createElement("div");
+  trailorDiv.classList.add("flex", "flex-col", "items-center", "py-24", "text-center", "gap-1");
+  trailorDiv.innerHTML = `
+  <h1 class="text-4xl font-bold mb-4">Trailor</h1>
+  <iframe src="https://www.youtube.com/embed/${keyUrl[0]}" height="400px" width="600px"></iframe>
+  `
+  //production company
+  const CompanyDiv = document.createElement("div");
+  CompanyDiv.classList.add("flex", "flex-col", "items-center", "py-24", "text-center", "gap-1");
+  const companyTopic = document.createElement("h1");
+  companyTopic.innerText = "Production Companies"
+  companyTopic.classList.add("text-4xl", "font-bold");
+  CompanyDiv.appendChild(companyTopic);
+  const companyLogos = document.createElement("div");
+  companyLogos.classList.add("flex", "mt-4");
+  CompanyDiv.appendChild(companyLogos);
+
+  movie.production_companies.map((company) => {
+    const oneCompany = document.createElement("div");
+    oneCompany.classList.add("w-[200px]", "text-center");
+    oneCompany.innerHTML = `
+    <img src="${BACKDROP_BASE_URL + company.logo_path}">
+    <p class="text-xl font-bold">${company.name}</p>`
+    companyLogos.appendChild(oneCompany);
+
+  })
+
+  //similar movies
+  const similarMovieTitle = document.createElement("h1");
+  similarMovieTitle.innerText = "Similar Movies"
+  similarMovieTitle.classList.add("text-4xl", "font-bold", "text-center", "mb-4");
+  const similarDiv = document.createElement("div");
+  similarDiv.classList.add("flex", "gap-2");
+  similarMovies.map((movie) => {
+    const oneMovie = document.createElement("div");
+    oneMovie.classList.add("text-center", "cursor-pointer");
+    oneMovie.innerHTML = `
+     <img src="${BACKDROP_BASE_URL + movie.poster_path}">
+     <p class="mt-2 text-xl font-bold">${movie.title}</p>
+    `
+    similarDiv.addEventListener("click", () => {
+
+      movieDetails(movie);
+    });
+    similarDiv.appendChild(oneMovie)
+
+  })
+
+  CONTAINER.appendChild(castsDiv);
+  CONTAINER.appendChild(trailorDiv);
+  CONTAINER.appendChild(CompanyDiv);
+  CONTAINER.appendChild(similarMovieTitle);
+  CONTAINER.appendChild(similarDiv);
+
 };
 
-const FilterMovies = async (typeFilter) => {
-  const movies = await fetchFilterMovies(typeFilter);
-  renderMovies(movies.results);
-}
-const renderFilterMovies = () => {
-  const popular = document.querySelector("#popular");
-  popular.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("popular");
-  });
-  const topRated = document.querySelector("#top_rated");
-  topRated.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("top_rated");
-  });
-
-  const nowPlaying = document.querySelector("#now_playing");
-  nowPlaying.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("now_playing");
-  });
-
-  const upComing = document.querySelector("#upcoming");
-  upComing.addEventListener("click", () => {
-    CONTAINER.innerHTML = "";
-    FilterMovies("upcoming")
-  })
-  return popular, topRated, nowPlaying, upComing;
-}
-// end of filter nav
+/////end of ///single page//////////
 
 // rendering Home page
 const renderHome = () => {
@@ -197,9 +192,160 @@ const renderHome = () => {
     i.addEventListener("click", () => {
       CONTAINER.innerHTML = "";
       return autorun();
+    })
+  })
+}
+
+
+///////////////////////////////////////////////////////
+
+///Actors part
+//for fetching popular actors
+const fetchActors = async () => {
+  let url = constructUrl(`person/popular`);
+  const res = await fetch(url);
+  return await res.json();
+};
+
+const fetchActor = async (actor) => {
+  let url = constructUrl(`person/${actor.id}`);
+  const res = await fetch(url);
+  //console.log(res.json());
+  return await res.json();
+};
+
+const renderActors = async () => {
+  const actors = await fetchActors()
+  const actorList = document.querySelector("#Actors");
+  const actorsDiv = document.createElement("div");
+  actorsDiv.classList.add("grid", "grid-cols-5", "gap-y-4", "px-24", "py-12", "cursor-pointer", "text-center")
+  actorList.addEventListener("click", () => {
+    CONTAINER.innerHTML = '';
+    actors.results.forEach((actor) => {
+      const actorCard = document.createElement("div");
+
+      actorsDiv.appendChild(actorCard);
+
+      actorCard.innerHTML = `
+      <img class="grid-item" src="${PROFILE_BASE_URL + actor.profile_path}">
+   
+      <p class="mt-2 text-xl font-bold">${actor.name}
+      
+      </p>
+    
+   `
+      actorCard.addEventListener("click", () => {
+        renderActor(actor);
+      });
+      CONTAINER.appendChild(actorsDiv);
     });
+
   });
 };
+// function to show single actor Info
+const renderActor = async (actor) => {
+  const actorInfo = await fetchActor(actor);
+  CONTAINER.innerHTML = `
+  <div class="ml-20 p-12">
+  <div class=" mr-8 float-left ">
+  <img class="rounded-3xl" src="${PROFILE_BASE_URL + actorInfo.profile_path}">
+  </div>
+  <div class="text-lg flex flex-col gap-2 ">
+  <h2 class="text-xl flex flex-col gap-2 font-bold"> Name: ${actorInfo.name}</h2>
+  <P> <span class="text-xl font-bold mr-2">Gender:</span> ${actorInfo.gender === 2 ? "Male" : "Female"}</P>
+  
+  <p><span class="text-xl font-bold mr-2">Popularity:</span> ${actorInfo.popularity}</p>  
+  <p><span class="text-xl font-bold mr-2">Birthday:</span> ${actorInfo.birthday}</p>
+  <p><span class="text-xl font-bold mr-2">Death Date:</span> ${actorInfo.deathday}</p>
+  
+  <h3 class="text-3xl font-bold">Biography:</h3>
+  <p class="text-lg">${actorInfo.biography}</p>
+</div> </div>  `
+}
+
+//end of actors part
+/////////////////////////////////////
+
+// genres part
+const fetchingGenre = async () => {
+  const url = constructUrl("genre/movie/list");
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.genres;
+}
+
+const fetchingDiscover = async (genersId) => {
+  const url = constructUrl("discover/movie");
+  const res = await fetch(`${url}&with_genres=${genersId} `);
+  const data = await res.json();
+  return data.results;
+}
+
+const generes = async (genereId) => {
+  const movies = await fetchingDiscover(genereId);
+  console.log(movies)
+  CONTAINER.innerHTML = "";
+  renderMovies(movies);
+}
+
+//for rendering Generes movies
+const renderGeners = async () => {
+  const genersElements = document.querySelector("#geners");
+  const typeOfgeners = await fetchingGenre();
+  genersElements.addEventListener("click", (e) => {
+    return typeOfgeners.forEach((i) => {
+      if (i.name === e.target.innerText) {
+        generes(i.id);
+      }
+    })
+  })
+}
+console.log(renderGeners());
+
+
+
+// end of genre /////////////////////////////////////
+//////////////////////////
+
+// filter nav
+const fetchFilterMovies = async (typeFilter) => {
+  const url = constructUrl(`movie/${typeFilter}`);
+  const res = await fetch(url);
+  return res.json();
+}
+
+const FilterMovies = async (typeFilter) => {
+  const movies = await fetchFilterMovies(typeFilter);
+  renderMovies(movies.results);
+}
+
+const renderFilterMovies = () => {
+  const popular = document.querySelector("#popular");
+  popular.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("popular")
+  })
+  const topRated = document.querySelector("#top_rated");
+  topRated.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("top_rated")
+  })
+
+  const nowPlaying = document.querySelector("#now_playing");
+  nowPlaying.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("now_playing")
+  })
+
+  const upComing = document.querySelector("#upcoming");
+  upComing.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    FilterMovies("upcoming")
+  })
+}
+// end of filter nav
+
+
 
 // Rendering about page
 const renderAbout = () => {
@@ -207,9 +353,9 @@ const renderAbout = () => {
   about.addEventListener("click", () => {
     CONTAINER.innerHTML = "";
     CONTAINER.innerHTML = `
-    <div class="  pt-12 mb-20  px-20 ml-[100px]">
+    <div class="  pt-24 mb-20  px-20 ml-[100px] ">
     <div class="text-center">
-    <h1 class="text-[#dcf836] md:text-6xl  text-3xl tracking-wide font-extrabold mb-7">Let's talk about TMDB</h1>
+    <h1 class="text-[#dcf836] md:text-6xl  text-3xl tracking-wide font-extrabold mb-7 ">Let's talk about TMDB</h1>
     <p class=" md:text-xl text-base   mx-auto  leading-8  ">The Movie Database (TMDB) is a 
     community built movie and TV database. Every piece of data has been added by our amazing 
     community dating back to 2008. TMDb's strong international focus and breadth of data is
@@ -220,9 +366,10 @@ const renderAbout = () => {
     
    </div>
     </div>
-    `;
-  });
-};
+    `
+  })
+
+}
 
 // searching for movies
 
@@ -264,49 +411,7 @@ const renderSearchMovies = () => {
 }
 
 //ending of search for movies
-
-///////////////////////////////////////////////////////
-
-// genre part
-const fetchingGenre = async () => {
-  const url = constructUrl("genre/movie/list");
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.genres;
-}
-
-const fetchingDiscover = async (genersId) => {
-  const url = constructUrl("discover/movie");
-  const res = await fetch(`${url}&with_genres=${genersId} `);
-  const data = await res.json();
-  return data.results;
-}
-
-const generes = async (genereId) => {
-  const movies = await fetchingDiscover(genereId);
-  console.log(movies)
-  CONTAINER.innerHTML = "";
-  renderMovies(movies);
-}
-
-//for rendering Generes movies
-const renderGeners = async () => {
-  const genersElements = document.querySelector("#geners");
-  const typeOfgeners = await fetchingGenre();
-  genersElements.addEventListener("click", (e) => {
-    return typeOfgeners.forEach((i) => {
-      if (i.name === e.target.innerText) {
-        generes(i.id);
-      }
-    })
-  })
-}
-console.log(renderGeners());
-
-
-
-// end of genre /////////////////////////////////////
-
+/////////////////////////////////////
 
 // navbar menu for responsiving the navbar
 const navbarMenu = () => {
@@ -314,27 +419,15 @@ const navbarMenu = () => {
   const list = document.querySelector("ul");
   const menuIcon = document.getElementById("menu-icon");
   return menuIcon.addEventListener("click", () => {
-    console.log(menuIcon.name);
-    menuIcon.name === "menu"
-      ? ((menuIcon.name = "close"),
-        list.classList.add("top-[80px]"),
-        list.classList.add("opacity-[100]", main.classList.add("mt-[350px]")))
-      : ((menuIcon.name = "menu"),
-        list.classList.remove("top-[80px]"),
-        list.classList.remove("opacity-[100]"),
-        main.classList.remove("mt-[350px]"));
-  });
-};
+    // console.log(menuIcon.name);
+    menuIcon.name === "menu" ? (menuIcon.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-[100]', main.classList.add('mt-[350px]')))
+      : (menuIcon.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-[100]'), main.classList.remove('mt-[350px]'))
+
+  })
+}
+
+document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderSearchMovies(), renderHome(), renderActors(), navbarMenu());
 
 
-// !  yahia functionality
-// TODO:  fetch 5 actors for single movei page
-const fetchActors = async () => {
-  const url = constructUrl("person/popular");
-  const res = await fetch(url);
-  return res.json();
-};
-//  TODO: get 5 actors detai
 
-document.addEventListener("DOMContentLoaded", autorun(), renderFilterMovies(), renderAbout(), renderHome(), navbarMenu(), renderSearchMovies());
 
