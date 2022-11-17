@@ -46,25 +46,23 @@ const fetchMovie = async (movieId) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   // console.log(movies)
+  const gridContainer = document.createElement("div");
+  gridContainer.classList.add("gridContainer");
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
     movieDiv.classList.add("grid-item");
-    movieDiv.innerHTML = `
-    <img id="image"  src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" />
-    <span class="yearOfRelease">${movie.release_date}</span>
-    <p class="title">${movie.title}</p>
-    <span class="rating">
-    <ion-icon name="star" class="star"></ion-icon>
-    ${movie.vote_average}/10
-    </span>`
+    movieDiv.innerHTML = `<img id="image" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" /> <span class="yearOfRelease">${movie.release_date}</span> <p class="title">${movie.title}</p> <span class="rating"> <ion-icon name="star" class="star"></ion-icon> ${movie.vote_average}/10 </span>`;
 
     movieDiv.addEventListener("click", () => {
+
       movieDetails(movie);
     });
-    CONTAINER.appendChild(movieDiv);
+    gridContainer.appendChild(movieDiv);
 
   });
+  CONTAINER.appendChild(gridContainer);
 };
+
 
 
 // You'll need to play with this function in order to add features and enhance the style.
