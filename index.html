@@ -14,25 +14,25 @@
 <body>
     <nav class="flex items-center justify-between gap-6 bg-amber-400 p-4 text-white font-bold max-h-20">
         <div class="text-xl">
-            Movie Project
+            Watch Tonight
         </div>
         <ul class="flex  items-center gap-6">
             <li>
-                <a href="#">Home</a>
+                <a class="hover:no-underline hover:text-lg hover:text-white" href="#">Home</a>
             </li>
             <li>
-                <button  onclick="show_hide_genre()" class="button p-2 m-2">Movies</button>
+                <button  onclick="show_hide_genre()" class="button p-2 m-2  hover:no-underline hover:text-lg hover:text-white">Movies</button>
                 <div id="genreList" class=" content-genre hidden flex flex-col w-4 h-28 overflow-y-scroll">                       
                 </div>
             </li>
             <li>
-                <a href="actor.html">Actors</a>
+                <a class="hover:no-underline hover:text-lg hover:text-white" href="actor.html">Actors</a>
             </li>
             <li>
-                <a href="#">About us</a>
+                <a class="hover:no-underline hover:text-lg hover:text-white" href="#">About us</a>
             </li>
             <li>
-                <button  onclick="show_hide_filter()" class="button p-2 mx-2">Filter</button>
+                <button  onclick="show_hide_filter()" class="button p-2 mx-2 hover:no-underline hover:text-lg hover:text-white">Filter</button>
                 <div id="filterList" class="hidden flex flex-col w-4 h-28 overflow-y-scroll">
                     <a class="genre-link" href="#" onclick="autorun('now_playing')">Now Playing</a>
                     <a class="genre-link" href="#" onclick="autorun('popular')">Popular</a>
