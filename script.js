@@ -158,18 +158,23 @@ const fetchMoviesGenres = async () => { // to get all genres of movies, will ret
 // this function create button for each genre, add an event listner to change the content according to which genre the user clicks on
 const renderMoviesGenres = (genres) =>{
   let dropDownListContent = document.getElementById("dropdown-menu-genres");
+  let direction = document.createElement('a')
+  direction.href = "index.html"
   genres.map((genre)=>{// objects of genres
     var genreElement = document.createElement('li');
     
-    genreElement.innerHTML = `<input type="checkbox" name="${genre.name}" id="${genre.name}" />
+    genreElement.innerHTML = `
+    <input type="checkbox" name="${genre.name}" id="${genre.name}" />
     <label for="${genre.name}">${genre.name}</label>`
     genreElement.classList += "dropdown-item"
 
     genreElement.addEventListener('click', async ()=>{
+
       let x = await chooseByGenres(genre.id);
       displayMovieSearchResults(x.results)
   })
-  dropDownListContent.appendChild(genreElement)
+  direction.appendChild(genreElement)
+  dropDownListContent.appendChild(direction)
   })
 }
 const chooseByGenres = async (genreId) =>{
