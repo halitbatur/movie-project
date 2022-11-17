@@ -83,7 +83,7 @@ const renderMovies = (movies) => {
     const movieGenres = genresIdToName(movie.genre_ids);
     console.log(movieGenres);
     const movieDiv = document.createElement("div"); 
-    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-5xl  mx-auto py-20 gap-4 cursor-pointer`)
+    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-6xl  mx-auto justify-items-center py-20 gap-4 cursor-pointer`)
     movieDiv.innerHTML = `
     <div class="mov bg-gray-700  relative overflow-hidden">
         <img class="hover:opacity-[30%] via-gray-300 to-white" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="films">
@@ -298,7 +298,7 @@ const fetchActor = async (actorId) => {
     CONTAINER.innerHTML = `
     <section class="flex justify-center mx-auto bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 py-20">
       <div class="mx-10 ">
-          <div class="image">
+          <div class="image ml-20">
                <img  src=${PROFILE_BASE_URL + actor.profile_path}>
           </div>
       </div>

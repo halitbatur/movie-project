@@ -1,6 +1,6 @@
 /* Variables */
 .info{
-    width: 944px;
+    width: 1070px;
 }
 
 :root {
@@ -190,15 +190,21 @@
   .menu-item:hover {
     background-color: var(--primary-dark);
   }
+
+  .actor-page:hover{
+    color: #a8baf9;
+  }
   
   .menu-item a:focus,
   .dropdown-select:focus {
     background-color: var(--primary-focus);
+    
   }
   
   .dropdown {
     cursor: pointer;
     position: relative;
+    z-index: 500;
   }
   
   .dropdown-select {
@@ -420,7 +426,7 @@
     padding-top: 32px;
 }
   .mov{
-      width: 327px;
+      width: 347px;
       height: 408px;
   }
   
