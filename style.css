@@ -13,10 +13,30 @@ body{
     height: 408px;
 }
 
+.actor{
+    width: 250px;
+    height: 270px;  
+}
+
+.actor img{
+    height: 250px;
+    max-width: 100%;
+    width: 250px;
+}
+
 .mov img{
     height: 340px;
     max-width: 100%;
 }
+
+
+
+.imageMovieSingle img{
+    width:480px;
+    height:200px;
+    max-width: 100%;
+}
+
 .overview{
     max-height: 100%;
     transform: translateY(100%);
@@ -40,6 +60,7 @@ body{
     margin: 24px 16px 0 0;
 }
 
-#movie-overview{
-    color: aqua;
+.info{
+    width: 944px;
 }
+
