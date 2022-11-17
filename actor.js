@@ -183,111 +183,154 @@ const renderActor = (actor, movieCredits) => {
   //console.log(actor, movieCredits)
 
   CONTAINER.innerHTML = `
-  <div
-  class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
-  <div class="px-6">
-      <div class="flex flex-wrap justify-center">
-          <div class="w-full flex justify-center">
-              <!--Image-->
-              <div class="w-56 h-56 rounded-full relative"
-                  style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + actor.profile_path}) ;">
-              </div>
+
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+  <link rel="stylesheet"
+      href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+  <main class=" w-full profile-page">
+      <section class="relative block h-500-px">
+          <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
+                background-image: url('${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}');
+              ">
+              <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+
           </div>
-          <!--Name-->
-          <div class="text-center mt-2">
-              <h3 class="text-2xl text-slate-700 font-black leading-normal mb-1">${actor.name}</h3>
-              <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
-                  <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>${actor.gender == 1 ? 'female' : 'male'}
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="relative flex justify-center ">
+
+              <div class="avatar">
+                  <div class="w-60 mask mask-squircle">
+                      <img src="${PROFILE_BASE_URL + actor.profile_path}" />
+                  </div>
+
+
               </div>
-              <!--Details-->
-              <div class="w-full text-center mt-1">
-                  <div class="flex justify-between lg:pt-4 pt-8 pb-0">
-                      <div class="p-3 text-center">
-                          <span class="text-sm text-slate-400">Popularity</span>
-                          <span
-                              class="text-xl font-bold block uppercase tracking-wide text-slate-700">${actor.popularity}</span>
 
+      </section>
+
+
+
+      <section class="relative py-16 bg-white mt-24">
+
+          <div class="container mx-auto px-4">
+
+              <div
+                  class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+
+                  <div class="px-6">
+                      <div class="flex flex-wrap justify-center">
+
+                          <div class="w-full  px-4  lg:text-right lg:self-center">
+                              <div class="text-center mt-12">
+                                  <h3 class="text-5xl font-bold dark:text-white mb-2 text-blueGray-700 mb-2">
+                                      ${actor.name}
+                                  </h3>
+                                  <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+
+                                      ${actor.gender == 1 ? 'female' : 'male'} </div>
+
+
+                              </div>
+                          </div>
+                          <div class="w-full  px-4 ">
+                              <div class="flex justify-center py-4 pt-8">
+                                  <div class="mr-4 p-3 text-center">
+                                      <span
+                                          class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">${parseInt(actor.birthday)
+                                          }</span><span class="text-sm text-blueGray-400">birth-year</span>
+                                  </div>
+
+                                  <div class="lg:mr-4 p-3 text-center">
+                                      <span
+                                          class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">${actor.popularity}</span><span
+                                          class="text-sm text-blueGray-400">popularity</span>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                      <div class="p-3 text-center">
-                          <span class="text-sm text-slate-400">Birth-Year</span>
-                          <span
-                              class="text-xl font-bold block uppercase tracking-wide text-slate-700">${parseInt(actor.birthday) }</span>
-
-                              
-                      </div>
-
 
                   </div>
               </div>
           </div>
 
-      </div>
+          <div class="w-full p-4 text-center bg-white  rounded-xl sm:p-8 dark:bg-gray-800 flex flex-col gap-4">
+              <h5 class="mb-2 text-3xl font-bold text-blueGray-700 dark:text-white">Biography</h5>
+              <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">${actor.biography}</p>
 
-      <!--Biography-->
-      <div class="mt-6 py-6 border-t border-slate-200 text-center">
-          <div class="flex flex-wrap justify-center">
-              <div class="w-full px-4">
-                  <span
-                      class="text-l font-bold block uppercase tracking-wide text-slate-700 mb-5">Biography</span>
-                  <p class="font-light leading-relaxed text-slate-600 mb-4">${actor.biography}</p>
+          </div>
+          <div class="grid  sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center m-10">
+              <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                  <a href="#!">
+                      <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}"
+                          alt="" />
+                  </a>
+                  <div class="p-6">
+                      <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[0].title}</h5>
+
+
+                  </div>
+              </div>
+
+              <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                  <a href="#!">
+                      <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[1].backdrop_path}"
+                          alt="" />
+                  </a>
+                  <div class="p-6">
+                      <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[1].title}</h5>
+
+
+                  </div>
+
 
               </div>
-          </div>
-      </div>
-  </div>
-</div>
 
-<!-- Cards -->
+              <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                  <a href="#!">
+                      <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[2].backdrop_path}"
+                          alt="" />
+                  </a>
+                  <div class="p-6">
+                      <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[2].title}</h5>
 
-<div class="flex flex-col bg-white m-auto p-auto">
-<h1
-        class="flex py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-4xl text-gray-800"
-      >
-        Example
-      </h1>
-      <div
-        class="flex overflow-x-scroll pb-10 hide-scroll-bar"
-      >
-        <div
-          class="flex flex-nowrap lg:ml-40 md:ml-20 ml-10 "
-        >
-          <div class="inline-block px-3" >
-            <div  style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}) ;"
-              class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-            ></div>
-            <h1> ${movieCredits.cast[0].title} </h1>
+
+                  </div>
+              </div>
+
+              <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                  <a href="#!">
+                      <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[3].backdrop_path}"
+                          alt="" />
+                  </a>
+                  <div class="p-6">
+                      <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[3].title}</h5>
+
+
+                  </div>
+
+
+              </div>
+
+
           </div>
-          <div class="inline-block px-3">
-            <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[1].backdrop_path}) ;"
-              class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-            ></div>
-            <h1> ${movieCredits.cast[1].title} </h1>
-          </div>
-          <div class="inline-block px-3">
-          <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[2].backdrop_path}) ;"
-            class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-          ></div>
-          <h1> ${movieCredits.cast[2].title} </h1>
-        </div>
-        
-        <div class="inline-block px-3">
-        <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[3].backdrop_path}) ;"
-          class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-        ></div>
-        <h1> ${movieCredits.cast[3].title} </h1>
-      </div>
-      
-      <div class="inline-block px-3">
-      <div style="  background-size: cover; background-image: url(${BACKDROP_BASE_URL + movieCredits.cast[4].backdrop_path}) ;"
-        class="w-96 h-80 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-      ></div>
-      <h1> ${movieCredits.cast[4].title} </h1>
-    </div>
-    
-          </div>
-        </div>
-      </div>
-</div>
+
+      </section>
+
+
+
+
+  </main>
 <style>
 .hide-scroll-bar {
   -ms-overflow-style: none;
