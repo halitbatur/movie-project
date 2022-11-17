@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
   }
+  .info {
+ width: 944px;
+  }
   
   body{
     background: #000;

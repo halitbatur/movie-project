@@ -111,10 +111,35 @@ const fetchSimilarMov = async (movie) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
-  CONTAINER.innerHTML = `
+  CONTAINER.innerHTML = `<section class="flex justify-center mx-auto bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 py-20 overflow-hidden">
+  <div class="mx-10 ">
+    <div class="imageMovieSingle">
+         <img src=${BACKDROP_BASE_URL + movie.backdrop_path}>
+    </div>
+  </div>
+  <div class=" info flex flex-col leading-9  p-10 text-white  align-items-center py-2 ">
+        <h2 class="text-2xl mb-6 font-bold">${movie.title}</h2>
+        <p class="text-violet-300">Release Date: <span class="text-white"> ${movie.release_date}</span></p>
+        <p class="text-violet-300">Runtime: <span class="text-white"> ${movie.runtime} Minutes </span></p>
+        <p class="text-violet-300">Movie Language: <span class="text-white">${movie.original_language.toUpperCase()}</span></p>
+        <p class="text-violet-300">Rating: <span class="text-white">${movie.vote_average.toFixed(1)}</span></p>
+        <p class="text-violet-300">Votes: <span class="text-white">${movie.vote_count}</span></p>
+        <p class="my-2 text-xl text-violet-300">Overview:</p>
+        <p>${movie.overview}</p>
+        <h3 class="text-violet-300">Actors:</h3>
+        <p class="text-violet-300">Production: <span class="text-white">${movie.production_companies[0].name}</span></p>
+        <img src=${BACKDROP_BASE_URL + movie.production_companies[0].logo_path}>
+        <h3 class="text-violet-300">Actors:</h3>
+</div>
+</section>
+<br><hr>
+`;
+autorunSim(movie)
 
 };
+
 //fetch actors
+
 const actorsAutoRun = async () => {
   const actors = await fetchActors();
   console.log(actors);
