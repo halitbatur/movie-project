@@ -30,10 +30,8 @@ const movieDetails = async (movie) => {
 
   const similarMovies = await fetchSimilar(movie.id);
   const credits = await fetchCredits(movie.id);
-  renderMovie(movieRes, similarMovies, credits);
-
-
-
+  const videos = await fetchVideos(movie.is);
+  renderMovie(movieRes, similarMovies, credits, videos);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -52,6 +50,12 @@ const fetchMovie = async (movieId) => {
 
 const fetchSimilar = async (movieId) => {
   const url = constructUrl(`movie/${movieId}/similar`);
+  const res = await fetch(url);
+  return res.json();
+};
+
+const fetchVideos = async (movieId) => {
+  const url = constructUrl(`movie/${movieId}/videos`);
   const res = await fetch(url);
   return res.json();
 };
@@ -163,6 +167,7 @@ const createNav = async () => {
 
 }
 
+
 // create nav bar
 createNav();
 
@@ -238,8 +243,10 @@ const renderMovies = async (movies) => {
           <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class="rounded-2xl movieImage">
           <p class=" text-indigo-900 font-serif text-xl movieDescription">${movie.overview}</p>
         </div>
-        <h3 class="mt-2 font-bold text-center    ">${movie.title}</h3>
-        <h3 class=" text-center    ">Rating: ${movie.vote_average}</h3>
+
+        <h3 class="mt-2 font-bold text-center	">${movie.title}</h3>
+        <h3 class=" text-center	">Rating: ${movie.vote_average}</h3>
+
         <h3 class=" text-center"><span class="font-bold">Genre:</span> ${myGenreList}</h3>
         `;
 
@@ -275,80 +282,188 @@ const renderMovie = async (movie, similarMovies, credits) => {
   console.log(directors);
 
 
-  CONTAINER.setAttribute("class", "flex  p-12 items-center")
+  CONTAINER.setAttribute("class", "p-12")
 
   CONTAINER.innerHTML = `
-    <div class="">
-        <div class="">
-             <img class="rounded-2xl mb-2" id="movie-backdrop" src=${
+  <div class="">
+
+       <div>
+       <div  class="w-full flex">
+        <div class="w-1/2 p-4">
+             <img class="rounded-2xl mb-2 shadow-2xl border-double border-8 border-black" id="movie-backdrop" src=${
                BACKDROP_BASE_URL + movie.backdrop_path
              }>
         </div>
-        <div class="">
-            <h2 class="text-2xl mb-4" id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
+        <div class="w-1/2 p-4">
+            <h2 class="text-3xl font-extrabold mb-4" id="movie-title">${movie.title}</h2>
+            <a >Trailer</a>
+            <p id="movie-release-date"><b class="text-xl">Release Date:</b> ${
               movie.release_date
             }</p>
-            <p class="mb-2" id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3 class="font-bold mt-2">Rating: <p class="font-semibold">${movie.vote_average}</p></h3>
-            <h3 class="font-bold mt-2">Overview:</h3>
+            <p class="mb-2" id="movie-runtime"><b class="text-xl">Runtime:</b> <b>${movie.runtime} Minutes</b></p>
+            <h3 class="mt-2"> <b class="text-xl font-bold ">Rating:</b> <b class="font-semibold">${movie.vote_average}</b></h3>
+            <p class=" mt-2" id="moviedirector"> <b class="text-xl">Director:</b> ${directors[0].name}</p>
+            <h3 class="font-bold mt-2 text-xl">Overview:</h3>
             <p class="" id="movie-overview">${movie.overview}</p>
 
-            <h3 class="font-bold mt-2">Language: <p class="font-semibold">${movie.original_language}</p></h3>
-            <h3 class="mt-2 font-bold">Production Company:${movie.production_companies.map((item) => {
-              let logo = item.logo_path ? `<img class="rounded-xl mt-2" src=${PROFILE_BASE_URL + item.logo_path}>` : "no logo available";
+            <h3 class=" mt-2"> <b class="text-xl">Language:</b> <p class="font-semibold">${movie.original_language}</p></h3>
+            <h3 class="font-bold mt-2 text-xl">Production Company:</h3>
+            <h3 class="mt-2 font-semibold">${movie.production_companies.map((item) => {
+              let logo = item.logo_path ? `<img class="rounded-xl mt-2" src=${PROFILE_BASE_URL + item.logo_path}>` : ":no logo available";
               return (`
                 ${item.name}
                 ${logo}
               `);
             })}</h3>
+            
+            
+           
 
 
+        </div>  
         </div>
+      
         <div>
-        <p class="font-bold mt-4" id="moviedirector"> Director: ${directors[0].name}</p>
-            <h3 class="mt-2 font-bold">Cast</h3>
-            <div class="flex gap-4 w-full mt-1" id="actors" class="list-unstyled"></div>
-            <h3 class="mt-8 font-bold">Similar Movies:</h3>
-            <div class="flex gap-4 w-full mt-1" id="similar"></div>
-    </div>
+        <div>
 
+        <div class="flex flex-col bg-white m-auto p-auto">
+        <h1
+                class="flex py-5  font-bold text-4xl text-gray-800"
+              >
+                Cast
+              </h1>
+              <div
+                class="flex overflow-x-scroll pb-10 hide-scroll-bar"
+              >
+                <div
+                  class="flex flex-nowrap  "
+                >
+                  <div class="inline-block px-3" >
+                    <div  style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[0].profile_path}) ;"
+                      class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    ></div>
+                    <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[0].name} </h1>
+                  </div>
+                  <div class="inline-block px-3">
+                    <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[1].profile_path}) ;"
+                      class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    ></div>
+                    <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[1].name} </h1>
+                  </div>
+                  <div class="inline-block px-3">
+                  <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[2].profile_path}) ;"
+                    class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  ></div>
+                  <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[2].name} </h1>
+                </div>
+                
+                <div class="inline-block px-3">
+                <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[3].profile_path}) ;"
+                  class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                ></div>
+                <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[3].name} </h1>
+              </div>
+              
+              <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[4].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[4].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[5].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[5].name} </h1>
+            </div>
+            
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[6].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[6].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[7].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[7].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[8].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[8].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[9].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[9].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[10].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[10].name} </h1>
+            </div>
+
+            <div class="inline-block px-3">
+              <div style="  background-size: cover; background-image: url(${PROFILE_BASE_URL + credits.cast[11].profile_path}) ;"
+                class="w-96 h-80 max-w-xs overflow-hidden rounded-2xl shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              ></div>
+              <h1 class="font-semibold text-xl text-center mt-2"> ${credits.cast[11].name} </h1>
+            </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      
+       
+           
+          
+            <h3 class="mt-8 font-bold text-center text-3xl mb-4">Similar Movies</h3>
+            <div class="flex flex-wrap gap-4 w-full mt-1 justify-center" id="similar"></div>
+        </div>
+        </div>
+  </div>
+</div>
     `;
 
 
-    const actorCredits = document.getElementById('actors');
-    credits = credits.cast.slice(0, 5);
+    // const actorCredits = document.getElementById('actors');
+    // credits = credits.cast.slice(0, 5);
 
-    credits.map((actor,index) => {
-      let actorItem = document.createElement('div');
-      actorItem.innerHTML = `
-      ${actor.name}
-      <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
-      `;
+    // credits.map((actor,index) => {
+    //   let actorItem = document.createElement('div');
+    //   actorItem.setAttribute('class', '')
+    //   actorItem.innerHTML = `
+    //   ${actor.name}
+    //   <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
+    //   `;
       
 
-      actorCredits.append(actorItem);
-    });
+    //   actorCredits.append(actorItem);
+    // });
 
     
 
     const similarDiv = document.getElementById('similar');
 
     // only get 5 items
-    similarMovies = similarMovies.results.slice(0, 5);
+    similarMovies = similarMovies.results.slice(0, 6);
 
     similarMovies.map((movie, index) => {
       let similarChild = document.createElement("div");
       similarChild.innerHTML = `
 
-
-      
-
-
-
-
-        <img class='rounded-2xl' src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">
-        <h3>${movie.title}</h3>`;
+        <img class='rounded-2xl shadow-xl' src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster">
+        <h3 class="font-semibold text-xl text-center mt-2 mb-2">${movie.title}</h3>`;
 
         similarDiv.addEventListener("click", () => {
           movieDetails(movie);
