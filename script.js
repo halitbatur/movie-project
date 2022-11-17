@@ -12,7 +12,7 @@ window.addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
 })
-// const genreTranslations ={
+// const genreTranslations = {
 //   28:"Action",
 //   12:"Adventure",
 //   16:"Animation",
@@ -42,13 +42,12 @@ window.addEventListener("click", ()=>{
 //   if(keys === genres.keys)
 //   return genres.values}
 
-      // for(let i=0; i< genres.length; i++){
-      // let converter = genres[i].id
-      // converter = genres[i].name
-      // return converter
-      // }
+//       for(let i=0; i< genres.length; i++){
+//       let converter = genres[i].id
+//       converter = genres[i].name
+//       return converter
+//       }
 
-//                     -----------------------
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -62,6 +61,9 @@ const SWIPER = document.querySelector(".swiper");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  const genres = await fetchGenres();
+  console.log(genres)
+  genresList(genres.genres);
   renderMovies(movies.results);
 };
 
@@ -132,12 +134,13 @@ const actorDetails = async (actor) => {
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
-    movieDiv.innerHTML = `
-        <img id="poster" class="cursor-pointer" src="${
+    movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95">
+    <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
-        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>
-        <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>`;
+        <div class="flex justify-end relative">
+        <p class="text-black font-bold bg-yellow-400 w-10 text-center absolute bottom-2 text-xs"> <span style="font-size:100%;color:black;">&starf;</span> ${movie.vote_average}</p></div></div>
+        <h3 class="font-gotham font-700 text-white py-2 text-center text-sm">${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -254,24 +257,24 @@ const fetchPersonDetails = async (personId) => {
 const fetchGenres = async () => {
   const genres = constructUrl(`/genre/movie/list`);
   const res = await fetch(genres);
-  return res.json();
+return res.json();
 }
-const autorunGenre = async () => {
-  const genre = await fetchGenres();
-  genresList(genre.name);
-};
-const genresList = async(genres) => {
+
+
+function genresList(genres) {
   // const genres = await fetchGenres();
-  genres.map((g) => { 
-    const genreDiv = document.createElement("div");
-    genreDiv.innerHTML = `
-    <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
+  genres.forEach((g) => { 
+const genreDiv = document.createElement("div");
+    genreDiv.innerHTML = 
+    `<a href="#" class="block p-3 rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
       ${g.name}
-    </a>`;
-    GENRE.appendChild(genreDiv);
+    </a>`
+    GENRE.appendChild(genreDiv)
   });
 }
-  
+const fetchMoviesByGenre = (genreId) => {
+
+}
 
 function searchShow(query){
   const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
