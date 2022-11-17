@@ -12,44 +12,41 @@ window.addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
 })
-const genres ={
-  28:"Action",
-  12:"Adventure",
-  16:"Animation",
-  35:"Comedy",
-  80:"Crime",
-  99:"Documentary",
-  18:"Drama",
-  10751:"Family",
-  14:"Fantasy",
-  36:"History",
-  27:"Horror",
-  10402:"Music",
-  9648:"Mystery",
-  10749:"Romance",
-  878:"Science Fiction",
-  10770:"TV Movie",
-  53:"Thriller",
-  10752:"War",
-  37:"Western"
-}
-console.log(genres)
-let keys = Object.keys(genres)
-let values = Object.values(genres)
-console.log(keys)
-console.log(values)
-function convertGenres(key){
-  if(key === genres.key)
-  return genres
+// const genreTranslations ={
+//   28:"Action",
+//   12:"Adventure",
+//   16:"Animation",
+//   35:"Comedy",
+//   80:"Crime",
+//   99:"Documentary",
+//   18:"Drama",
+//   10751:"Family",
+//   14:"Fantasy",
+//   36:"History",
+//   27:"Horror",
+//   10402:"Music",
+//   9648:"Mystery",
+//   10749:"Romance",
+//   878:"Science Fiction",
+//   10770:"TV Movie",
+//   53:"Thriller",
+//   10752:"War",
+//   37:"Western"
+// }
+// console.log(genres)
+// let keys = Object.keys(genres)
+// let values = Object.values(genres)
+// console.log(keys)
+// console.log(values)
+// function convertGenres(key){
+//   if(keys === genres.keys)
+//   return genres.values}
 
       // for(let i=0; i< genres.length; i++){
       // let converter = genres[i].id
       // converter = genres[i].name
       // return converter
       // }
-
-}
-console.log(convertGenres(18))
 
 //                     -----------------------
 
@@ -277,10 +274,33 @@ fetch(search_URL)
 }))
 ;
 }
+const genreTranslations ={
+  28:"Action",
+  12:"Adventure",
+  16:"Animation",
+  35:"Comedy",
+  80:"Crime",
+  99:"Documentary",
+  18:"Drama",
+  10751:"Family",
+  14:"Fantasy",
+  36:"History",
+  27:"Horror",
+  10402:"Music",
+  9648:"Mystery",
+  10749:"Romance",
+  878:"Science Fiction",
+  10770:"TV Movie",
+  53:"Thriller",
+  10752:"War",
+  37:"Western"
+}
+
 function renderResults(results){
    const list =  document.getElementById("render-search")
    list.innerHTML = "";
    results.forEach(result => {
+    const genresConverter = result.genre_ids.map((g) => genreTranslations[g])
      list.setAttribute("class","flex flex-col bg-white cursor-pointer")
     let element = document.createElement("li")
     element.addEventListener("click", ()=>{
@@ -294,7 +314,7 @@ function renderResults(results){
     <ul class="flex w-full flex-col">
     <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
     <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-    <li><div class="flex"><p>${result.genre_ids}</p> </div></li>
+    <li><div class="flex"><p>${genresConverter}</p> </div></li>
     </ul>
     </div>
     `
