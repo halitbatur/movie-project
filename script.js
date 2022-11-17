@@ -11,6 +11,7 @@ const actorPage = document.querySelector(".actor-page")
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  console.log(movies);
   renderMovies(movies.results);
   // console.log(movies)
 };
@@ -71,13 +72,13 @@ const renderMovies = (movies) => {
     const movieGenres = genresIdToName(movie.genre_ids);
     console.log(movieGenres);
     const movieDiv = document.createElement("div"); 
-    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-5xl place-items-center mx-auto py-20 gap-4 cursor-pointer`)
+    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-5xl  mx-auto py-20 gap-4 cursor-pointer`)
     movieDiv.innerHTML = `
     <div class="mov bg-gray-700  relative overflow-hidden">
         <img class="hover:opacity-[30%] via-gray-300 to-white" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="films">
     <div class="flex pt-2 place-items-center justify-between mx-3 ">
         <div class="font-bold text-base text-white ">${movie.title}</div>
-        <div class="vote text-white  bg-black ">${movie.vote_average}</div>
+        <div class="vote text-white  bg-black ">${movie.vote_average.toFixed(1)}</div>
     </div>
     <div class=" ml-3 text-xs text-slate-300 font-bold  pt-1 ">${movieGenres}</div>
       <div class ="overview absolute left-0 right-0 bottom-0 text-black p-4 bg-gradient-to-r from-gray-300  to-white bg-opacity-75 ">
@@ -95,30 +96,23 @@ const renderMovies = (movies) => {
   });
 };
 
+//Relating Movies fetching
+
+const autorunSim = async (movie) => {
+  const simMovies = await fetchSimilarMov(movie);
+  renderMovies(simMovies.results.slice(0, 5));
+};
+
+const fetchSimilarMov = async (movie) => {
+  const url = constructUrl(`movie/${movie.id}/similar`);
+  const res = await fetch(url);
+  return res.json();
+}
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
-        </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3><b>Overview:</b></h3>
-            <p id="movie-overview">${movie.overview}</p>
-        </div>
-        </div>
-            <h3><b>Actors:</b> ${movie.cast_id}</h3>
-            <ul id="actors" class="list-unstyled">
-          
-            </ul>
-    </div>`;
+
 };
 //fetch actors
 const actorsAutoRun = async () => {
@@ -151,8 +145,10 @@ const fetchActor = async (actorId) => {
     actors.map((actor) => {
       const actorDiv = document.createElement("div");
       actorDiv.innerHTML = `
+      <div class = "actor  my-8  mx-50">
           <img class ="hover:opacity-[30%] via-gray-300 to-white"src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.name}">
-          <h2 class= "text-white text-center py-2">${actor.name}</h2>
+          <h2 class= "text-white bg-gray-700 text-center py-2">${actor.name}</h2>
+      </div>
           `;
       actorDiv.addEventListener("click", () => {
         actorDetails(actor);
@@ -161,16 +157,40 @@ const fetchActor = async (actorId) => {
     });
   };
 
+  function Gender(actor){
+    if(actor.gender == 1){
+        return "Female"
+    } else if(actor.gender == 2){
+      return "Male"
+    }
+  }
+  function deathDay(actor){
+    if (actor.deathday != null){
+      return `${actor.deathday}`
+    }else if(actor.deathday == null){
+      return " - "
+    }
+  }
+
   const renderActor = (actor) => {
     CONTAINER.innerHTML = `
-      <div class="row">
-          <div class="col-md-4">
-               <img id="actor-backdrop" src=${PROFILE_BASE_URL + actor.profile_path}>
+    <section class="flex justify-center mx-auto bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 py-20">
+      <div class="mx-10 ">
+          <div class="image">
+               <img  src=${PROFILE_BASE_URL + actor.profile_path}>
           </div>
-          <div class="col-md-8 text-white">
-              <h2>${actor.name}</h2>
+      </div>
+          <div class=" info flex flex-col leading-9  p-10 text-white  align-items-center py-2 ">
+              <p class=" text-xl mb-6 font-bold">${actor.name}</p>
+              <p class="text-violet-300"> Gender: <span class="text-white">${Gender(actor)}</span></p>
+              <p class="text-violet-300">Birthday: <span class="text-white">${actor.birthday} </span></p>
+              <p class="text-violet-300"> Death day: <span class="text-white"> ${deathDay(actor)}</span></p>
+              <p class="text-violet-300">Popularity: <span class="text-white">${actor.popularity}</span></p>
+              <h3 class="mt-2 text-violet-300 ">Biography:</h3>
+              <p>${actor.biography}</p>
               </div>
-      </div>`;
+    </section>
+      `;
   };
 
   if(actorPage){
