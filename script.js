@@ -161,12 +161,12 @@ const renderMovie = (movieDetails) => {
   const {details, cast,companies,director, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = `
-    <div class="w-100">
+    <div class="w-100 flex flex-col gap-2">
     <div class="flex justify-center"><iframe width="1400" height="800"src="https://www.youtube.com/embed/${
       official.key
     }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         
-    <div class="grid grid-cols-2"><div class="w-2/4">
+    <div class="flex flex-col gap-2"><div class="w-2/4">
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
@@ -183,7 +183,7 @@ const renderMovie = (movieDetails) => {
             )}</p>
             <p id="vote-count class="text-yellow-300"><b>Vote Count:</b> ${vote_count}</p>
             <p id="vote-count"><b></b> ${original_language}</p>
-            <ul class="w-1/4">Production Companies: ${companies}<ul></ul>
+            <ul class="w-1/4">${companies}<ul></ul>
            
         </div>
         </div>
@@ -331,7 +331,7 @@ function renderResults(results){
     })
     const container = document.createElement("div")
     container.innerHTML = `
-    <div class="flex w-full">
+    <div class="flex w-full z-0">
     <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
     <ul class="flex w-full flex-col">
     <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
