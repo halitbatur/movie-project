@@ -189,7 +189,7 @@ const renderSimilarFilms = (similarFilms) => {
     filmDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px" class="shadow-2xl rounded-lg mt-">
         <li class="bg-white text-l text-black py-2 font-serif font-bold my-3 text-center ">${film.original_title}</li>`;
-    filmDiv.addEventListener("click", () => { displaySingleAMoviePage(); });
+    filmDiv.addEventListener("click", () => { displaySingleAMoviePage(film); });
     relatedFilmsList.appendChild(filmDiv);
   });
 
@@ -220,12 +220,13 @@ const displaySingleActorPage = (actor) => {
 };
 
 
-const displaySingleAMoviePage = () => {
+const displaySingleAMoviePage = (film) => {
   CONTAINER.innerHTML = `
       <div class="row">
           <div class="col-md-4">
                <h1>welcome, you are in Movie page</h1>
           </div>`;
+          
 };
 document.addEventListener("DOMContentLoaded", autorun);
 const searchBtn = document.getElementById("searchBtn")
