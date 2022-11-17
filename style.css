@@ -1,9 +1,15 @@
-
-body{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body{
     background: #000;
     font-family: Arial, Helvetica, sans-serif;
     
 }
+
 #movie-backdrop {
     width: 100%;
 }
@@ -58,9 +64,5 @@ body{
 
 #actors {
     margin: 24px 16px 0 0;
-}
-
-.info{
-    width: 944px;
 }
 
