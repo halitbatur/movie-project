@@ -8,6 +8,10 @@ function toggleIt() {
 function toggleItNavbar() {
   return openMenu.classList.toggle("hidden");
 }
+window.addEventListener("click", ()=>{
+  document.getElementById("render-search").classList.toggle("hidden")
+
+})
 const genres ={
   28:"Action",
   12:"Adventure",
