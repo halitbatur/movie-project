@@ -53,6 +53,7 @@ window.addEventListener("click", ()=>{
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
+const GENRE = document.querySelector(".genres")
 const CONTAINER = document.querySelector(".container");
 const CONTAINER2 = document.querySelector(".container2");
 const ACTORS = document.querySelector("#actorsLink");
@@ -73,36 +74,29 @@ const constructUrl = (path) => {
 
 // const SEARCH_URL = `https://api.themoviedb.org/3/search/multi?api_key=NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=&language=en-US&page=1&include_adult=false`
 // console.log(SEARCH_URL)
-
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const credits = await fetchCredits(movie.id);
   const trailer = await fetchTrailer(movie.id);
-  console.log(movie)
-  console.log(credits)
   const comp = await movieRes.production_companies;
+  const genre = await movieRes.genres;
+  const director = await credits.crew;
   const official = trailer.results.find((item) =>
     item.name.includes("Official Trailer")
   );
-
-  const renderGenres = async (genre) => {
-    const genreRes = await fetchGenres();
-    console.log(genre);
-  }
-
-  // function checkDirector({known_for_department}){
-  //   return known_for_department === "Directing"
-  // }
-  // const directorObject = credits.cast.map(checkDirector)
-  // console.log(directorObject)
-  // const directorName = directorObject.name
-  // console.log(directorName)
-
-  const director = credits.crew.find((item) =>
-  item.job.toLowerCase().includes("Director")
-);
-
+  const genres = genre.map((g) => { 
+    return `<li>${g.name}</li>`
+  }).join('')
+  const directorJob = director.map((dir) => { 
+    if (dir.job == "Director") {
+      return `<h3>${dir.name}</h3> ` 
+    } 
+  }).join('')
+  console.log(directorJob + "hi")
+  // const director = credits.crew.find((item) =>
+  //   item.job.toLowerCase().includes("Director")
+  // );
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -118,14 +112,14 @@ const movieDetails = async (movie) => {
         return `<li id="${actor.id}" class="actor text-white font-gotham text-500 cursor-pointer"><h1>${actor.name}</h1></li>`;
     })
     .join("");
-    const companies = comp.map((com) => { 
-      if (com.logo_path) {
-      return `<li>${comp.name}</li> 
-              <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="">` 
-    } else return `<li>${comp.name}</li>`
-    }).join('')
-  
-    renderMovie({details: movieRes, cast: cast, official: official, companies: companies});
+  const companies = comp.map((com) => { 
+    if (com.logo_path) {
+    return `<li>${com.name}</li> 
+            <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
+  } else return `<li>${com.name}</li>`
+  }).join('')
+
+  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres, director: directorJob });
   };
 
 
@@ -142,7 +136,8 @@ const renderMovies = (movies) => {
         <img id="poster" class="cursor-pointer" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
-        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>`;
+        <h3 class="font-gotham font-700 text-white py-2">${movie.title}</h3>
+        <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
@@ -157,9 +152,8 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const { details, cast, official ={} } = movieDetails;
+  const {details, cast,companies,director, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
-
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -172,6 +166,7 @@ const renderMovie = (movieDetails) => {
         }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="col-md-8 text-white w-80">
             <h2 id="movie-title class="text-white">${title}</h2>
+            <p>Movie Genre: ${genres}<p>
             <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
             <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
             <p id="movie-rating class="text-yellow"><b>Rating:</b> ${Math.round(
@@ -182,6 +177,8 @@ const renderMovie = (movieDetails) => {
 
             <h3>Overview:</h3>
             <p id="movie-overview class="text-red">${overview}</p>
+            <ul>Production Companies: ${companies}<ul></ul>
+            <h3>Director: ${director}</h3> 
         </div>
         </div>
             <h3>Actors:</h3> 
@@ -224,7 +221,6 @@ const searchList = document.getElementById("search-list");
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
-  const actors = constructUrl(`person/popular`);
   const res = await fetch(url);
   return res.json();
 };
@@ -254,11 +250,28 @@ const fetchPersonDetails = async (personId) => {
   return res.json();
 };
 
+
 const fetchGenres = async () => {
   const genres = constructUrl(`/genre/movie/list`);
   const res = await fetch(genres);
-return res.json();
+  return res.json();
 }
+const autorunGenre = async () => {
+  const genre = await fetchGenres();
+  genresList(genre.name);
+};
+const genresList = async(genres) => {
+  // const genres = await fetchGenres();
+  genres.map((g) => { 
+    const genreDiv = document.createElement("div");
+    genreDiv.innerHTML = `
+    <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
+      ${g.name}
+    </a>`;
+    GENRE.appendChild(genreDiv);
+  });
+}
+  
 
 function searchShow(query){
   const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
@@ -320,7 +333,6 @@ function renderResults(results){
     `
     element.appendChild(container)
     list.appendChild(element)
-    console.log(result)
   })
   }
 window.onload = ()=> {
