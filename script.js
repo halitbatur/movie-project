@@ -13,6 +13,12 @@ function show_hide_genre() {
   } else {  
      click.style.display ="none";  
   }   
+  document.addEventListener('mouseup', function(e) {
+    // var container = document.getElementById('container');
+    if (!click.contains(e.target)) {
+      click.style.display = 'none';
+    }
+});
 }  
 function show_hide_filter() {  
   let click = document.querySelector("#filterList");  
@@ -21,10 +27,19 @@ function show_hide_filter() {
   } else {  
      click.style.display ="none";  
   }   
-  let alink = document.querySelector(".genre-link");
-  alink.addEventListener("click", async ()=> {
-    // click.style.display="none";  //?
-  })
+let aLink = document.querySelectorAll(".genre-link");
+console.log(aLink[1]);
+aLink.forEach(elem => elem.addEventListener("click",
+() => {
+   click.style.display = "none";
+ }));
+ document.addEventListener('mouseup', function(e) {
+  // var container = document.getElementById('container');
+  if (!click.contains(e.target)) {
+    click.style.display = 'none';
+  }
+});
+
 }  
 
 //start button collap
