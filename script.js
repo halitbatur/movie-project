@@ -108,6 +108,9 @@ const fetchSimilarMov = async (movie) => {
   return res.json();
 }
 
+
+
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
@@ -168,7 +171,7 @@ const fetchActor = async (actorId) => {
     actors.map((actor) => {
       const actorDiv = document.createElement("div");
       actorDiv.innerHTML = `
-      <div class = "actor  my-8  mx-50">
+      <div class = "actor  my-8  mx-auto">
           <img class ="hover:opacity-[30%] via-gray-300 to-white"src="${PROFILE_BASE_URL + actor.profile_path}" alt="${actor.name}">
           <h2 class= "text-white bg-gray-700 text-center py-2">${actor.name}</h2>
       </div>
