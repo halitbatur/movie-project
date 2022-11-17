@@ -96,7 +96,7 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie,similar) => {
   CONTAINER.innerHTML = `
     <div class="movie-poster">
              <img id="movie-backdrop" src=${
@@ -124,14 +124,8 @@ const renderMovie = (movie) => {
             <p id="movie-adult"><b>Adult:</b> ${movie.adult}</p>
             <p id="movie-overview">${movie.overview}</p>
         </div>
-        
-        </div>
-            <h3 class = "actor" >Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-    </div>
-    
-    
     `;
+    runTrailer(movie)
 };
 
 var requestOptions = {
@@ -143,5 +137,32 @@ fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=542003918769df50083
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
+
+  //trailer part
+  const fetchTrailer = async (movie) => {
+    const url = constructUrl(`movie/${movie.id}/videos`);
+    const res = await fetch(url);
+    return res.json();
+  }
+  
+  const runTrailer = async (movie) => {
+    const relMovies = await fetchTrailer(movie);
+    renderTrailer(relMovies.results[0].key);
+  };
+  
+  const renderTrailer = (key) =>{
+    const trailerDiv = document.createElement("div");
+    trailerDiv.classList.add("trailer-container")
+  
+    trailerDiv.innerHTML = 
+    `<h3 class="trailer-title">Watch the Trailer<h3><br>
+    <iframe class="iframe-trailer" src="https://www.youtube.com/embed/${key}"allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>`
+  
+    CONTAINER.appendChild(trailerDiv);
+  
+  }
+
+  
 
 document.addEventListener("DOMContentLoaded", autorun("now_playing"));
