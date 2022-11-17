@@ -1,4 +1,8 @@
 /* Variables */
+.info{
+    width: 944px;
+}
+
 :root {
     --primary: #a8baf9;
     --primary-dark: rgb(49, 58, 68);
