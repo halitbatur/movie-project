@@ -140,7 +140,7 @@ const renderMovies = (movies) => {
         }" alt="${movie.title} poster">
         <div class="flex justify-end relative">
         <p class="text-black font-bold bg-yellow-400 w-10 text-center absolute bottom-2 text-xs"> <span style="font-size:100%;color:black;">&starf;</span> ${movie.vote_average}</p></div></div>
-        <h3 class="font-gotham font-700 text-white py-2 text-center text-sm">${movie.title}</h3>`;
+        <h3 class="font-gotham font-700 text-white py-2 text-center text-s">${movie.title}</h3>`;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
