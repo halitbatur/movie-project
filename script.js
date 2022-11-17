@@ -108,19 +108,6 @@ const fetchSimilarMov = async (movie) => {
   return res.json();
 }
 
-const fetchActorMovies = async (actor) => {
-  const url = constructUrl(`person/${actor.id}/movie_credits`);
-  const res = await fetch(url);
-  return res.json();
-}
-
-const autorunActor = async (actor) => {
-  const actorMovies = await fetchActorMovies(actor.id);
-  renderActor(actorMovies.cast);
-};
-
-
-
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie) => {
   CONTAINER.innerHTML = `
