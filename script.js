@@ -8,10 +8,12 @@ function toggleIt() {
 function toggleItNavbar() {
   return openMenu.classList.toggle("hidden");
 }
-window.addEventListener("click", ()=>{
+
+document.getElementById("movie-search-box").addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
 })
+
 // const genreTranslations = {
 //   28:"Action",
 //   12:"Adventure",
@@ -90,6 +92,16 @@ const movieDetails = async (movie) => {
   const genres = genre.map((g) => { 
     return `<li class="list-none inline-flex justify-between mr-1 text-xs">${g.name}</li>`
   }).join('')
+
+
+  // const renderGenres = async (genre) => {
+  //   const genreRes = await fetchGenres();
+  //   console.log(genre);
+  // }
+  const director = credits.crew.find((item) =>
+  item.job.toLowerCase().includes("Director")
+  );
+
   const directorJob = director.map((dir) => { 
     if (dir.job == "Director") {
       return `<h3 class="inline-block">${dir.name}</h3> ` 
@@ -99,6 +111,7 @@ const movieDetails = async (movie) => {
   // const director = credits.crew.find((item) =>
   //   item.job.toLowerCase().includes("Director")
   // );
+
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -129,11 +142,16 @@ const actorDetails = async (actor) => {
   const details = await fetchPersonDetails(actor);
   renderActorPage(details);
 };
+
+
 const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+
     movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95">
     <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
@@ -149,17 +167,22 @@ const renderMovies = (movies) => {
       BACKDROP_BASE_URL + movie.backdrop_path
     }" alt="${movie.title} poster">`;
     CONTAINER.appendChild(movieDiv);
+   
     // SWIPER.appendChild(backdropDiv);
   });
-  CONTAINER.setAttribute('class',gridColumns);
+
+   CONTAINER.setAttribute('class',gridColumns);
+
 };
 
 const noGrid = "container mx-auto"
 
+console.log(CONTAINER) 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const {details, cast,companies,director, genres,official ={} } = movieDetails;
-  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
+  const { details, cast,companies, genres,official ={} } = movieDetails;
+  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language,backdrop_path} = details;
+  CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
     <div class="w-100 flex flex-col gap-2">
     <div class="flex justify-center"><iframe width="1400" height="800"src="https://www.youtube.com/embed/${
@@ -167,10 +190,12 @@ const renderMovie = (movieDetails) => {
     }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         
     <div class="flex flex-col gap-2"><div class="w-2/4">
+
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
+
   
         <div class=" text-white w-4/5 font-gotham">
           <h2 id="movie-title class="text-white font-gotham text-2xl">${title}</h2>
@@ -267,6 +292,7 @@ return res.json();
 }
 
 
+
 function genresList(genres) {
   // const genres = await fetchGenres();
   genres.forEach((g) => { 
@@ -281,6 +307,7 @@ const genreDiv = document.createElement("div");
 const fetchMoviesByGenre = (genreId) => {
 
 }
+
 
 function searchShow(query){
   const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
@@ -331,12 +358,12 @@ function renderResults(results){
     })
     const container = document.createElement("div")
     container.innerHTML = `
-    <div class="flex w-full z-0">
-    <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-    <ul class="flex w-full flex-col">
+    <div class="flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+    <img class=" h-20 w-18" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+    <ul class="flex w-full flex-col dark:text-white font-sans p-2">
     <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
     <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-    <li><div class="flex"><p>${genresConverter}</p> </div></li>
+    <li><p> ${genresConverter}</p></li>
     </ul>
     </div>
     `
