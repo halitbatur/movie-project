@@ -12,42 +12,6 @@ window.addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
 })
-// const genreTranslations = {
-//   28:"Action",
-//   12:"Adventure",
-//   16:"Animation",
-//   35:"Comedy",
-//   80:"Crime",
-//   99:"Documentary",
-//   18:"Drama",
-//   10751:"Family",
-//   14:"Fantasy",
-//   36:"History",
-//   27:"Horror",
-//   10402:"Music",
-//   9648:"Mystery",
-//   10749:"Romance",
-//   878:"Science Fiction",
-//   10770:"TV Movie",
-//   53:"Thriller",
-//   10752:"War",
-//   37:"Western"
-// }
-// console.log(genres)
-// let keys = Object.keys(genres)
-// let values = Object.values(genres)
-// console.log(keys)
-// console.log(values)
-// function convertGenres(key){
-//   if(keys === genres.keys)
-//   return genres.values}
-
-//       for(let i=0; i< genres.length; i++){
-//       let converter = genres[i].id
-//       converter = genres[i].name
-//       return converter
-//       }
-
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -74,8 +38,19 @@ const constructUrl = (path) => {
   )}`;
 };
 
-// const SEARCH_URL = `https://api.themoviedb.org/3/search/multi?api_key=NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=&language=en-US&page=1&include_adult=false`
-// console.log(SEARCH_URL)
+
+const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+const movieSearchBox = document.getElementById("movie-search-box");
+const searchList = document.getElementById("search-list");
+const noGrid = "container mx-auto";
+
+
+/*
+*****************
+DETAIL FUNCTIONS 
+*****************
+*/
+
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
@@ -104,9 +79,6 @@ const movieDetails = async (movie) => {
     } 
   }).join('')
   console.log(directorJob + "hi")
-  // const director = credits.crew.find((item) =>
-  //   item.job.toLowerCase().includes("Director")
-  // );
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -129,8 +101,7 @@ const movieDetails = async (movie) => {
   }).join('')
 
   renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres, director: directorJob , similarMov: similarMov});
-  };
-
+};
 
 const actorDetails = async (actor) => {
   const details = await fetchPersonDetails(actor);
@@ -142,8 +113,63 @@ const actorDetails = async (actor) => {
   renderActorPage({details: details, movies: movies});
 };
 
+function genresList(genres) {
+  // const genres = await fetchGenres();
+  genres.forEach((g) => { 
+const genreDiv = document.createElement("div");
+    genreDiv.innerHTML = 
+    `<a href="#" class="block p-3 rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
+      ${g.name}
+    </a>`
+    GENRE.appendChild(genreDiv)
+  });
+}
+const fetchMoviesByGenre = (genreId) => {
+}
 
-const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+function searchShow(query){
+  const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
+fetch(search_URL)
+.then((resp)=>resp.json())
+.then((jsonData)=>{
+  // const results = jsonData.results.map(movie =>movie.original_title)
+  renderResults(jsonData.results)
+  // console.log( jsonData)
+  document.getElementById("errorMessage").innerHTML = ""
+}).catch((error => {
+  document.getElementById("errorMessage").innerHTML = error
+}))
+;
+}
+const genreTranslations ={
+  28:"Action",
+  12:"Adventure",
+  16:"Animation",
+  35:"Comedy",
+  80:"Crime",
+  99:"Documentary",
+  18:"Drama",
+  10751:"Family",
+  14:"Fantasy",
+  36:"History",
+  27:"Horror",
+  10402:"Music",
+  9648:"Mystery",
+  10749:"Romance",
+  878:"Science Fiction",
+  10770:"TV Movie",
+  53:"Thriller",
+  10752:"War",
+  37:"Western"
+}
+
+
+
+/*
+*****************
+RENDER FUNCTIONS 
+*****************
+*/
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -168,8 +194,6 @@ const renderMovies = (movies) => {
   CONTAINER.setAttribute('class',gridColumns);
 };
 
-const noGrid = "container mx-auto"
-
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
   const {details, cast,companies,director,similarMov, genres,official ={} } = movieDetails;
@@ -188,41 +212,28 @@ const renderMovie = (movieDetails) => {
   <iframe class="w-auto min-w-full min-h-full max-w-none absolute brightness-50" width="1600" height="900" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         
 </header>
-    <div class=""><div class="w-1/4 mt-10">
-             <img id="movie-backdrop class="cursor-pointer" src=${
-               BACKDROP_BASE_URL + poster_path
-             }>
-        </div>
+  <div class=""><div class="w-1/4 mt-10">
+    <img id="movie-backdrop class="cursor-pointer" src=${BACKDROP_BASE_URL + poster_path}>
+  </div>
   <div class="flex flex-col gap-2">
-        <div class=" text-white w-4/5 font-gotham text-lg">
-          <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
-            <p class="inline-block">${genres}<p>
-            <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
-            <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
-            <p id="movie-runtime class="text-white"><b></b> ${runtime} Minutes</p>
-            <p id="language" class="uppercase"><b></b> ${original_language}</p>
-            <ul class="w-1/4">${companies}</ul>
-           </div>
-        </div>
-        </div>
-        <div class="text-white">
-            </div>
-            <h3 class="font-gotham font-bold text-white">Overview</h3>
-            <p class="text-white w-1/2">${overview}</p>
-            <h3 class="flex justify-center">Actors</h3> 
-            <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
-            <h3>Similar Movies:</h3>
-            <ul class="list-unstyled grid grid-cols-5 justify-center gap-3">${similarMov}</ul>
-    </div><div> <div class=""><div class="brightness-50">
-    <img id="movie-backdrop src=${
-      BACKDROP_BASE_URL + poster_path
-    }>
-</div></div>`;
-  //   SWIPER.innerHTML = `<main class="grid grid-cols-3">
-  //  <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
-  //    BACKDROP_BASE_URL + backdrop_path
-  //  }></div>`;
-
+    <div class=" text-white w-4/5 font-gotham text-lg">
+      <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
+      <p class="inline-block">${genres}<p>
+      <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
+      <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
+      <p id="movie-runtime class="text-white"><b></b> ${runtime} Minutes</p>
+      <p id="language" class="uppercase"><b></b> ${original_language}</p>
+      <ul class="w-1/4">${companies}</ul>
+    </div>
+  </div>
+  <div class="text-white">
+    <h3 class="font-gotham font-bold text-white">Overview</h3>
+    <p class="text-white w-1/2">${overview}</p>
+    <h3 class="flex justify-center">Actors</h3> 
+    <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
+    <h3>Similar Movies:</h3>
+    <ul class="list-unstyled grid grid-cols-5 justify-center gap-3">${similarMov}</ul>
+  </div>`;
   const actorLinks = document.getElementsByClassName("actor");
   for (const actor of actorLinks) {
     actor.addEventListener("click", () => {
@@ -231,7 +242,6 @@ const renderMovie = (movieDetails) => {
   }
   CONTAINER.setAttribute('class',noGrid)
 };
-
 
 const renderActorPage = (actor) => {
   const {details ,movies} = actor;
@@ -252,9 +262,41 @@ const renderActorPage = (actor) => {
   document.getElementById("actorsPage").appendChild(singleActorPage);
 };
 
-const movieSearchBox = document.getElementById("movie-search-box");
-const searchList = document.getElementById("search-list");
+function renderResults(results){
+  const list =  document.getElementById("render-search")
+  list.innerHTML = "";
+  results.forEach(result => {
+   const genresConverter = result.genre_ids.map((g) => genreTranslations[g])
+    list.setAttribute("class","flex flex-col bg-white cursor-pointer")
+   let element = document.createElement("li")
+   element.addEventListener("click", ()=>{
+     movieDetails(result)
+     document.getElementById("render-search").classList.toggle("hidden")
+   })
+   const container = document.createElement("div")
+   container.innerHTML = `
+   <div class="flex w-full z-0">
+   <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+   <ul class="flex w-full flex-col">
+   <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
+   <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
+   <li><div class="flex"><p>${genresConverter}</p> </div></li>
+   </ul>
+   </div>
+   `
+   element.appendChild(container)
+   list.appendChild(element)
+ })
+ }
 
+
+
+
+/*
+*****************
+FETCH FUNCTIONS 
+*****************
+*/
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
@@ -298,7 +340,6 @@ const fetchActorMovies = async (personId) => {
   return res.json();
 };
 
-
 const fetchGenres = async () => {
   const genres = constructUrl(`/genre/movie/list`);
   const res = await fetch(genres);
@@ -306,83 +347,14 @@ return res.json();
 }
 
 
-function genresList(genres) {
-  // const genres = await fetchGenres();
-  genres.forEach((g) => { 
-const genreDiv = document.createElement("div");
-    genreDiv.innerHTML = 
-    `<a href="#" class="block p-3 rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
-      ${g.name}
-    </a>`
-    GENRE.appendChild(genreDiv)
-  });
-}
-const fetchMoviesByGenre = (genreId) => {
 
-}
 
-function searchShow(query){
-  const search_URL = `https://api.themoviedb.org/3/search/movie?api_key=473329bca30a210d04b15f4cda32a5e7&language=en-US&query=${query}&page=1&include_adult=false`
-fetch(search_URL)
-.then((resp)=>resp.json())
-.then((jsonData)=>{
-  // const results = jsonData.results.map(movie =>movie.original_title)
-  renderResults(jsonData.results)
-  // console.log( jsonData)
-  document.getElementById("errorMessage").innerHTML = ""
-}).catch((error => {
-  document.getElementById("errorMessage").innerHTML = error
-}))
-;
-}
-const genreTranslations ={
-  28:"Action",
-  12:"Adventure",
-  16:"Animation",
-  35:"Comedy",
-  80:"Crime",
-  99:"Documentary",
-  18:"Drama",
-  10751:"Family",
-  14:"Fantasy",
-  36:"History",
-  27:"Horror",
-  10402:"Music",
-  9648:"Mystery",
-  10749:"Romance",
-  878:"Science Fiction",
-  10770:"TV Movie",
-  53:"Thriller",
-  10752:"War",
-  37:"Western"
-}
+/*
+********************
+DONT-TOUCH FUNCTIONS 
+********************
+*/
 
-function renderResults(results){
-   const list =  document.getElementById("render-search")
-   list.innerHTML = "";
-   results.forEach(result => {
-    const genresConverter = result.genre_ids.map((g) => genreTranslations[g])
-     list.setAttribute("class","flex flex-col bg-white cursor-pointer")
-    let element = document.createElement("li")
-    element.addEventListener("click", ()=>{
-      movieDetails(result)
-      document.getElementById("render-search").classList.toggle("hidden")
-    })
-    const container = document.createElement("div")
-    container.innerHTML = `
-    <div class="flex w-full z-0">
-    <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-    <ul class="flex w-full flex-col">
-    <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
-    <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-    <li><div class="flex"><p>${genresConverter}</p> </div></li>
-    </ul>
-    </div>
-    `
-    element.appendChild(container)
-    list.appendChild(element)
-  })
-  }
 window.onload = ()=> {
   const movieSearchBox = document.getElementById("movie-search-box")
   const movieSearchbtn = document.getElementById("movie-search-btn");
@@ -391,7 +363,6 @@ window.onload = ()=> {
     searchShow(movieSearchBox.value)
 
   })
-
 }
 
 document.addEventListener("DOMContentLoaded", autorun);
