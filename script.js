@@ -184,11 +184,12 @@ const renderMovie = (movieDetails) => {
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language,backdrop_path} = details;
   CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
-  <div class = "w-full"><iframe width="560" height="315" src="https://www.youtube.com/embed/${
-          official.key
-        }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-    <div class="row">
-        <div class="col-md-4">
+    <div class="w-100 flex flex-col gap-2">
+    <div class="flex justify-center"><iframe width="1400" height="800"src="https://www.youtube.com/embed/${
+      official.key
+    }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        
+    <div class="flex flex-col gap-2"><div class="w-2/4">
 
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
@@ -207,7 +208,7 @@ const renderMovie = (movieDetails) => {
             )}</p>
             <p id="vote-count class="text-yellow-300"><b>Vote Count:</b> ${vote_count}</p>
             <p id="vote-count"><b></b> ${original_language}</p>
-            <ul class="w-1/4">Production Companies: ${companies}<ul></ul>
+            <ul class="w-1/4">${companies}<ul></ul>
            
         </div>
         </div>
