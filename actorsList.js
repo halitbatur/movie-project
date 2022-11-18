@@ -74,10 +74,10 @@ const renderActors = (actors) => {
   actors.forEach((actor) => {
     console.log(actor);
     const actorsDiv = document.createElement("div");
-    actorsDiv.innerHTML = `
+    actorsDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95 hover:brightness-50">
             <img class="cursor-pointer" src="${
               BACKDROP_BASE_URL + actor.profile_path
-            }" alt="${actor.name} poster">
+            }" alt="${actor.name} poster"></div>
             <h3 class="text-white font-gotham text-500">${actor.name}</h3> 
             `;
     actorsDiv.addEventListener("click", () => {
