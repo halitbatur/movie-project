@@ -81,9 +81,17 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const credits = await fetchCredits(movie.id);
   const trailer = await fetchTrailer(movie.id);
+  const similar = await fetchSimilarMovies(movie.id);
+  const similarMovies = await similar.results;
   const comp = await movieRes.production_companies;
   const genre = await movieRes.genres;
   const director = await credits.crew;
+
+  const similarMov = similarMovies.slice(0, 5).map((mov) => { 
+    if (mov.poster_path) {
+    return `<img src="${BACKDROP_BASE_URL + mov.poster_path}" alt="">` 
+  } else return `<li>${mov.original_title}</li>`
+  }).join('')
   const official = trailer.results.find((item) =>
     item.name.includes("Official Trailer")
   );
@@ -120,7 +128,7 @@ const movieDetails = async (movie) => {
   } else return `<li>${com.name}</li>`
   }).join('')
 
-  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres, director: directorJob });
+  renderMovie({details: movieRes, cast: cast, official: official, companies: companies, genres: genres, director: directorJob , similarMov: similarMov});
   };
 
 
@@ -164,7 +172,7 @@ const noGrid = "container mx-auto"
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const {details, cast,companies,director, genres,official ={} } = movieDetails;
+  const {details, cast,companies,director,similarMov, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
@@ -203,6 +211,8 @@ const renderMovie = (movieDetails) => {
             <p class="text-white w-1/2">${overview}</p>
             <h3 class="flex justify-center">Actors</h3> 
             <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
+            <h3>Similar Movies:</h3>
+            <ul class="list-unstyled grid grid-cols-5 justify-center gap-3">${similarMov}</ul>
     </div><div> <div class=""><div class="brightness-50">
     <img id="movie-backdrop src=${
       BACKDROP_BASE_URL + poster_path
@@ -255,6 +265,11 @@ const fetchMovies = async () => {
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
+  const res = await fetch(url);
+  return res.json();
+};
+const fetchSimilarMovies = async (movieId) => {
+  const url = constructUrl(`/movie/${movieId}/similar`);
   const res = await fetch(url);
   return res.json();
 };
