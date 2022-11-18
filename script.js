@@ -39,7 +39,7 @@ const constructUrl = (path) => {
 };
 
 
-const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+const gridColumns = "grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 container mx-auto";
 const movieSearchBox = document.getElementById("movie-search-box");
 const searchList = document.getElementById("search-list");
 const noGrid = "container mx-auto";
