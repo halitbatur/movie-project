@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(0, 0, 0);
+  font-family: "Roboto Condensed", sans-serif;
+}
+.wrapper {
+  margin-top: 10%;
+}
+
+
+.team {
+  display: flex;
+  text-align: center;
+  width: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10%;
+}
+.team .team_member {
+  background-color: #fff;
+  margin: 20px;
+  margin-bottom: 50px;
+  width: 300px;
+  padding: 20px;
+  line-height: 20px;
+  color: #8e8b8b;
+  position: relative;
+  padding-bottom: 45px;
+}
+
+.team .team_member h3 {
+  color: #3b3b3b;
+  font-size: 26px;
+  margin-top: 50px;
+}
+.team .team_member p.roll {
+    color: rgb(107, 107, 107);
+    font-size: 12px;
+    text-transform:uppercase ;
+    margin: 12px;
+}
+
+.team .team_member .team_img {
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background:#fff;
+}
+.team .team_member .team_img img {
+  border-radius: 50%;
+  width:100px;
+  height:100px;
+  padding: 10px;
+}
+
+.media a{
+  color: rgb(71, 71, 71);
+  font-size: 25px;
+  margin: 10px;
+}
+
+.media a:hover{
+  color: rgb(35, 35, 35);
+  
+}
+.about_wrapper {
+  /* min-height: auto; */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #958989;
+}
+.about-section{
+  background: url(./about-page-img/pexels-tima-miroshnichenko-7991127.jpg) no-repeat left;
+  background-size: 55%;
+  background-color: #000000;
+  overflow: hidden;
+  padding: 100px 0;
+  width: 100%;
+}
+.inner-container{
+  width: 55%;
+  float: right;
+  background-color: #e5e5e5;
+  padding: 150px;
+}
+
+.inner-container h1{
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 900;
+  color: #363636;
+}
+
+.text{
+  font-size: 25px;
+  color: #3c3c3c;
+  line-height: 30px;
+  text-align: justify;
+  margin-bottom: 40px;
+}
+
+.skills{
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+  color: #3c3c3c;
+}
+
+@media screen and (max-width:1200px){
+  .inner-container{
+      padding: 80px;
+  }
+}
+
+@media screen and (max-width:1000px){
+  .about-section{
+      background-size: 100%;
+      padding: 100px 40px;
+  }
+  .inner-container{
+      width: 100%;
+  }
+}
+
+@media screen and (max-width:600px){
+  .about-section{
+      padding: 0;
+  }
+  .inner-container{
+      padding: 60px;
+  }
+}
+
+.wrapper h2{
+  color: rgb(255, 255, 255);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  padding-left: 10%;
+  padding-bottom: 5%;
+}
