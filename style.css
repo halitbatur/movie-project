@@ -494,8 +494,10 @@
     font-family: "segoe ui";
     font-weight: 400;
     background-color:rgb(40, 40, 40) ;
-    padding: 40px 0 ;
-    margin-top: 20%;
+    padding: 40px ;
+    margin-top: 10%;
+    
+    min-width: 100%;
     
 }
 
