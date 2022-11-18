@@ -8,8 +8,7 @@ const CONTAINER = document.querySelector(".grid");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  renderGenres(movies.results)
-  console.log(renderGenres())
+  console.log(geners())
 };
 
 
@@ -24,17 +23,6 @@ const geners=async()=>{
   const a=await fetch(gener);
  console.log(a)
   return a.json();
-}
-
-const renderGenres=async(movie)=>{
-// let gen=await geners();
-// const movieRes = await fetchMovie(movie.id);
-// console.log(gen.genres.map(e=>e.id))
-// console.log(movie.id)
-// // gen.genres.map(e=>{
-
-// // }
-// // )
 }
 
 // You may need to add to this function, definitely don't delete it.
@@ -67,35 +55,68 @@ const fetchMovie = async (movieId) => {
 
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovies = (movies) => {
+const renderMovies = async (movies) => {
+  const genre=await geners();
+  const objectGenre={ 28: 'Action',
+   12: 'Adventure',
+   16: 'Animation',
+   35: 'Comedy',
+   80: 'Crime',
+   99: 'Documentary',
+   18: 'Drama',
+   10751: 'Family',
+   14: 'Fantasy',
+   36:  'History',
+   27:  'Horror',
+   10402: 'Music',
+   9648 : 'Mystery',
+   10749: 'Romance',
+   878 : 'Science Fiction',
+   10770 : 'TV Movie',
+   53 :'Thriller',
+   10752 : 'War',
+   37: 'Western'}
+// console.log(objectGenre.name)
+  // Here you should fetch all the generes
+  // save them inside an object which have the key as id value as the genre name
+  // genre { 15:"action", 14:" comedy"
+  // inside 
 
   movies.map((movie) => {
-// let genr=[];
-
-//      movieGenres(movie.id).then(data=>data.genres.map(d=>genr.push(d.name)))
-// console.log( movieGenres(movie.id).then(data=>data.genres.map(d=>d.name)))
-
-// console.log(genr)
- 
+   
     
+   const movieGenre=movie.genre_ids.map(id => objectGenre[id]).join(" ")
+
+   console.log(movieGenre)
+    // loop over the genres and use each one to access the object adn retireve the name of the gnere
+    // 14
+    // genres['movie.genre']
+    // inside the map loop over the genre ids and access the object to retreive the value aka the name of the genre
     const movieDiv = document.createElement("div");
     const discriptionDiv = document.createElement("div");
-    movieDiv.setAttribute("class"," shadow-2xl border border-yellow-900 rounded-tl-2xl rounded-br-2xl  text-amber-50 text-xl relative")
+    movieDiv.setAttribute("class","bg-grey shadow-white shadow-[0px_0px_5px_0.5px_rgba(0,0,0,0.3)] border rounded-tl-2xl rounded-br-2xl  text-amber-50 text-xl relative")
     discriptionDiv.setAttribute("class",
-    "f absolute top-0 w-full h-full rounded-tl-2xl rounded-br-2xl  bg-black bg-opacity-40 text-white font-sans text-md p-2 opacity-0   hover:opacity-100  ")
+    "discription absolute top-0 w-full h-full rounded-tl-2xl rounded-br-2xl  bg-black bg-opacity-70 text-white font-sans text-md p-2 opacity-0   hover:opacity-100  ")
     
     movieDiv.innerHTML = `
         <img class="rounded-tl-2xl " src="${BACKDROP_BASE_URL + movie.backdrop_path}" style="block" alt="${
       movie.title
     } poster">
-    <h3 class="p-2">${movie.title}</h3>
-  
+    <div class="flex justify-between p-2">
+   
+    <h3 class="inline-flex">${movie.title}</h3>
+   
+    <div class="flex bg-amber-600 rounded-xl p-2">
+    <img class="w-6 h-6" src="star.png">
+    <h3 class="px-2"> ${movie.vote_average}</h3>
+    </div>
+
+    </div>
+    <h3 class=" p-2 rounded-br-2xl bg-black ">${movieGenre}</h3>
 
         `;  
       
-       // <h3>${fetchgener(movie.genre_ids)}</h3>
       discriptionDiv.innerHTML=`<p>${movie.overview}</p> 
-      <h3> Rating : ${movie.vote_average}</h3>
       `
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
