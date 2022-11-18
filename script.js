@@ -226,8 +226,8 @@ const renderActorPage = (actor) => {
     <h1>${name}</h1>
     <h1>birthday: ${birthday}</h1>
     <h1>${deathday ? `deathday: ${deathday}` : ""}</h1>
-    <h1>popularity:${popularity}</h1>
-    <h1>gender:${gender}</h1>
+    <h1>popularity: ${popularity}</h1>
+    <h1>gender: ${gender==2 ? `Male` : `Female`}</h1>
     <p>${biography}</p>
   </div>`;
   document.getElementById("actorsPage").appendChild(singleActorPage);
