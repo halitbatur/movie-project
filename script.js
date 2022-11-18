@@ -15,8 +15,7 @@ function toggleItNavbar() {
 document.getElementById("movie-search-box").addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
 
-})
-//                     -----------------------
+});
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -30,6 +29,9 @@ const SWIPER = document.querySelector(".swiper");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  const genres = await fetchGenres();
+  console.log(genres)
+  genresList(genres.genres);
   renderMovies(movies.results);
 };
 
@@ -54,17 +56,28 @@ const movieDetails = async (movie) => {
     item.name.includes("Official Trailer")
   );
   const genres = genre.map((g) => { 
-    return `<li>${g.name}</li>`
+    return `<li class="list-none inline-flex justify-between mr-1 text-xs">${g.name}</li>`
   }).join('')
+
+
+  // const renderGenres = async (genre) => {
+  //   const genreRes = await fetchGenres();
+  //   console.log(genre);
+  // }
+  const director = credits.crew.find((item) =>
+  item.job.toLowerCase().includes("Director")
+  );
+
   const directorJob = director.map((dir) => { 
     if (dir.job == "Director") {
-      return `<h3>${dir.name}</h3> ` 
+      return `<h3 class="inline-block">${dir.name}</h3> ` 
     } 
   }).join('')
   console.log(directorJob + "hi")
   // const director = credits.crew.find((item) =>
   //   item.job.toLowerCase().includes("Director")
   // );
+
   const cast = credits.cast
     .slice(0, 5)
     .map((actor) => {
@@ -96,16 +109,22 @@ const actorDetails = async (actor) => {
   renderActorPage(details);
 };
 
+
+const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
+
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const containerOfMoiveDiv = document.createElement("div");
     containerOfMoiveDiv.setAttribute("id","containerOfMoiveDiv")
     const movieDiv = document.createElement("div");
-    movieDiv.innerHTML = `
-        <img id="poster" class="cursor-pointer" src="${
+
+    movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95">
+    <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
+        
         <h3 id="title" class="font-gotham font-700 text-white py-2">${movie.title}</h3>
         <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>
         <p id="divOfDescription" class="text-white text-xs">${movie.overview}</p>
@@ -113,6 +132,7 @@ const renderMovies = (movies) => {
         // movieDiv.addEventListener("mouseover",()=>{
         //   document.getElementById("divOfDescription").classList.toggle("hidden");
         // })
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
       containerOfMoiveDiv.appendChild(movieDiv)
@@ -123,43 +143,54 @@ const renderMovies = (movies) => {
       BACKDROP_BASE_URL + movie.backdrop_path
     }" alt="${movie.title} poster">`;
     CONTAINER.appendChild(movieDiv);
+   
     // SWIPER.appendChild(backdropDiv);
   });
+
+   CONTAINER.setAttribute('class',gridColumns);
+
 };
 
+const noGrid = "container mx-auto"
+
+console.log(CONTAINER) 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movieDetails) => {
-  const {details, cast,companies,director, genres,official ={} } = movieDetails;
-  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
+  const { details, cast,companies, genres,official ={} } = movieDetails;
+  const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language,backdrop_path} = details;
+  CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
+  <div class = "w-full"><iframe width="560" height="315" src="https://www.youtube.com/embed/${
+          official.key
+        }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     <div class="row">
         <div class="col-md-4">
+
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
-        <div><iframe width="560" height="315" src="https://www.youtube.com/embed/${
-          official.key
-        }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        <div class="col-md-8 text-white w-80">
-            <h2 id="movie-title class="text-white">${title}</h2>
-            <p>Movie Genre: ${genres}<p>
+
+  
+        <div class=" text-white w-4/5 font-gotham">
+          <h2 id="movie-title class="text-white font-gotham text-2xl">${title}</h2>
+            <p>${genres}<p>
+            <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
             <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
             <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
-            <p id="movie-rating class="text-yellow"><b>Rating:</b> ${Math.round(
+            <p id="movie-rating class="text-yellow-300"><b></b> <span style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
               vote_average
             )}</p>
-            <p id="vote-count class="text-yellow"><b>Vote Count:</b> ${vote_count}</p>
-            <p id="vote-count"><b>The language:</b> ${original_language}</p>
-
-            <h3>Overview:</h3>
-            <p id="movie-overview class="text-red">${overview}</p>
-            <ul>Production Companies: ${companies}<ul></ul>
-            <h3>Director: ${director}</h3> 
+            <p id="vote-count class="text-yellow-300"><b>Vote Count:</b> ${vote_count}</p>
+            <p id="vote-count"><b></b> ${original_language}</p>
+            <ul class="w-1/4">Production Companies: ${companies}<ul></ul>
+           
         </div>
         </div>
-            <h3>Actors:</h3> 
-            <ul id="actors" class="list-unstyled">${cast}</ul>
+        <h3 class="font-gotham">Overview</h3>
+        <p id="movie-overview class="text-red">${overview}</p>
+            <h3 class="flex justify-center">Actors</h3> 
+            <ul id="actors" class="list-unstyled grid grid-cols-3 justify-center">${cast}</ul></div>
     </div>`;
   //   SWIPER.innerHTML = `<main class="grid grid-cols-3">
   //  <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
@@ -172,6 +203,7 @@ const renderMovie = (movieDetails) => {
       actorDetails(actor.id);
     });
   }
+  CONTAINER.setAttribute('class',noGrid)
 };
 
 const renderActorPage = (actor) => {
@@ -231,25 +263,24 @@ const fetchPersonDetails = async (personId) => {
 const fetchGenres = async () => {
   const genres = constructUrl(`/genre/movie/list`);
   const res = await fetch(genres);
-  return res.json();
+return res.json();
 }
 
-const autorunGenre = async () => {
-  const genre = await fetchGenres();
-  genresList(genre.name);
-};
-const genresList = async(genres) => {
+
+
+function genresList(genres) {
   // const genres = await fetchGenres();
-  genres.map((g) => { 
-    const genresConverter = res.genre_ids.map((g) => genreTranslations[g])
-    const genresList = document.getElementById("movieGenres")
-    const genreDiv = document.createElement("div");
-    genreDiv.innerHTML = `
-    <a href="#" class="block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-white">
-      ${genresConverter}
-    </a>`;
-    genresList.appendChild(genreDiv)
+  genres.forEach((g) => { 
+const genreDiv = document.createElement("div");
+    genreDiv.innerHTML = 
+    `<a href="#" class="block p-3 rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700 text-black">
+      ${g.name}
+    </a>`
+    GENRE.appendChild(genreDiv)
   });
+}
+const fetchMoviesByGenre = (genreId) => {
+
 }
 
 
