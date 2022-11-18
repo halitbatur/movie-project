@@ -127,8 +127,15 @@ const movieDetails = async (movie) => {
 
 const actorDetails = async (actor) => {
   const details = await fetchPersonDetails(actor);
-  renderActorPage(details);
+  const casts = await fetchActorMovies(actor);
+  const actorMovies = await casts.cast;
+  const movies = actorMovies.slice(0, 5).map((t) => { 
+    return `<li">${t.title}, </li> ` 
+  }).join('')
+  renderActorPage({details: details, movies: movies});
 };
+
+
 const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
@@ -216,8 +223,8 @@ const renderMovie = (movieDetails) => {
 };
 
 const renderActorPage = (actor) => {
-  const {also_known_as,biography,birthday,deathday,name,popularity,profile_path,gender} = actor;
-
+  const {details ,movies} = actor;
+  const {biography,birthday,deathday,name,popularity,profile_path,gender} = details;
   CONTAINER.innerHTML = "";
   const singleActorPage = document.createElement("div");
 
@@ -229,6 +236,7 @@ const renderActorPage = (actor) => {
     <h1>popularity:${popularity}</h1>
     <h1>gender:${gender}</h1>
     <p>${biography}</p>
+    <ul>Also Known For: ${movies}</ul>
   </div>`;
   document.getElementById("actorsPage").appendChild(singleActorPage);
 };
@@ -265,6 +273,12 @@ const fetchTrailer = async (movieId) => {
 const fetchPersonDetails = async (personId) => {
   const PERSON_URL = constructUrl(`/person/${personId}`);
   const res = await fetch(PERSON_URL);
+  return res.json();
+};
+
+const fetchActorMovies = async (personId) => {
+  const ACTOR_URL = constructUrl(`/person/${personId}/movie_credits`);
+  const res = await fetch(ACTOR_URL);
   return res.json();
 };
 
