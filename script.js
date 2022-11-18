@@ -114,10 +114,9 @@ const movieDetails = async (movie) => {
         return `<li id="${actor.id}" class="actor text-white font-gotham text-500 cursor-pointer"><h1>${actor.name}</h1></li>`;
     })
     .join("");
-  const companies = comp.map((com) => { 
+  const companies = comp.slice(0, 1).map((com) => { 
     if (com.logo_path) {
-    return `<li>${com.name}</li> 
-            <img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
+    return `<img src="${BACKDROP_BASE_URL + com.logo_path}" alt="">` 
   } else return `<li>${com.name}</li>`
   }).join('')
 
@@ -134,7 +133,7 @@ const gridColumns = "grid grid-cols-3 gap-5 container mx-auto";
 const renderMovies = (movies) => {
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
-    movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95">
+    movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95 hover:brightness-50">
     <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
@@ -161,46 +160,47 @@ const renderMovie = (movieDetails) => {
   const {details, cast,companies,director, genres,official ={} } = movieDetails;
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = "";
-  CONTAINER.innerHTML = `<header
-  class="relative flex items-center justify-center h-screen mb-12 overflow-hidden"
+  CONTAINER.innerHTML = `
+  <header
+  class="relative flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden"
 >
-  <div
-    class="relative z-30 p-5 text-5xl font-gotham font-bold text-white bg-opacity-50 rounded-xl flex justify-start"
-  >${title}</div>
-  <video autoplay loop muted class="absolute z-10 w-auto min-w-full min-h-full max-w-none">
-    <source src="https://www.youtube.com/embed/${official.key}" type="video/mp4"/>
-    Your browser does not support the video tag.
-  </video>
-</header>
-    <div class="None">
-    <iframe class="w-auto min-w-full min-h-full max-w-none" width="1060" height="1015" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="relative z-30 p-5 text-5xl font-gotham font-bold text-white bg-opacity-50 rounded-xl block"
+  >${title}
+  </div>
+  <p class="text-white relative z-30 block text-s" id="movie-rating><b></b> <span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
+    vote_average
+  )} | ${vote_count}</p>
+  <iframe class="w-auto min-w-full min-h-full max-w-none absolute brightness-50" width="1600" height="900" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         
-    <div class="flex flex-col gap-2"><div class="w-2/4">
+</header>
+    <div class=""><div class="w-1/4 mt-10">
              <img id="movie-backdrop class="cursor-pointer" src=${
                BACKDROP_BASE_URL + poster_path
              }>
         </div>
-  
-        <div class=" text-white w-4/5 font-gotham">
-          <h2 id="movie-title class="text-white font-gotham text-2xl">${title}</h2>
-            <p>${genres}<p>
+  <div class="flex flex-col gap-2">
+        <div class=" text-white w-4/5 font-gotham text-lg">
+          <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
+            <p class="inline-block">${genres}<p>
             <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
             <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
-            <p id="movie-runtime class="text-white"><b>Runtime:</b> ${runtime} Minutes</p>
-            <p id="movie-rating class="text-yellow-300"><b></b> <span style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
-              vote_average
-            )}</p>
-            <p id="vote-count class="text-yellow-300"><b>Vote Count:</b> ${vote_count}</p>
-            <p id="vote-count"><b></b> ${original_language}</p>
-            <ul class="w-1/4">${companies}<ul></ul>
-           
+            <p id="movie-runtime class="text-white"><b></b> ${runtime} Minutes</p>
+            <p id="language" class="uppercase"><b></b> ${original_language}</p>
+            <ul class="w-1/4">${companies}</ul>
+           </div>
         </div>
         </div>
-        <h3 class="font-gotham">Overview</h3>
-        <p id="movie-overview class="text-red">${overview}</p>
+        <div class="text-white">
+            </div>
+            <h3 class="font-gotham font-bold text-white">Overview</h3>
+            <p class="text-white w-1/2">${overview}</p>
             <h3 class="flex justify-center">Actors</h3> 
-            <ul id="actors" class="list-unstyled grid grid-cols-3 justify-center">${cast}</ul></div>
-    </div>`;
+            <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
+    </div><div> <div class=""><div class="brightness-50">
+    <img id="movie-backdrop src=${
+      BACKDROP_BASE_URL + poster_path
+    }>
+</div></div>`;
   //   SWIPER.innerHTML = `<main class="grid grid-cols-3">
   //  <div> <img id="movie-backdrop class="cursor-pointer grid grid-cols-3" src=${
   //    BACKDROP_BASE_URL + backdrop_path
@@ -214,6 +214,7 @@ const renderMovie = (movieDetails) => {
   }
   CONTAINER.setAttribute('class',noGrid)
 };
+
 
 const renderActorPage = (actor) => {
   const {also_known_as,biography,birthday,deathday,name,popularity,profile_path,gender} = actor;
