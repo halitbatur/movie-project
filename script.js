@@ -21,13 +21,29 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const actorRes = await fetchActor(movie.id);
+  const movieTrailer = await fetchMovie(movie.id + "/videos");
+  const relatedFilms = await fetchRelatedFilms(movie.id);
+  renderMovie(movieRes, actorRes, movieTrailer.results, relatedFilms);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
   const res = await fetch(url);
+  return res.json();
+};
+
+const searchMovies = async (searchQuery) => {
+  const url = constructUrl("search/movie") + "&query=" + searchQuery
+  const res = await fetch(url);
+  return res.json();
+}
+
+const fetchActor = async (id) => {
+  const url = constructUrl(`movie/${id}/credits`);
+  const res = await fetch(url);
+  //console.log(res.json())
   return res.json();
 };
 
@@ -38,44 +54,186 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+
+const fetchRelatedFilms = async (id) => {
+  const url = constructUrl(`movie/${id}/similar`);
+  const res = await fetch(url);
+  return res.json();
+}
+
+//..........................................style.........................................................
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  while (CONTAINER.firstChild) {
+    CONTAINER.removeChild(CONTAINER.firstChild);
+  }
   movies.map((movie) => {
     const movieDiv = document.createElement("div");
+    movieDiv.style="display: flex; width:30%;  flex-wrap: wrap;" ;
+    movieDiv.setAttribute("class", "all-movies");
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
-        <h3>${movie.title}</h3>`;
+          <div class="movieList flex flex-col rounded shadow-lg justify-center item-center  my-3 ">
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title
+      } poster" class="movieImg" >
+        <h3 class="text-center text-2xl font-bold my-10 ">${movie.title}</h3>
+        </div>
+        `;
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
+
     CONTAINER.appendChild(movieDiv);
   });
 };
 
-// You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+// rendring the details inside this HTML
+const renderMovie = (movie, actors, videos, relatedFilms) => {
   CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
+          
+          <section>
+          <div class="flex flex-col w-full rounded-lg p-10 shadow-2xl mt-20">
+
+          <div class="w-full flex justify-center items-center text-dark text-4xl font-bold my-4">
+          <h1 class="text-6xl font-bold text-center font-serif">The Trailer of the Movie</h1> 
+          </div>
+          <div class="flex justify-center w-full h-96 px-10 py-4" style=";
+          height: 27rem;">
+          <iframe class="movie-trailler shadow-lg flex movie-trailer w-2/4 justify-center h-full " src="https://www.youtube.com/embed/${videos.length === 0 ? videos.key : videos[0].key}" 
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+              </div> 
+          </div>
+          
+        
+        <div class="flex flex-row justify-center w-full my-32 text-white  shadow-2xl rounded-lg bg-red-600 p-24">
+        <div class="w-2/4">
+             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.backdrop_path} class="singleMovie h-full border-2 ">
         </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
+
+
+        <div class="w-2/4 ml-5">
+            <h2 id="movie-title" class="text-3xl font-bold text-center my-2">${movie.title}</h2>
+            <p id="movie-release-date"><b>Release Date:</b> ${movie.release_date
+    }</p>
+           <p id="movie-release-date"><b>Movie Language</b> ${movie.original_language.toUpperCase()
+
+    }</p>
+           <p id="movie-release-date"><b>Vote count:</b> ${movie.vote_count
+
+    }</p>
+
+    
+            <p id="movie-runtime"><b>movie rating</b> ${movie.vote_average}</p>
+             <p id="movie-runtime"><b>movie production company name and logo</b> ${movie.production_companies[3]
+    } </p>
+              <p id="movie-runtime"><b>director name:</b> ${movie.runtime} Minutes</p>
+
+           
+    
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
-            <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-    </div>`;
+
+        </div>
+       <div class="flex flex-col w-full justify-center item-center my-24 shadow-2xl bg-white text-dark w-full">
+       <div>
+       <h3 class="text-6xl font-bold text-center font-serif mt-5">Movie's Actors</h3>
+       </div>
+       <div>
+       <ul id="actors" class="flex flex-wrap rounded-lg justify-center item-center space-x-6 my-2 ">
+       </ul> 
+       </div>
+       </div>
+       
+
+       <div class="similarMovies flex flex-col w-full justify-center bg-red-600 item-center my-24 shadow-2xl">
+       <div class="">
+       <h3 class="text-6xl font-bold text-white text-center font-serif mt-5 ">Similar Films</h3>
+       <ul id="similarFilms" class="flex flex-wrap shadow-2xl rounded-lg justify-center item-center space-x-6 my-2">
+       </ul>
+       </div>
+       </div>
+
+           
+      </div>
+   
+  </section>
+    `;
+  renderActors(actors)
+  renderSimilarFilms(relatedFilms)
 };
 
+//Film's Actors
+const renderActors = (actors) => {
+  const actorList = document.querySelector("#actors")
+  actors.cast.slice(0, 5).map((actor) => {
+    const actorDiv = document.createElement("ul");
+    actorDiv.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" style="width:200px" class="actorImg rounded-lg pt-5">
+        <li class="text-2xl text-b py-2 font-serif font-bold my-3 text-center">${actor.name}</li>`;
+    actorDiv.addEventListener("click", () => { displaySingleActorPage(actor); });
+    actorList.appendChild(actorDiv);
+  });
+}
+
+
+//Similar Films 
+
+const renderSimilarFilms = (similarFilms) => {
+  const relatedFilmsList = document.querySelector("#similarFilms")
+  similarFilms.results.slice(0, 5).map((film) => {
+    const filmDiv = document.createElement("ul");
+    filmDiv.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + film.poster_path}" alt="${film.title} poster" style="width:300px" class="shadow-2xl rounded-lg mt-">
+        <li class="bg-white text-l text-black py-2 font-serif font-bold my-3 text-center ">${film.original_title}</li>`;
+    filmDiv.addEventListener("click", () => { displaySingleAMoviePage(); });
+    relatedFilmsList.appendChild(filmDiv);
+  });
+
+}
+const displaySingleActorPage = (actor) => {
+  CONTAINER.innerHTML = `
+        <div class="">
+        <h1 class="text-6xl font-bold shadow-lg py-3 px-5 rounded-xl">welcome, you are in actor page</h1>
+        </div>
+
+      <div class="mb-20 mt-5 p-10 flex flex-row justify-center items-center shadow-lg rounded-xl w-full">
+          <div class="w-2/4 flex justify-center items-center p-5">
+               <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} poster" class="singleActorImg">
+          </div>
+          <div class="w-2/4 flex flex-col text-2xl p-5">
+             <div >
+            <h2 id="actor-name"><b>Name:</b> ${actor.name}</h2>
+            <p id="actor-gender"><b>Gender:</b> ${actor.gender}</p>
+            <p id="actor-popularity"><b>Popularity:</b> ${actor.popularity} </p>
+            <p id="actor-birthday"><b>Birthday:</b> ${actor.birthday} </p>
+            <p id="actor-deathday"><b>Deathday:</b> ${actor.deathday} </p>
+            <h3 class="pt-6"><b>Biography:</b></h3>
+            <p id="actor-biography">${actor.biography}</p>
+        </div>
+          </div>
+      </div>
+  `;
+};
+
+
+const displaySingleAMoviePage = () => {
+  CONTAINER.innerHTML = `
+      <div class="row">
+          <div class="col-md-4">
+               <h1>welcome, you are in Movie page</h1>
+          </div>`;
+};
 document.addEventListener("DOMContentLoaded", autorun);
+const searchBtn = document.getElementById("searchBtn")
+searchBtn.addEventListener("click", async () => {
+  const searchInputValue = document.getElementById("searchInput").value
+  if (searchInputValue) {
+    const movies = await searchMovies(searchInputValue)
+    renderMovies(movies.results)
+  }
+
+})
