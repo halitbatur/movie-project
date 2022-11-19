@@ -26,7 +26,6 @@ const geners=async()=>{
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  console.log(movieRes.genres.map(d=>{console.log(d.name)}))
   renderMovie(movieRes);
 };
 
@@ -73,15 +72,12 @@ const renderMovies = async (movies) => {
   // inside 
 
   movies.map((movie) => {
-   
-    
-   const movieGenre=movie.genre_ids.map(id => objectGenre[id]).join(" ")
-
-   console.log(movieGenre)
     // loop over the genres and use each one to access the object adn retireve the name of the gnere
     // 14
     // genres['movie.genre']
     // inside the map loop over the genre ids and access the object to retreive the value aka the name of the genre
+   const movieGenre=movie.genre_ids.map(id => objectGenre[id]).join(" ")
+   
     const movieDiv = document.createElement("div");
     const discriptionDiv = document.createElement("div");
     movieDiv.setAttribute("class","bg-grey shadow-white shadow-[0px_0px_5px_0.5px_rgba(0,0,0,0.3)] border rounded-tl-2xl rounded-br-2xl  text-amber-50 text-xl relative")
