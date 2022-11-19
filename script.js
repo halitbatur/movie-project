@@ -37,7 +37,8 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const movieTrailers = await fetchTrailers(movie.id)
+  renderMovie(movieRes, movieTrailers);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -83,7 +84,7 @@ const renderMovies = (movies) => {
     const movieGenres = genresIdToName(movie.genre_ids);
     console.log(movieGenres);
     const movieDiv = document.createElement("div"); 
-    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-6xl  mx-auto justify-items-center py-20 gap-4 cursor-pointer`)
+    CONTAINER.setAttribute('class', `grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 auto-cols-auto max-w-6xl  mx-auto justify-items-center pt-20 gap-4 cursor-pointer`)
     movieDiv.innerHTML = `
     <div class="mov bg-gray-700  relative overflow-hidden">
         <img class="hover:opacity-[30%] via-gray-300 to-white" src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="films">
@@ -107,7 +108,7 @@ const renderMovies = (movies) => {
   });
 };
 
-//Relating Movies fetching
+//fetch similar movies
 
 const autorunSim = async (movie) => {
   const simMovies = await fetchSimilarMov(movie);
@@ -117,14 +118,31 @@ const autorunSim = async (movie) => {
 const fetchSimilarMov = async (movie) => {
   const url = constructUrl(`movie/${movie.id}/similar`);
   const res = await fetch(url);
+  // console(res.json());
   return res.json();
 }
 
+//fetch trailer
 
+const fetchTrailers = async(id) => {
+  const url = constructUrl(`movie/${id}/videos`);
+  const res = await fetch(url);
+ // console(res.json());
+  return res.json();
+};
+
+const renderTrailer = (trailers) => {
+  const key = trailers.results[0].key;
+  const tDiv = document.getElementById("trailer");
+  const trailerBox = document.createElement('div');
+  trailerBox.className = "trailer";
+  trailerBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${key}" width="500" height="360" allowfullscreen ></iframe>`;
+  tDiv.appendChild(trailerBox);
+};
 
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie, trailers) => {
   CONTAINER.innerHTML = `<section class="flex justify-center mx-auto bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 py-20 overflow-hidden">
   <div class="mx-10 ">
     <div class="imageMovieSingle">
@@ -140,15 +158,21 @@ const renderMovie = (movie) => {
         <p class="text-violet-300">Votes: <span class="text-white">${movie.vote_count}</span></p>
         <p class="my-2 text-xl text-violet-300">Overview:</p>
         <p>${movie.overview}</p>
-        <h3 class="text-violet-300">Actors:</h3>
         <p class="text-violet-300">Production: <span class="text-white">${movie.production_companies[0].name}</span></p>
         <img src=${BACKDROP_BASE_URL + movie.production_companies[0].logo_path}>
-        <h3 class="text-violet-300">Actors:</h3>
 </div>
 </section>
-<br><hr>
+
+  <hr><br><hr>
+  <section class=" flex flex-col my-10 ">
+  <h3 class="text-center text-white text-4xl font-bold"> Watch Trailer</h3>
+  <div id="trailer" ></div></section>
+  <br><br>
+  <div class="text-white text-4xl text-center font-bold mb-6">Related Movies:</div>
+  <hr><br>
 `;
 autorunSim(movie)
+renderTrailer(trailers);
 
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,10 +263,9 @@ const displayMovieSearchResults = async (results) =>{
 
 const actorsAutoRun = async () => {
   const actors = await fetchActors();
-  console.log(actors);
+  // console.log(actors);
   renderActors(actors.results);
 };
-
 
 const actorDetails = async (actor) => {
     const actorRes = await fetchActor(actor.id);
@@ -255,13 +278,11 @@ const fetchActors = async () => {
   return res.json();
 };
 
-
 const fetchActor = async (actorId) => {
     const url = constructUrl(`person/${actorId}`);
     const res = await fetch(url);
     return res.json();
   };
-
 
   const renderActors = (actors) => {
     actors.map((actor) => {
@@ -302,7 +323,7 @@ const fetchActor = async (actorId) => {
                <img  src=${PROFILE_BASE_URL + actor.profile_path}>
           </div>
       </div>
-          <div class=" info flex flex-col leading-9  p-10 text-white  align-items-center py-2 ">
+          <div class=" info flex flex-col leading-9  px-10 text-white  align-items-center pb-2 ">
               <p class=" text-xl mb-6 font-bold">${actor.name}</p>
               <p class="text-violet-300"> Gender: <span class="text-white">${Gender(actor)}</span></p>
               <p class="text-violet-300">Birthday: <span class="text-white">${actor.birthday} </span></p>
@@ -313,6 +334,7 @@ const fetchActor = async (actorId) => {
               </div>
     </section>
       `;
+      
   };
 
   if(actorPage){
