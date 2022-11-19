@@ -110,7 +110,7 @@ const renderMovies = (movies) => {
 
 //fetch similar movies
 
-const autorunSim = async (movie) => {
+const autorunSimilar = async (movie) => {
   const simMovies = await fetchSimilarMov(movie);
   renderMovies(simMovies.results.slice(0, 5));
 };
@@ -171,7 +171,7 @@ const renderMovie = (movie, trailers) => {
   <div class="text-white text-4xl text-center font-bold mb-6">Related Movies:</div>
   <hr><br>
 `;
-autorunSim(movie)
+autorunSimilar(movie)
 renderTrailer(trailers);
 
 };
