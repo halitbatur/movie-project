@@ -284,16 +284,18 @@ function renderResults(results){
      document.getElementById("render-search").classList.toggle("hidden")
    })
    const container = document.createElement("div")
-   container.innerHTML = `
-   <div class="flex w-full z-0">
-   <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-   <ul class="flex w-full flex-col">
+   container.innerHTML = 
+   `
+   <div class="z-100 flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+   <img class=" h-20 w-18" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+   <ul class="flex w-full flex-col dark:text-white font-sans p-2">
    <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
    <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-   <li><div class="flex"><p>${genresConverter}</p> </div></li>
+   <li><p> ${genresConverter}</p></li>
    </ul>
    </div>
    `
+   
    element.appendChild(container)
    list.appendChild(element)
  })
