@@ -13,9 +13,16 @@
     width: 100%;
 }
 
+
 #actors {
     margin: 24px 16px 0 0;
 }
+
+.discription{
+    transition: Opacity 0.50s ;
+}
+
+
 
 
 body{
@@ -160,3 +167,4 @@ body{
     text-align: center;
 
 }
+
