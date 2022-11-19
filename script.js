@@ -3,12 +3,11 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".grid");
+const CONTAINER = document.querySelector(".container");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  console.log(geners())
 };
 
 
@@ -21,7 +20,6 @@ const constructUrl = (path) => {
 const geners=async()=>{
   const gener= constructUrl(`genre/movie/list`);
   const a=await fetch(gener);
- console.log(a)
   return a.json();
 }
 
@@ -32,27 +30,19 @@ const movieDetails = async (movie) => {
   renderMovie(movieRes);
 };
 
-const movieGenres = async (movieId) => {
-  const url = constructUrl(`movie/${movieId}`);
-  const res = await fetch(url);
-  return res.json()
- // console.log(movieRes.genres.map(d=>{console.log(d.name)}))
-};
+
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
   const res = await fetch(url);
   return res.json();
 };
-console.log(fetchMovies())
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
   const url = constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
-  return res.json()
+  return res.json();
 };
-
-
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = async (movies) => {
@@ -120,7 +110,6 @@ const renderMovies = async (movies) => {
       `
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
-      console.log(movie)
     });
     CONTAINER.appendChild(movieDiv);
     movieDiv.appendChild(discriptionDiv)
