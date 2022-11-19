@@ -85,7 +85,7 @@ const renderMovies = async (movies) => {
     "discription absolute top-0 w-full h-full rounded-tl-2xl rounded-br-2xl  bg-black bg-opacity-70 text-white font-sans text-md p-2 opacity-0   hover:opacity-100  ")
     
     movieDiv.innerHTML = `
-        <img class="rounded-tl-2xl " src="${BACKDROP_BASE_URL + movie.backdrop_path}" style="block" alt="${
+        <img class="rounded-tl-2xl " src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
       movie.title
     } poster">
     <div class="flex justify-between p-2">
