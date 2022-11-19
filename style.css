@@ -422,11 +422,18 @@ body{
   }
   .container {
     padding-top: 32px;
+
+    /* movie, actor page style */
 }
   .mov{
       width: 347px;
-      height: 408px;
+      height: 415px;
   }
+
+  .mov img{
+    height: 340px;
+    max-width: 100%;
+}
   
   .actor{
       width: 250px;
@@ -438,14 +445,7 @@ body{
       max-width: 100%;
       width: 250px;
   }
-  
-  .mov img{
-      height: 340px;
-      max-width: 100%;
-  }
-  
-  
-  
+
   .imageMovieSingle img{
       width:480px;
       height:200px;
