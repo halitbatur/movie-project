@@ -200,23 +200,20 @@ const renderMovie = (movieDetails) => {
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
-  <header
-  class="relative flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden"
->
-  <div class="relative z-30 p-5 text-5xl font-gotham font-bold text-white bg-opacity-50 rounded-xl block"
-  >${title}
-  </div>
-  <p class="text-white relative z-30 block text-s" id="movie-rating><b></b> <span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
-    vote_average
-  )} | ${vote_count}</p>
-  <iframe class="w-auto min-w-full min-h-full max-w-none absolute brightness-50" width="1600" height="900" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        
-</header>
-  <div class=""><div class="w-1/4 mt-10">
-    <img id="movie-backdrop class="cursor-pointer" src=${BACKDROP_BASE_URL + poster_path}>
-  </div>
-  <div class="flex flex-col gap-2">
-    <div class=" text-white w-4/5 font-gotham text-lg">
+  <header class="relative flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden">
+    <div class="relative z-30 p-5 text-5xl font-gotham font-bold text-white bg-opacity-50 rounded-xl block">${title}
+    </div>
+    <p class="text-white relative z-30 block text-s" id="movie-rating><b></b> <span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
+      vote_average
+    )} | ${vote_count}</p>
+    <iframe class="w-auto min-w-full min-h-full max-w-none absolute brightness-50" width="1600" height="900" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>     
+  </header>
+
+  <div class="grid grid-cols-2 gap-5 m-2">
+    <div class="text-white w-4/5 font-gotham text-lg">
+      <img id="movie-backdrop class="cursor-pointer" src=${BACKDROP_BASE_URL + poster_path}>
+    </div>
+    <div class="text-white w-4/5 font-gotham text-lg">
       <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
       <p class="inline-block">${genres}<p>
       <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
@@ -227,7 +224,7 @@ const renderMovie = (movieDetails) => {
     </div>
   </div>
   <div class="text-white">
-    <h3 class="font-gotham font-bold text-white">Overview</h3>
+    <h3 class="font-gotham font-bold text-white mt-10">Overview</h3>
     <p class="text-white w-1/2">${overview}</p>
     <h3 class="flex justify-center">Actors</h3> 
     <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
