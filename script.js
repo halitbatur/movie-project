@@ -183,10 +183,9 @@ const renderMovies = (movies) => {
     <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
-        
-        <h3 id="title" class="font-gotham font-700 text-white py-2">${movie.title}</h3>
-        <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>
-        `
+        <div class="flex justify-end relative">
+        <p class="text-black font-bold bg-yellow-400 w-10 text-center absolute bottom-2 text-xs"> <span style="font-size:100%;color:black;">&starf;</span> ${movie.vote_average}</p></div></div>
+        <h3 class="font-gotham font-700 text-white py-2 text-center text-s">${movie.title}</h3>`;
         // movieDiv.addEventListener("mouseover",()=>{
         //   document.getElementById("divOfDescription").classList.toggle("hidden");
         // })
@@ -212,25 +211,25 @@ const renderMovie = (movieDetails) => {
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
-  <header class="flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden">
+  <header class="flex items-center justify-start mx-auto h-screen bottom-10 mb-20 overflow-hidden">
     <div class="z-30 p-5 text-5xl  font-gotham font-bold text-white bg-opacity-50 rounded-xl block">${title}
     </div>
     <p class="text-white z-30 block text-s" id="movie-rating><span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
       vote_average
     )} | ${vote_count}</p>
-    <iframe id="trailer" class=" absolute w-auto min-w-full min-h-full max-w-none brightness-50" width="" height="" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>     
+    <iframe id="trailer" class=" absolute w-10/12 h-full mx-auto brightness-50 flex justify-center" width="" height="" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
   </header>
 
-  <div class="grid grid-cols-5 gap-5 m-2">
+  <div class="grid grid-cols-4 gap-5 m-2">
     <div class="text-white rounded font-gotham text-lg w-3/4">
       <img id="movie-backdrop class="cursor-pointer" src=${BACKDROP_BASE_URL + poster_path}>
     </div>
     <div class="text-white w-4/5 font-gotham text-lg m-0">
-      <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
+      <div class="font-2xl"><h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2></div>
       <p class="inline-block">${genres}<p>
       <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
-      <p id="movie-release-date class="text-white"><b>Release Date:</b> ${release_date}</p>
+      <p id="movie-release-date class="text-white no-wrap"><b>Release Date:</b> ${release_date}</p>
       <p id="movie-runtime class="text-white"><b></b> ${runtime} Minutes</p>
       <p id="language" class="uppercase"><b></b> ${original_language}</p>
       <ul class="w-1/4">${companies}</ul>
@@ -239,10 +238,9 @@ const renderMovie = (movieDetails) => {
   <div class="text-white">
     <h3 class="font-gotham font-bold text-white mt-10">Overview</h3>
     <p class="text-white w-1/2">${overview}</p>
-    <h3 class="flex justify-center">Actors</h3> 
-    <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
-    <h3 class="text-white font-gotham">Similar Movies:</h3>
-    <ul class="list-unstyled grid grid-cols-5 justify-between gap-3 w-3/4 content-center">${similarMov}</ul>
+    <div class="flex justify-center"><ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-5">${cast}</ul></div>
+    <h3 class="text-white font-gotham mt-5 text-center font-bold">Similar Movies</h3>
+    <div class="flex justify-center"><ul class="list-unstyled grid grid-cols-5 justify-between gap-3 w-3/4 content-center">${similarMov}</ul></div>
   </div>`;
   const actorLinks = document.getElementsByClassName("actor");
   for (const actor of actorLinks) {
@@ -285,12 +283,12 @@ function renderResults(results){
    })
    const container = document.createElement("div")
    container.innerHTML = `
-   <div class="flex w-full z-0">
-   <img class=" h-16 w-16" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
-   <ul class="flex w-full flex-col">
+   <div class="flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+   <img class=" h-20 w-18" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
+   <ul class="flex w-full flex-col dark:text-white font-sans p-2">
    <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
    <li><span class=""><span style="font-size:100%;color:gold;">&starf;</span> ${result.vote_average}</span></li>
-   <li><div class="flex"><p>${genresConverter}</p> </div></li>
+   <li><p> ${genresConverter}</p></li>
    </ul>
    </div>
    `
