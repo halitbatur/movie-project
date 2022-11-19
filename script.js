@@ -283,7 +283,8 @@ function renderResults(results){
    })
    const container = document.createElement("div")
    container.innerHTML = `
-   <div class="flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+   <div class="z-100 flex w-full dark:bg-gray-900 bg-slate-100 hover:bg-black hover:text-white hover:translate-x-2 hover:transition hover:text-bold hover:uppercase">
+
    <img class=" h-20 w-18" src="${BACKDROP_BASE_URL}${result.backdrop_path}">
    <ul class="flex w-full flex-col dark:text-white font-sans p-2">
    <li><span class=" flex flex-1 items-center">${result.original_title}</span></li>
@@ -292,6 +293,7 @@ function renderResults(results){
    </ul>
    </div>
    `
+   
    element.appendChild(container)
    list.appendChild(element)
  })
