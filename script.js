@@ -2,16 +2,19 @@
 
 let movieGenres = document.querySelector("#movieGenres");
 let openMenu = document.getElementById("mega-menu-full");
-function toggleIt() {
+function toggleItMovies() {
   return movieGenres.classList.toggle("hidden");
+}
+function toggleItFilter() {
+  return document.getElementById("filterList").classList.toggle("hidden");
 }
 function toggleItNavbar() {
   return openMenu.classList.toggle("hidden");
 }
 window.addEventListener("click", ()=>{
   document.getElementById("render-search").classList.toggle("hidden")
-
 })
+
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
@@ -173,17 +176,27 @@ RENDER FUNCTIONS
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
+    const containerOfMoiveDiv = document.createElement("div");
+    containerOfMoiveDiv.setAttribute("id","containerOfMoiveDiv")
     const movieDiv = document.createElement("div");
     movieDiv.innerHTML = `<div class="transform transition duration-500 hover:scale-95 hover:brightness-50">
     <img id="poster" class="moviePoster cursor-pointer rounded-sm" src="${
           BACKDROP_BASE_URL + movie.poster_path
         }" alt="${movie.title} poster">
-        <div class="flex justify-end relative">
-        <p class="text-black font-bold bg-yellow-400 w-10 text-center absolute bottom-2 text-xs"> <span style="font-size:100%;color:black;">&starf;</span> ${movie.vote_average}</p></div></div>
-        <h3 class="font-gotham font-700 text-white py-2 text-center text-s">${movie.title}</h3>`;
+        
+        <h3 id="title" class="font-gotham font-700 text-white py-2">${movie.title}</h3>
+        <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>
+        <p id="divOfDescription" class="text-white text-xs">${movie.overview}</p>
+        `
+        // movieDiv.addEventListener("mouseover",()=>{
+        //   document.getElementById("divOfDescription").classList.toggle("hidden");
+        // })
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
+      containerOfMoiveDiv.appendChild(movieDiv)
     });
+
     const backdropDiv = document.createElement("div");
     backdropDiv.innerHTML = `<img class="cursor-pointer " src="${
       BACKDROP_BASE_URL + movie.backdrop_path
@@ -361,5 +374,32 @@ window.onload = ()=> {
 
   })
 }
+const fetchingOfFilterMovies = async (typeFilter) => {
+  const url = constructUrl(`movie/${typeFilter}`);
+  const res = await fetch(url);
+  return res.json();
+}
+const FilteredResult = async (typeFilter) => {
+  const movies = await fetchingOfFilterMovies(typeFilter);
+  renderMovies(movies.results);
+}
+const popularMovies = document.getElementById("PopularMovies");
+popularMovies.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilteredResult("popular")
+})
+
+const topMovies = document.getElementById("TopMovies");
+topMovies.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilteredResult("top_rated")
+})
+
+const airingMovies = document.getElementById("AiringMovies");
+airingMovies.addEventListener("click", () => {
+  CONTAINER.innerHTML = "";
+  FilteredResult("now_playing")
+})
+
 
 document.addEventListener("DOMContentLoaded", autorun);
