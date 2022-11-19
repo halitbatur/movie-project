@@ -186,7 +186,6 @@ const renderMovies = (movies) => {
         
         <h3 id="title" class="font-gotham font-700 text-white py-2">${movie.title}</h3>
         <p class="text-white"> <span style="font-size:100%;color:gold;">&starf;</span> ${movie.vote_average}</p>
-        <p id="divOfDescription" class="text-white text-xs">${movie.overview}</p>
         `
         // movieDiv.addEventListener("mouseover",()=>{
         //   document.getElementById("divOfDescription").classList.toggle("hidden");
@@ -213,20 +212,21 @@ const renderMovie = (movieDetails) => {
   const {poster_path,title,release_date,runtime,overview,vote_average,vote_count,original_language} = details;
   CONTAINER.innerHTML = "";
   CONTAINER.innerHTML = `
-  <header class="relative flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden">
-    <div class="relative z-30 p-5 text-5xl font-gotham font-bold text-white bg-opacity-50 rounded-xl block">${title}
+  <header class="flex items-center justify-start h-screen bottom-10 mb-20 overflow-hidden">
+    <div class="z-30 p-5 text-5xl  font-gotham font-bold text-white bg-opacity-50 rounded-xl block">${title}
     </div>
-    <p class="text-white relative z-30 block text-s" id="movie-rating><b></b> <span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
+    <p class="text-white z-30 block text-s" id="movie-rating><span class="yellow-500" style="font-size:100%;color:yellow;">&starf;</span> ${Math.round(
       vote_average
     )} | ${vote_count}</p>
-    <iframe class="w-auto min-w-full min-h-full max-w-none absolute brightness-50" width="1600" height="900" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>     
+    <iframe id="trailer" class=" absolute w-auto min-w-full min-h-full max-w-none brightness-50" width="" height="" src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>     
   </header>
 
-  <div class="grid grid-cols-2 gap-5 m-2">
-    <div class="text-white w-4/5 font-gotham text-lg">
+  <div class="grid grid-cols-5 gap-5 m-2">
+    <div class="text-white rounded font-gotham text-lg w-3/4">
       <img id="movie-backdrop class="cursor-pointer" src=${BACKDROP_BASE_URL + poster_path}>
     </div>
-    <div class="text-white w-4/5 font-gotham text-lg">
+    <div class="text-white w-4/5 font-gotham text-lg m-0">
       <h2 id="movie-title class="text-white font-gotham font-2xl">${title}</h2>
       <p class="inline-block">${genres}<p>
       <h3 class="inline-block mr-2 font-bold">Director: ${director}</h3> 
@@ -241,8 +241,8 @@ const renderMovie = (movieDetails) => {
     <p class="text-white w-1/2">${overview}</p>
     <h3 class="flex justify-center">Actors</h3> 
     <ul id="actors" class="list-unstyled grid grid-cols-5 justify-center gap-0">${cast}</ul></div>
-    <h3>Similar Movies:</h3>
-    <ul class="list-unstyled grid grid-cols-5 justify-center gap-3">${similarMov}</ul>
+    <h3 class="text-white font-gotham">Similar Movies:</h3>
+    <ul class="list-unstyled grid grid-cols-5 justify-between gap-3 w-3/4 content-center">${similarMov}</ul>
   </div>`;
   const actorLinks = document.getElementsByClassName("actor");
   for (const actor of actorLinks) {
