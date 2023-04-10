@@ -6,6 +6,152 @@
     padding-top: 32px;
 }
 
-#actors {
-    margin: 24px 16px 0 0;
+.movieList:hover{
+    transform: translateY(-1rem);
+    transition: all .3s ease;
+}
+.movieList:hover .movieImg{
+    filter: blur(.4rem) contrast(70%) ;
+    transition: all .3s ease;
+}
+
+
+.movieList:hover .hover-more-detials{
+    bottom: 50%;
+    z-index: 13;
+    transition: all .9s ease;
+    visibility: visible;
+}
+
+
+.all-movies{
+    grid-column: 1/5;
+    grid-row: 4/12;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    z-index: 13;
+    grid-gap: 2rem;
+    justify-content: center;
+}
+
+
+    .movieList{
+        display: flex;
+        flex-direction: column;
+        transition: all .3s ease;
+        position: relative;
+        cursor: pointer;
+        border-radius: 30px;
+        box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+    }
+
+
+.movieList-Heading{
+    color: #272838;
+    text-align: center;
+    padding: 2.5rem;
+    position: relative;
+    bottom: 7rem;
+    background-color: white;
+    height: 7rem;
+    border-bottom-left-radius:2rem ;
+    border-bottom-right-radius: 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 15;
+}
+
+
+
+.movieImg{
+    width: 100%;
+    object-fit: cover;
+    height: 35rem;
+    cursor: pointer;
+}
+
+
+.hover-more-detials{
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 5px 5px 12px rgba(0,0,0,.25);
+    text-align: center;
+    visibility: hidden;
+}
+
+.hover-more-detials h4{
+    font-weight: 700;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.movie-trailer{
+
+    align-self: center;
+    justify-content: center;
+    width: 35rem;
+    height: 27rem;
+    border: .2rem solid white;
+    border-radius: 2rem;
+    position: relative;
+    box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+  
+}
+.movieImg{
+    align-self: center;
+    justify-content: center;
+    width: 25rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+  
+}
+
+.singleMovie{
+    align-self: center;
+    justify-content: center;
+    width: 35rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+    box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+}
+
+.actorImg:hover{
+    transform: translateY(-1rem);
+    transition: all .3s ease;
+    filter: blur(.4rem) contrast(70%) ;
+    transition: all .3s ease;
+}
+
+.singleActorImg{
+     align-self: center;
+    justify-content: center;
+    width: 20rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+    box-shadow: -.5rem -.2rem .9rem rgba(0, 0, 0, 0.25), 0px .4rem .4rem rgba(0, 0, 0, 0.25);
+}
+
+.lastImg{
+    align-self: center;
+    justify-content: center;
+    width: 20rem;
+    height: 27rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.lastImg:hover{
+    transform: translateY(-1rem);
+    transition: all .3s ease;
+    filter: blur(.4rem) contrast(70%) ;
+    transition: all .3s ease;
 }
