@@ -9,3 +9,67 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+
+h3 {
+  font-size: 2em;
+}
+
+/* div p {
+  display: none;
+}
+
+div:hover p{
+  display: block;
+} */
+
+.movieWrapper {
+  /* position: relative;
+  height: 200px;
+  width: 257px; */
+}
+
+.movieContainer {
+  display:block;
+  position:relative;
+  overflow: hidden;
+}
+
+p.movieDescription {
+  /* display: flex;
+  align-content: end;
+  align-self: center;
+  justify-content: center; */
+  text-align: center;
+  padding: 1em;
+}
+
+.movieDescription {
+  position: absolute;
+  /* top: 0; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(233, 30, 99, 1);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+
+  /* transition effect. not necessary */
+  /* transition: opacity .2s, visibility .2s; */
+  transform:translateY(100%);
+  transition:transform 1s ease-in;
+}
+
+.movieWrapper:hover .movieDescription {
+  transform:translateY(0);
+  visibility: visible;
+  opacity: 1;
+}
+
+#footer {
+  background-color: #1B184A;
+}
+
+#navBar {
+  background-color: #1B184A;
+}
