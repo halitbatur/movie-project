@@ -73,7 +73,9 @@ const fetchGenre = async () => {
   const url = constructUrl(`genre/movie/list`);
   const res = await fetch(url);
   return res.json();
+  
 };
+
 
 const fetchSearch = async (searchInput) => {
 
@@ -92,10 +94,16 @@ const fetchSearch = async (searchInput) => {
 
 
 
+// // <iframe id="trailer" class=" absolute w-10/12 h-full mx-auto brightness-50 flex justify-center" width="" height=""
+//  src="https://www.youtube.com/embed/${official.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+//  clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+
 const filterMovieGenres = async (genId, genreList) => {
 
   // genId is array of genre ids from each specific movie
   // genreList is the entireList we fetched earlier
+  // console.log(genreList);
 
 
   let myList = [];
@@ -111,13 +119,35 @@ const filterMovieGenres = async (genId, genreList) => {
         // break keyword will terminate the execution of the loop and start over from the outer loop
         break;
 
+
+        
+
       }
     }
   }
 
-
+  console.log(myList);
   return myList;
+
+
 }
+
+// filtering movies genres
+
+// const genall=document.getElementById("tags");
+
+// showgenre();
+// function showgenre(){
+// genall.innerHTML=""
+// genreList.forEach(genre => {
+//   const w= document.createElement("div");
+//   w.classList.add("tag");
+//   w.movieId=genre.movieId;
+//   w.innerText=genre.name;
+//   genall.append(w)
+// });
+// }
+
 
 
 const createNav = async () => {
@@ -132,11 +162,11 @@ const createNav = async () => {
   // insert nav bar HTML DOM nodes here
   navBar.innerHTML = `
   <div class="navbar">
-  <ul> 
-    <li><a class="active" href="index.html"><b>HOME</b></a></li>
-    <li><a href="index.html">Movies</a></li> 
-    <li><a href="actor.html">Actor list</a></li> 
-
+  <ul class="mt-12"> 
+    <li><a class="active text-xl" href="index.html"><b>Home</b></a></li>
+    <li><a class="text-xl" href="index.html">Movies</a></li> 
+    <li><a class="text-xl" href="actor.html">Actors List</a></li> 
+    <li><a class="text-xl" href="about.html">About</a></li>
   </ul> 
 </div> 
     
