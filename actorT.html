@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.41.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+    <link rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+    <main class="profile-page">
+        <section class="relative block h-500-px">
+            <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
+                  background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
+                ">
+                <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="relative flex justify-center ">
+
+                <div class="avatar">
+                    <div class="w-60 mask mask-squircle">
+                        <img src="${PROFILE_BASE_URL + actor.profile_path}" />
+                    </div>
+
+
+                </div>
+
+        </section>
+
+
+
+        <section class="relative py-16 bg-white mt-24">
+
+            <div class="container mx-auto px-4">
+
+                <div
+                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+
+                    <div class="px-6">
+                        <div class="flex flex-wrap justify-center">
+
+                            <div class="w-full  px-4  lg:text-right lg:self-center">
+                                <div class="text-center mt-12">
+                                    <h3 class="text-5xl font-bold dark:text-white mb-2 text-blueGray-700 mb-2">
+                                        ${actor.name}
+                                    </h3>
+                                    <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+
+                                        ${actor.gender == 1 ? 'female' : 'male'} </div>
+
+
+                                </div>
+                            </div>
+                            <div class="w-full  px-4 ">
+                                <div class="flex justify-center py-4 pt-8">
+                                    <div class="mr-4 p-3 text-center">
+                                        <span
+                                            class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">${parseInt(actor.birthday)
+                                            }</span><span class="text-sm text-blueGray-400">birth-year</span>
+                                    </div>
+
+                                    <div class="lg:mr-4 p-3 text-center">
+                                        <span
+                                            class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">${actor.popularity}</span><span
+                                            class="text-sm text-blueGray-400">popularity</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full p-4 text-center bg-white  rounded-xl sm:p-8 dark:bg-gray-800 flex flex-col gap-4">
+                <h5 class="mb-2 text-3xl font-bold text-blueGray-700 dark:text-white">Biography</h5>
+                <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">${actor.biography}</p>
+
+            </div>
+            <div class="grid  sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center m-10">
+                <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                    <a href="#!">
+                        <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[0].backdrop_path}"
+                            alt="" />
+                    </a>
+                    <div class="p-6">
+                        <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[0].title}</h5>
+
+
+                    </div>
+                </div>
+
+                <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                    <a href="#!">
+                        <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[1].backdrop_path}"
+                            alt="" />
+                    </a>
+                    <div class="p-6">
+                        <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[1].title}</h5>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                    <a href="#!">
+                        <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[2].backdrop_path}"
+                            alt="" />
+                    </a>
+                    <div class="p-6">
+                        <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[2].title}</h5>
+
+
+                    </div>
+                </div>
+
+                <div class="rounded-lg shadow-lg bg-white max-w-sm">
+                    <a href="#!">
+                        <img class="rounded-t-lg" src="${BACKDROP_BASE_URL + movieCredits.cast[3].backdrop_path}"
+                            alt="" />
+                    </a>
+                    <div class="p-6">
+                        <h5 class="text-gray-900 text-xl font-medium mb-2">${movieCredits.cast[3].title}</h5>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+
+    </main>
+
+
+</body>
+
+</html>
